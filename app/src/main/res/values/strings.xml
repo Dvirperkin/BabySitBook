@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">BabySitBook</string>
+    <string name="EMAIL">Email</string>
+    <string name="PASSWORD">Password</string>
+    <string name="FIRST_NAME">First Name</string>
+    <string name="LAST_NAME">Last Name</string>
+    <string name="REGISTER">Register</string>
+    <string name="LOGIN">Login</string>
 </resources>
