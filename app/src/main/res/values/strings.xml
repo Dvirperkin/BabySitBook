@@ -8,5 +8,7 @@
     <string name="LAST_NAME">Last Name</string>
     <string name="REGISTER">Register</string>
     <string name="LOGIN">Login</string>
-
+    <string name="Years_Of_Experience">Years of experience</string>
+    <string name="Age">Age</string>
+    <string name="Kids">Kids to babysitting</string>
 </resources>

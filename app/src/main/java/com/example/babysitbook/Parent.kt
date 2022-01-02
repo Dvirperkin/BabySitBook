@@ -6,7 +6,8 @@ class Parent(
     override val email: String,
     override val age: Int,
     override val country: String,
-    override val city: String
+    override val city: String,
+    val kids: Int
 ) : User {
 
 }
