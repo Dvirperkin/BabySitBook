@@ -1,59 +1,102 @@
 package com.example.babysitbook
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.EditText
-import android.widget.RadioButton
-import android.widget.Toast
-import com.google.firebase.auth.AuthResult
+import android.widget.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class RegisterActivity : AppCompatActivity() {
+    //FireBase API
+    private lateinit var auth: FirebaseAuth
     private val database = Firebase.database("https://babysitbook-4e036-default-rtdb.europe-west1.firebasedatabase.app")
     private val babysitterRef = database.getReference("Users/Babysiters")
     private val parentRef = database.getReference("Users/Parents")
-    private lateinit var auth: FirebaseAuth
-    private  lateinit var babysitter: RadioButton
-    private  lateinit var parent: RadioButton
+
+    //SPA
+    private lateinit var registerFormLayout : LinearLayout
+    private lateinit var inflater : LayoutInflater
+
+    private lateinit var radioBabysitter: RadioButton
+    private lateinit var radioParent: RadioButton
     private lateinit var email: EditText
     private lateinit var password: EditText
     private lateinit var firstName: EditText
     private lateinit var lastName: EditText
-
+    private lateinit var age : EditText
+    private lateinit var kids : EditText
+    private lateinit var exp : EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+
         auth = Firebase.auth
-        babysitter = findViewById(R.id.Babysiter)
-        parent = findViewById(R.id.Parent)
-        email = findViewById(R.id.Email)
-        password = findViewById(R.id.Password)
-        firstName = findViewById(R.id.FirstName)
-        lastName  = findViewById(R.id.LastName)
+        inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        registerFormLayout = findViewById(R.id.RegisterForm)
+        radioBabysitter = findViewById(R.id.Babysitter)
+        radioBabysitter.setOnClickListener(View.OnClickListener{ babysitterChecked() })
+        radioParent = findViewById(R.id.Parent)
+        radioParent.setOnClickListener(View.OnClickListener { parentChecked() })
     }
 
-    fun register(view: View) {
+    private fun register() {
         createUser()
+    }
+
+    private fun babysitterChecked(){
+        Toast.makeText(this, "Babysitter", Toast.LENGTH_SHORT).show()
+        placeForm(R.layout.babysitter_form)
+    }
+    private fun parentChecked(){
+        Toast.makeText(this, "Parent", Toast.LENGTH_SHORT).show()
+        placeForm(R.layout.parent_form)
     }
 
     private fun createUser() {
         auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                if(parent.isChecked) {
-                    val user = Parent(firstName.text.toString(), lastName.text.toString(), email.text.toString(),26, "Israel", "Jerusalem")
+                email = findViewById(R.id.Email)
+                password = findViewById(R.id.Password)
+                firstName = findViewById(R.id.FirstName)
+                lastName  = findViewById(R.id.LastName)
+                age = findViewById(R.id.Age)
+
+                if(radioParent.isChecked) {
+                    kids = findViewById(R.id.Kids)
+                    val user = Parent(
+                        firstName.text.toString(),
+                        lastName.text.toString(),
+                        email.text.toString(),
+                        Integer.parseInt(age.text.toString()),
+                        "Israel",
+                        "Jerusalem",
+                        Integer.parseInt(kids.text.toString())
+                    )
+
                     val currentUserUid = auth.currentUser?.uid
                     if(currentUserUid != null) {
                         parentRef.child(currentUserUid.toString()).setValue(user)
                     }
                 }
-                else if(babysitter.isChecked){
-                    val user = Babysitter(firstName.text.toString(), lastName.text.toString(), email.text.toString(), 26, "Israel", "Jerusalem")
+                else if(radioBabysitter.isChecked){
+                    exp = findViewById(R.id.Experience)
+                    val user = Babysitter(
+                        firstName.text.toString(),
+                        lastName.text.toString(),
+                        email.text.toString(),
+                        Integer.parseInt(age.text.toString()),
+                        "Israel",
+                        "Jerusalem",
+                        Integer.parseInt(exp.text.toString())
+                    )
+
                     val currentUserUid = auth.currentUser?.uid
                     if(currentUserUid != null) {
                         babysitterRef.child(currentUserUid.toString()).setValue(user)
@@ -62,13 +105,18 @@ class RegisterActivity : AppCompatActivity() {
 
                 Toast.makeText(this, "User registered successfully", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, LoginActivity::class.java))
+
             } else {
-                Toast.makeText(this, "User registered failed" + task.exception, Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "User registered failed", Toast.LENGTH_LONG).show()
                 email.error = "Email is already exist"
             }
         }
     }
+
+    private fun placeForm(layoutID : Int){
+        val form = inflater.inflate(layoutID, null)
+        registerFormLayout.removeAllViews()
+        registerFormLayout.addView(form)
+        findViewById<Button>(R.id.registerButton).setOnClickListener(View.OnClickListener { register() })
+    }
 }
-
-
-/**/

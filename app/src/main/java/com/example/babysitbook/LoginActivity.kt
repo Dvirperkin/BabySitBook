@@ -39,9 +39,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun login(view: View){
-
         if(email.text.isEmpty()){
-            email.error = "error"
+            email.error = "Please enter a valid email."
             return;
         }
 
@@ -50,7 +49,7 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this, "User logged in successfully", Toast.LENGTH_SHORT).show()
                 startActivity(Intent(this, HomeActivity::class.java))
             } else {
-                Toast.makeText(this, "User logged in failed " + task.exception, Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "User logged in failed", Toast.LENGTH_LONG).show()
             }
         }
     }

@@ -10,20 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BabySitBook">
         <activity
-            android:name=".BabySitterRegister"
-            android:exported="false"
-            android:parentActivityName=".PreRegisterActivity"/>
-        <activity
-            android:name=".PreRegisterActivity"
-            android:exported="false"
-            android:parentActivityName=".LoginActivity"/>
-        <activity
             android:name=".HomeActivity"
             android:exported="false" />
-        <activity
-            android:name=".ParentRegisterActivity"
-            android:exported="false"
-            android:parentActivityName=".PreRegisterActivity" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -33,6 +21,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
