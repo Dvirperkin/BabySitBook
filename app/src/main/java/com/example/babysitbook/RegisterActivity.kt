@@ -60,10 +60,10 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun createUser() {
+        email = findViewById(R.id.Email)
+        password = findViewById(R.id.Password)
         auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                email = findViewById(R.id.Email)
-                password = findViewById(R.id.Password)
                 firstName = findViewById(R.id.FirstName)
                 lastName  = findViewById(R.id.LastName)
                 age = findViewById(R.id.Age)
