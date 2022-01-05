@@ -107,7 +107,7 @@ class RegisterActivity : AppCompatActivity() {
                 startActivity(Intent(this, LoginActivity::class.java))
 
             } else {
-                Toast.makeText(this, "User registered failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, task.exception.toString(), Toast.LENGTH_LONG).show()
                 email.error = "Email is already exist"
             }
         }

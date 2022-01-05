@@ -13,4 +13,10 @@
     <string name="AGE">Age</string>
     <string name="KIDS">Kids to babysitting</string>
     <string name="SEARCH">Search profiles</string>
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_chat">Chat</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_calendar">Calendar</string>
+    <string name="title_profile">Profile</string>
 </resources>
