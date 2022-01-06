@@ -16,7 +16,7 @@ class RegisterActivity : AppCompatActivity() {
     //FireBase API
     private lateinit var auth: FirebaseAuth
     private val database = Firebase.database("https://babysitbook-4e036-default-rtdb.europe-west1.firebasedatabase.app")
-    private val babysitterRef = database.getReference("Users/Babysiters")
+    private val babysitterRef = database.getReference("Users/Babysitters")
     private val parentRef = database.getReference("Users/Parents")
 
     //SPA
@@ -64,7 +64,7 @@ class RegisterActivity : AppCompatActivity() {
         password = findViewById(R.id.Password)
         auth.createUserWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
-                firstName = findViewById(R.id.FirstName)
+                firstName = findViewById(R.id.Name)
                 lastName  = findViewById(R.id.LastName)
                 age = findViewById(R.id.Age)
 

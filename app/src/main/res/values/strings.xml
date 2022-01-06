@@ -19,4 +19,11 @@
     <string name="title_favorites">Favorites</string>
     <string name="title_calendar">Calendar</string>
     <string name="title_profile">Profile</string>
+    <string name="CHAT">Chat</string>
+    <string name="CALENDER">Calender</string>
+    <string name="PROFILE_PICTURE">Profile picture</string>
+    <string name="DESCRIPTION">Description</string>
+    <string name="CHILDREN">Children</string>
+    <string name="GENDER">Gender</string>
+    <string name="NUM">Num</string>
 </resources>

@@ -1,13 +1,11 @@
 package com.example.babysitbook
 
 class Parent(
-    override val firstName: String,
-    override val lastName: String,
-    override val email: String,
-    override val age: Int,
-    override val country: String,
-    override val city: String,
-    val kids: Int
-) : User {
-
-}
+    var firstName: String = "",
+    var lastName: String = "",
+    var email: String = "",
+    var age: Int = 0,
+    var country: String = "",
+    var city: String = "",
+    var kids: Int = 0
+) {}

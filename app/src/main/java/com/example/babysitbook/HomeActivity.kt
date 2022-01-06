@@ -55,7 +55,6 @@ class HomeActivity : AppCompatActivity() {
             }
             true
         }
-
     }
 
     private fun setCurrentFragment(fragment: Fragment) =
@@ -63,8 +62,6 @@ class HomeActivity : AppCompatActivity() {
             replace(R.id.fl_wrapper, fragment)
             commit()
         }
-
-
     fun logout(view: View){
         auth.signOut()
         startActivity(Intent(this, LoginActivity::class.java))
