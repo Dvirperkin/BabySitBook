@@ -26,4 +26,8 @@
     <string name="CHILDREN">Children</string>
     <string name="GENDER">Gender</string>
     <string name="NUM">Num</string>
+    <string name="SETTINGS">Settings</string>
+    <string name="CLOSE">Close</string>
+    <string name="OPEN">Open</string>
+
 </resources>

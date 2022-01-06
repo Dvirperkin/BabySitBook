@@ -77,8 +77,7 @@ class HomeActivity : AppCompatActivity() {
                     setCurrentFragment(settingsFragment, "Settings")
                 }
 
-                R.id.mi_logout -> Toast.makeText(applicationContext,
-                    "Clicked Logout", Toast.LENGTH_SHORT).show()
+                R.id.mi_logout ->logout()
             }
             true
         }
@@ -93,7 +92,7 @@ class HomeActivity : AppCompatActivity() {
         }
 
 
-    fun logout(view: View){
+    fun logout(){
         auth.signOut()
         startActivity(Intent(this, LoginActivity::class.java))
     }

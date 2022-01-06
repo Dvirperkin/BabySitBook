@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/activity_home.xml" value="0.21973684210526315" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/activity_login.xml" value="0.2337719298245614" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_home.xml" value="0.2337719298245614" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/nav_header.xml" value="0.2337719298245614" />
         <entry key="..\:/Users/dvirp/AndroidStudioProjects/BabySitBook/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.5145599842968755" />
         <entry key="..\:/Users/dvirp/AndroidStudioProjects/BabySitBook/app/src/main/res/layout-w936dp/activity_login.xml" value="0.5145599842968755" />
         <entry key="..\:/Users/dvirp/AndroidStudioProjects/BabySitBook/app/src/main/res/layout/activity_home.xml" value="0.25343999226562525" />
