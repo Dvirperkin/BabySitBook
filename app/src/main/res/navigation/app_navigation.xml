@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/app_navigation"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.babysitbook.fragments.HomeFragment"
+        android:label="@string/title_home" />
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.example.babysitbook.fragments.ChatFragment"
+        android:label="@string/title_chat" />
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.babysitbook.fragments.FavoriteFragment"
+        android:label="@string/title_favorites" />
+    <fragment
+        android:id="@+id/calendarFragment"
+        android:name="com.example.babysitbook.fragments.CalendarFragment"
+        android:label="@string/title_calendar" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.babysitbook.fragments.ProfileFragment"
+        android:label="@string/title_profile" />
+</navigation>
