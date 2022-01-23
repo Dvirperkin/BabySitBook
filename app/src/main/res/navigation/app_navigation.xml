@@ -24,4 +24,8 @@
         android:id="@+id/profileFragment"
         android:name="com.example.babysitbook.fragments.ProfileFragment"
         android:label="@string/title_profile" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.babysitbook.fragments.SettingsFragment"
+        android:label="Settings" />
 </navigation>
