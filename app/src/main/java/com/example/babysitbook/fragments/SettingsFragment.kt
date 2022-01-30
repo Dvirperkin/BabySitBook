@@ -5,12 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.example.babysitbook.R
+import com.example.babysitbook.databinding.FragmentSettingsBinding
 
 class SettingsFragment : Fragment(){
+    lateinit var binding: FragmentSettingsBinding
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? =inflater.inflate(R.layout.fragment_settings, container, false)
+    ): View? {
+        binding= FragmentSettingsBinding.inflate(inflater)
+        return binding.root
+    }
 }

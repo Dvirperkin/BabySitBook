@@ -3,12 +3,19 @@ package com.example.babysitbook
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupWithNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
@@ -26,81 +33,41 @@ class HomeActivity : AppCompatActivity() {
     //private val database = Firebase.database("https://babysitbook-4e036-default-rtdb.europe-west1.firebasedatabase.app")
     //private val myRef = database.getReference("Users/Babysiter")
     private lateinit var auth: FirebaseAuth
-    lateinit var toggle: ActionBarDrawerToggle
+
+    private lateinit var appBarConfiguration: AppBarConfiguration
+    lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         auth = Firebase.auth
 
-        val homeFragment = HomeFragment()
-        val chatFragment = ChatFragment()
-        val favoriteFragment = FavoriteFragment()
-        val calendarFragment = CalendarFragment()
-        val profileFragment = ProfileFragment()
-        val settingsFragment = SettingsFragment()
+        //bottom navigator
+        navController = findNavController(R.id.host_fragment)
+        bottom_navigation.setupWithNavController(navController)
 
-        setCurrentFragment(homeFragment, "Home")
+        //navigation UP button
+        appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.chatFragment,
+                                R.id.favoriteFragment, R.id.calendarFragment, R.id.profileFragment), drawerLayout)
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
-        bottom_navigation.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.nav_home -> {
-                    setCurrentFragment(homeFragment, "Home")
-                }
-                R.id.nav_chat -> {
-                    setCurrentFragment(chatFragment, "Chat")
-                }
-                R.id.nav_favorite -> {
-                    setCurrentFragment(favoriteFragment, "Favorites")
-                }
-                R.id.nav_calendar -> {
-                    setCurrentFragment(calendarFragment, "Calendar")
-                }
-                R.id.nav_profile -> {
-                    setCurrentFragment(profileFragment, "Profile")
-                }
-            }
-            true
-        }
-
-        toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.OPEN, R.string.CLOSE)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        //drawer navigator
+        NavigationUI.setupWithNavController(nav_drawer_view, navController)
 
         nav_drawer_view.setNavigationItemSelectedListener {
-            drawerLayout.closeDrawer(GravityCompat.START)
-
             when(it.itemId) {
-                R.id.mi_settings -> {
-                    setCurrentFragment(settingsFragment, "Settings")
-                }
-
-                R.id.mi_logout ->logout()
+                R.id.mi_logout -> logout()
             }
             true
         }
     }
 
-    private fun setCurrentFragment(fragment: Fragment, title: String) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.fl_wrapper, fragment)
-            commit()
-
-            supportActionBar?.title= title
-        }
-
-
-    fun logout(){
-        auth.signOut()
-        startActivity(Intent(this, LoginActivity::class.java))
+    override fun onSupportNavigateUp(): Boolean {
+        return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if(toggle.onOptionsItemSelected(item)){
-            return true
-        }
-        return super.onOptionsItemSelected(item)
+    private fun logout() {
+        auth.signOut()
+        startActivity(Intent(this, LoginActivity::class.java))
     }
 }
