@@ -7,6 +7,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
+import com.example.babysitbook.databinding.ActivityRegisterBinding
+import com.example.babysitbook.model.Babysitter
+import com.example.babysitbook.model.Parent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
@@ -23,6 +26,7 @@ class RegisterActivity : AppCompatActivity() {
     private lateinit var registerFormLayout : LinearLayout
     private lateinit var inflater : LayoutInflater
 
+    private lateinit var binding: ActivityRegisterBinding
     private lateinit var radioBabysitter: RadioButton
     private lateinit var radioParent: RadioButton
     private lateinit var email: EditText
@@ -35,14 +39,15 @@ class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         auth = Firebase.auth
         inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        registerFormLayout = findViewById(R.id.RegisterForm)
-        radioBabysitter = findViewById(R.id.Babysitter)
+        registerFormLayout = binding.RegisterForm
+        radioBabysitter = binding.Babysitter
         radioBabysitter.setOnClickListener(View.OnClickListener{ babysitterChecked() })
-        radioParent = findViewById(R.id.Parent)
+        radioParent = binding.Parent
         radioParent.setOnClickListener(View.OnClickListener { parentChecked() })
     }
 

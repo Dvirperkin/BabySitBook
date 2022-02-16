@@ -1,4 +1,4 @@
-package com.example.babysitbook
+package com.example.babysitbook.model
 
 class Parent(
     var firstName: String = "",

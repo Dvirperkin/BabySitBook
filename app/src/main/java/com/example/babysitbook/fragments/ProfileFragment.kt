@@ -4,13 +4,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.example.babysitbook.Babysitter
-import com.example.babysitbook.Parent
+import com.example.babysitbook.model.Babysitter
+import com.example.babysitbook.model.Parent
 import com.example.babysitbook.R
+import com.example.babysitbook.databinding.FragmentProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
@@ -24,6 +24,7 @@ class ProfileFragment : Fragment(){
     private lateinit var auth: FirebaseAuth
     private val database = Firebase.database("https://babysitbook-4e036-default-rtdb.europe-west1.firebasedatabase.app")
 
+    private lateinit var binding: FragmentProfileBinding
     private lateinit var classInflater : LayoutInflater
     private lateinit var babysitterUser : Babysitter
     private lateinit var parentUser : Parent
@@ -37,8 +38,8 @@ class ProfileFragment : Fragment(){
         auth = Firebase.auth
         classInflater = inflater
 
-
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        binding = FragmentProfileBinding.inflate(inflater)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

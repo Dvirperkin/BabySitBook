@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/settingsFragment"
-        android:title="@string/SETTINGS"/>
+        android:title="@string/settings"/>
 
     <item
         android:id="@+id/mi_logout"
-        android:title="@string/LOGOUT"/>
+        android:title="@string/logout"/>
 </menu>
