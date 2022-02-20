@@ -35,6 +35,8 @@ class LoginActivity : AppCompatActivity() {
         val currentUser : FirebaseUser? = auth.currentUser
             if(currentUser != null){
                 startActivity(Intent(this, HomeActivity::class.java))
+                finish()
+                return
             }
     }
 
@@ -45,7 +47,8 @@ class LoginActivity : AppCompatActivity() {
     fun login(view: View){
         if(email.text.isEmpty()){
             email.error = "Please enter a valid email."
-            return;
+            finish()
+            return
         }
 
         auth.signInWithEmailAndPassword(email.text.toString(), password.text.toString()).addOnCompleteListener(this) { task ->

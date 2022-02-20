@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chat_messages_RecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/sendMessageLinearLayout" />
+
+        <LinearLayout
+            android:id="@+id/sendMessageLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorLightGray"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp">
+
+            <ImageView
+                android:id="@+id/addMessageImageView"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/outline_add_photo_alternate_24" />
+
+            <EditText
+                android:id="@+id/messageEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_shadow"
+                android:hint="Say something..."
+                android:inputType="text"
+
+                android:padding="10dp" />
+
+            <ImageView
+                android:id="@+id/sendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/outline_send_gray_24" />
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>
