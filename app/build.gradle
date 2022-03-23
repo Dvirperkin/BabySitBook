@@ -65,6 +65,7 @@ dependencies {
     // Firebase UI Library
     implementation 'com.firebaseui:firebase-ui-auth:8.0.0'
     implementation 'com.firebaseui:firebase-ui-database:8.0.0'
+    implementation 'androidx.coordinatorlayout:coordinatorlayout:1.1.0'
 
     testImplementation 'junit:junit:'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
