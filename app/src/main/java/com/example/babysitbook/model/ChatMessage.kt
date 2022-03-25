@@ -1,4 +1,4 @@
 package com.example.babysitbook.model
 
-class ChatMessage (val text: String = ""){
+class ChatMessage(val text: String = ""){
 }

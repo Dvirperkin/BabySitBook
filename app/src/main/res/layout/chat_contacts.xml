@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <data>
-
-    </data>
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#589BFF">
+        android:layout_height="wrap_content">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/ChatContainerView"
-            android:name="com.example.babysitbook.fragments.ChatContactFragment"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/chatContactsRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </RelativeLayout>
+
 </layout>
