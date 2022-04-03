@@ -3,14 +3,6 @@ package com.example.babysitbook
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.SearchView
-import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -19,15 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.babysitbook.databinding.ActivityHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.example.babysitbook.fragments.FavoriteFragment
-import com.example.babysitbook.fragments.HomeFragment
-import com.example.babysitbook.fragments.ChatFragment
-import com.example.babysitbook.fragments.ProfileFragment
-import com.example.babysitbook.fragments.CalendarFragment
-import com.example.babysitbook.fragments.SettingsFragment
-import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
 
@@ -47,17 +31,17 @@ class HomeActivity : AppCompatActivity() {
 
         //bottom navigator
         navController = findNavController(R.id.host_fragment)
-        bottom_navigation.setupWithNavController(navController)
+        binding.bottomNavigation.setupWithNavController(navController)
 
         //navigation UP button
         appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.chatFragment,
-                                R.id.favoriteFragment, R.id.calendarFragment, R.id.profileFragment), drawerLayout)
+                                R.id.favoriteFragment, R.id.calendarFragment, R.id.profileFragment), binding.drawerLayout)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
         //drawer navigator
-        NavigationUI.setupWithNavController(nav_drawer_view, navController)
+        NavigationUI.setupWithNavController(binding.navDrawerView, navController)
 
-        nav_drawer_view.setNavigationItemSelectedListener {
+        binding.navDrawerView.setNavigationItemSelectedListener {
             when(it.itemId) {
                 R.id.mi_logout -> logout()
             }
