@@ -6,48 +6,46 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.babysitbook.databinding.ChatMessagesBinding
-import com.example.babysitbook.model.ChatMessage
-import com.example.babysitbook.model.ChatMessageAdapter
+import com.example.babysitbook.databinding.CalendarMainBinding
+import com.example.babysitbook.databinding.EditEventBinding
+import com.example.babysitbook.model.CalendarEvent
+import com.example.babysitbook.model.CalendarEventAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
-class ChatFragment : Fragment(){
+class CalendarMainFragment : Fragment(){
     private val database = Firebase.database("https://babysitbook-4e036-default-rtdb.europe-west1.firebasedatabase.app")
-    private val messagesRef = database.getReference("Chat/Messages")
+    private val eventsRef = database.getReference("Calendar/Events")
 
-    private lateinit var binding: ChatMessagesBinding
+    private lateinit var binding: CalendarMainBinding
     private lateinit var manager: LinearLayoutManager
-    private lateinit var adapter: ChatMessageAdapter
+    private lateinit var adapter: CalendarEventAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = ChatMessagesBinding.inflate(inflater)
-        //FragmentChatBinding.inflate(inflater)
+        binding = CalendarMainBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val options = FirebaseRecyclerOptions.Builder<ChatMessage>()
-            .setQuery(messagesRef, ChatMessage::class.java)
+        val options = FirebaseRecyclerOptions.Builder<CalendarEvent>()
+            .setQuery(eventsRef, CalendarEvent::class.java)
             .build()
-        adapter = ChatMessageAdapter(options)
+        adapter = CalendarEventAdapter(options)
         manager = LinearLayoutManager(context)
         manager.stackFromEnd = true
 
-        binding.chatMessagesRecyclerView.layoutManager = manager
-        binding.chatMessagesRecyclerView.adapter = adapter
+        binding.eventRecyclerView.layoutManager = manager
+        binding.eventRecyclerView.adapter = adapter
 
-        binding.sendButton.setOnClickListener{
-            val chatMessage = ChatMessage(binding.messageEditText.text.toString())
-            messagesRef.push().setValue(chatMessage)
-            binding.messageEditText.setText("")
+        binding.addEventButton.setOnClickListener{
+
         }
     }
 

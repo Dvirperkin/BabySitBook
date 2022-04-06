@@ -32,5 +32,4 @@ class ChatMessageAdapter (
             binding.messageTextView.text = item.text
         }
     }
-
 }

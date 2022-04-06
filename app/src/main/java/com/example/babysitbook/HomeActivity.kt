@@ -3,14 +3,6 @@ package com.example.babysitbook
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
-import android.widget.SearchView
-import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.core.view.GravityCompat
-import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -19,14 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.babysitbook.databinding.ActivityHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.example.babysitbook.fragments.FavoriteFragment
-import com.example.babysitbook.fragments.HomeFragment
-import com.example.babysitbook.fragments.ChatFragment
-import com.example.babysitbook.fragments.ProfileFragment
-import com.example.babysitbook.fragments.CalendarFragment
-import com.example.babysitbook.fragments.SettingsFragment
 import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : AppCompatActivity() {
