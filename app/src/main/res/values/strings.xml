@@ -44,4 +44,7 @@
     <string name="TIME">Time</string>
     <string name="EDIT">Edit</string>
     <string name="DELETE">Delete</string>
+    <string name="re_password">re-Password</string>
+    <string name="sign_up">Sign up</string>
+    <string name="dont_have_account_yet">Don\'t have account yet?</string>
 </resources>

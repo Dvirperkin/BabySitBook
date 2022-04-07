@@ -12,7 +12,7 @@
 
         <androidx.fragment.app.FragmentContainerView
             android:id="@+id/ChatContainerView"
-            android:name="com.example.babysitbook.fragments.ChatContactFragment"
+            android:name="com.example.babysitbook.fragments.chat.ChatContactFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </RelativeLayout>
