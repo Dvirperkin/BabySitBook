@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_calendar"
+    app:startDestination="@id/calendarMainFragment">
+
+    <fragment
+        android:id="@+id/calendarMainFragment"
+        android:name="com.example.babysitbook.fragments.CalendarMainFragment"
+        android:label="CalendarMainFragment"
+        tools:layout="@layout/calendar_main">
+        <action
+            android:id="@+id/action_calendarMainFragment_to_editEventFragment"
+            app:destination="@id/editEventFragment" />
+        <action
+            android:id="@+id/action_calendarMainFragment_to_eventDetailsFragment2"
+            app:destination="@id/eventDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/editEventFragment"
+        android:name="com.example.babysitbook.fragments.EditEventFragment"
+        android:label="EditEventFragment"
+        tools:layout="@layout/edit_event">
+        <action
+            android:id="@+id/action_editEventFragment_to_calendarMainFragment"
+            app:destination="@id/calendarMainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/eventDetailsFragment"
+        android:name="com.example.babysitbook.fragments.EventDetailsFragment"
+        android:label="EventDetailsFragment"
+        tools:layout="@layout/event_details">
+        <action
+            android:id="@+id/action_eventDetailsFragment_to_editEventFragment"
+            app:destination="@id/editEventFragment" />
+        <action
+            android:id="@+id/action_eventDetailsFragment_to_calendarMainFragment"
+            app:destination="@id/calendarMainFragment" />
+    </fragment>
+</navigation>
