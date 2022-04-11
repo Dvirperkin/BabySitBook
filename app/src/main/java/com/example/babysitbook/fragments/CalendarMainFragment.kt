@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.babysitbook.databinding.CalendarMainBinding
 import com.example.babysitbook.databinding.EditEventBinding
@@ -34,19 +35,20 @@ class CalendarMainFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.addEventButton.setOnClickListener {
+            val action = CalendarMainFragmentDirections.actionCalendarMainFragmentToEditEventFragment()
+            findNavController().navigate(action)
+        }
+
         val options = FirebaseRecyclerOptions.Builder<CalendarEvent>()
             .setQuery(eventsRef, CalendarEvent::class.java)
             .build()
         adapter = CalendarEventAdapter(options)
         manager = LinearLayoutManager(context)
-        manager.stackFromEnd = true
+        manager.stackFromEnd = false
 
         binding.eventRecyclerView.layoutManager = manager
         binding.eventRecyclerView.adapter = adapter
-
-        binding.addEventButton.setOnClickListener{
-
-        }
     }
 
     override fun onPause() {
