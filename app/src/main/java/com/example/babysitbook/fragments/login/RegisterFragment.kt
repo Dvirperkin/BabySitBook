@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 
 class RegisterFragment : Fragment() {
@@ -30,40 +31,51 @@ class RegisterFragment : Fragment() {
     ): View? {
         binding = RegisterBinding.inflate(layoutInflater)
 
-//        Firebase.auth.useEmulator("10.0.2.2", 9099)
-//        Firebase.functions.useEmulator("10.0.2.2", 5001)
-//        Firebase.firestore.useEmulator("10.0.2.2", 8081)
-
         auth = Firebase.auth
         firestore = Firebase.firestore
+
+        Firebase.auth.useEmulator("10.0.2.2", 9099)
+        Firebase.functions.useEmulator("10.0.2.2", 5001)
+        Firebase.firestore.useEmulator("10.0.2.2", 8081)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.signup.setOnClickListener{ register(view) }
+        binding.signup.setOnClickListener{ createUser(view) }
         binding.BackBtn.setOnClickListener{ returnToLogin(view) }
     }
 
-    private fun register(view: View) {
-        createUser()
-        returnToLogin(view)
-    }
-
-    private fun createUser() {
+    private fun createUser(view: View) {
         email = binding.Email.text.toString()
         password = binding.Password.text.toString()
+
+        if(!validateForm(email, password))
+            return
 
             auth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(requireActivity()) { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(requireActivity(), "Registration successful", Toast.LENGTH_LONG)
+                        Toast.makeText(requireActivity(), "Registration successful", Toast.LENGTH_LONG).show()
+                        returnToLogin(view)
                     } else {
-                        Toast.makeText(requireActivity(), task.exception.toString(), Toast.LENGTH_LONG)
+                        binding.Email.error = task.exception?.message
                     }
                 }
+    }
 
+    private fun validateForm(email: String, password: String) : Boolean{
+        if(binding.Email.text.isEmpty()){
+            binding.Email.error = "Please enter a valid email."
+            return false
+        }
+        if(password != binding.rePassword.text.toString()){
+            binding.rePassword.error = "Confirm password doesn't match password"
+            return false
+        }
+
+        return true
     }
 
     private fun returnToLogin(view: View){

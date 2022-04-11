@@ -47,4 +47,20 @@
     <string name="re_password">re-Password</string>
     <string name="sign_up">Sign up</string>
     <string name="dont_have_account_yet">Don\'t have account yet?</string>
+
+    <string name="date">%1$d/%2$d/%3$d</string>
+    <string name="calendar">Calendar</string>
+    <string name="event_details">Event Details</string>
+    <string name="edit_event">Edit Event</string>
+
+    <string-array name="user_kind">
+        <item name="None"> None </item>
+        <item name="Babysitter"> Babysitter </item>
+        <item name="Parent"> Parent </item>
+    </string-array>
+    <string-array name="gender">
+        <item name="None"> None </item>
+        <item name="Male"> Male </item>
+        <item name="Female"> Female </item>
+    </string-array>
 </resources>

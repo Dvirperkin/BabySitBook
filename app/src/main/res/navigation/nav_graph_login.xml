@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_loginFragment_to_homeActivity"
             app:destination="@id/homeActivity" />
+        <action
+            android:id="@+id/action_loginFragment_to_firstLoginFragment"
+            app:destination="@id/firstLoginFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -31,4 +34,13 @@
         android:name="com.example.babysitbook.HomeActivity"
         android:label="HomeActivity"
         tools:layout="@layout/activity_home"/>
+    <fragment
+        android:id="@+id/firstLoginFragment"
+        android:name="com.example.babysitbook.fragments.login.FirstLoginFragment"
+        android:label="FirstLoginFragment"
+        tools:layout="@layout/first_login">
+        <action
+            android:id="@+id/action_firstLoginFragment_to_homeActivity2"
+            app:destination="@id/homeActivity" />
+    </fragment>
 </navigation>

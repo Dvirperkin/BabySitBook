@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/deck_background">
+
+    <Spinner
+        android:id="@+id/profileSpinner"
+        android:layout_width="353dp"
+        android:layout_height="48dp"
+        android:backgroundTint="@color/red"
+        android:backgroundTintMode="add"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/genderSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/WhoAreYouLabel" />
+
+    <EditText
+        android:id="@+id/ETFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/first_name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/ETLastName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/FirstNameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/genderSpinner" />
+
+    <EditText
+        android:id="@+id/ETLastName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/last_name"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/Date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/LastNameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/ETFirstName" />
+
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/DETAILS"
+        android:textSize="34sp"
+        app:layout_constraintBottom_toTopOf="@+id/WhoAreYouLabel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/WhoAreYouLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Who are you?"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/profileSpinner"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Title" />
+
+    <TextView
+        android:id="@+id/FirstNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/first_name"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ETFirstName"
+        app:layout_constraintEnd_toStartOf="@+id/ETFirstName"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/LastNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/last_name"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ETLastName"
+        app:layout_constraintEnd_toStartOf="@+id/ETLastName"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/DateLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Date of birth"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/Date"
+        app:layout_constraintEnd_toStartOf="@+id/Date"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/submitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:text="Submit"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Date" />
+
+    <TextView
+        android:id="@+id/Date"
+        android:layout_width="210dp"
+        android:layout_height="26dp"
+        android:text="DD/MM/YYYY"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/submitBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/DateLabel"
+        app:layout_constraintTop_toBottomOf="@+id/ETLastName" />
+
+    <Spinner
+        android:id="@+id/genderSpinner"
+        android:layout_width="206dp"
+        android:layout_height="37dp"
+        android:backgroundTint="@color/red"
+        android:backgroundTintMode="add"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/ETFirstName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/profileSpinner" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/gender"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/FirstNameLabel"
+        app:layout_constraintEnd_toStartOf="@+id/genderSpinner"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/profileSpinner" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -22,17 +22,25 @@
         tools:layout="@layout/fragment_favorite"/>
     <fragment
         android:id="@+id/calendarFragment"
-        android:name="com.example.babysitbook.fragments.CalendarFragment"
+        android:name="com.example.babysitbook.fragments.calendar.CalendarFragment"
         android:label="@string/title_calendar"
         tools:layout="@layout/fragment_calendar"/>
     <fragment
         android:id="@+id/profileFragment"
-        android:name="com.example.babysitbook.fragments.ProfileFragment"
+        android:name="com.example.babysitbook.fragments.profile.ProfileFragment"
         android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_profileFragment_to_nav_graph_profile"
+            app:destination="@id/nav_graph_profile" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.babysitbook.fragments.SettingsFragment"
+        android:name="com.example.babysitbook.fragments.settings.SettingsFragment"
         android:label="Settings"
         tools:layout="@layout/fragment_settings"/>
+
+    <include app:graph="@navigation/nav_graph_profile" />
+
+
 </navigation>

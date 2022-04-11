@@ -1,4 +1,4 @@
-package com.example.babysitbook.fragments
+package com.example.babysitbook.fragments.calendar
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -31,14 +31,17 @@
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/activity_register.xml" value="0.25343999226562525" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/activity_searchable.xml" value="0.2015625" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/babysitter_profile.xml" value="0.2015625" />
-        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_contacts.xml" value="0.38399998828125037" />
-        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_messages.xml" value="0.38399998828125037" />
+        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/calendar_main.xml" value="0.19199999414062519" />
+        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_contacts.xml" value="0.25343999226562525" />
+        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_messages.xml" value="0.25343999226562525" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_messasges.xml" value="0.2015625" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/contact.xml" value="0.1" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/event_details.xml" value="0.5145599842968755" />
-        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_calendar.xml" value="0.38399998828125037" />
+        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/first_login.xml" value="0.31875" />
+        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_calendar.xml" value="0.25343999226562525" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_chat.xml" value="0.19199999414062519" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_chat_messages.xml" value="0.1" />
+        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_profile.xml" value="0.3458333333333333" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_settings.xml" value="0.2015625" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/login.xml" value="0.25343999226562525" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/message.xml" value="0.25343999226562525" />
@@ -48,7 +51,7 @@
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/rounded_message_gray.xml" value="0.2015625" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layouts/Fragments/layout/fragment_settings.xml" value="0.1" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layouts/login/layout/parent_form.xml" value="0.1" />
-        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3458333333333333" />
+        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25343999226562525" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/drawable/calendar_icon.xml" value="0.1" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/drawable/chat_icon.xml" value="0.1" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/drawable/favorite_icon.xml" value="0.1" />

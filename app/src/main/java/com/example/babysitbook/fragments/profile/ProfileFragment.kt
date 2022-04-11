@@ -1,4 +1,4 @@
-package com.example.babysitbook.fragments
+package com.example.babysitbook.fragments.profile
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -20,7 +20,47 @@ class ProfileFragment : Fragment(){
     enum class userKinds{
         NONE, BABYSITTER, PARENT
     }
-    //FireBase API
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        ProfileFr
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+//FireBase API
     private lateinit var auth: FirebaseAuth
     private val database = Firebase.database("https://babysitbook-4e036-default-rtdb.europe-west1.firebasedatabase.app")
 
@@ -90,4 +130,4 @@ class ProfileFragment : Fragment(){
         view.findViewById<TextView>(R.id.Age).text = user.age.toString()
         view.findViewById<TextView>(R.id.Experience).text = user.experience.toString()
     }
-}
+ */

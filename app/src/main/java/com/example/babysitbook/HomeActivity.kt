@@ -1,10 +1,12 @@
 package com.example.babysitbook
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
@@ -15,8 +17,6 @@ import com.google.firebase.ktx.Firebase
 
 class HomeActivity : AppCompatActivity() {
 
-    //private val database = Firebase.database("https://babysitbook-4e036-default-rtdb.europe-west1.firebasedatabase.app")
-    //private val myRef = database.getReference("Users/Babysiter")
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityHomeBinding
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -24,13 +24,13 @@ class HomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityHomeBinding.inflate(layoutInflater);
+        binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = Firebase.auth
 
         //bottom navigator
-        navController = findNavController(R.id.host_fragment)
+        navController = (supportFragmentManager.findFragmentById(R.id.host_fragment) as NavHostFragment).navController
         binding.bottomNavigation.setupWithNavController(navController)
 
         //navigation UP button
