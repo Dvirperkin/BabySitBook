@@ -16,7 +16,7 @@ export const userCreate = functions.auth.user().onCreate((user, context) => {
 export const isNewUser = functions.https.onCall((async (data, context) => {
   return firestore.collection("new-users").doc(data.uid).get()
       .then((doc) => {
-        if (doc != null) {
+        if (doc.exists) {
           return {
             "isNewUser": true,
           };

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.example.babysitbook.databinding.EditEventBinding
+import com.example.babysitbook.fragments.EditEventFragmentDirections
 import com.example.babysitbook.model.CalendarEvent
 import com.example.babysitbook.model.TimePickerFragment
 import com.google.firebase.database.ktx.database
@@ -25,7 +26,7 @@ class EditEventFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = EditEventBinding.inflate(inflater)
         return binding.root
     }
@@ -76,17 +77,17 @@ class EditEventFragment : Fragment() {
         }
     }
 
-    fun changeStartTime(v: View){
+    fun changeStartTime(view: View){
         startTime = true
-        showTimePickerDialog(v)
+        showTimePickerDialog(view)
     }
 
-    fun changeEndTime(v: View){
+    fun changeEndTime(view: View){
         startTime = false
-        showTimePickerDialog(v)
+        showTimePickerDialog(view)
     }
 
-    private fun showTimePickerDialog(v: View) {
+    private fun showTimePickerDialog(view: View) {
         TimePickerFragment().show(parentFragmentManager, "timePicker")
     }
 }
