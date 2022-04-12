@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.babysitbook.model.Babysitter
 import com.example.babysitbook.model.Parent
 import com.example.babysitbook.R
@@ -17,6 +18,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment(){
+    private lateinit var binding: FragmentProfileBinding
     enum class userKinds{
         NONE, BABYSITTER, PARENT
     }
@@ -25,16 +27,13 @@ class ProfileFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        return super.onCreateView(inflater, container, savedInstanceState)
+    ): View {
+        binding = FragmentProfileBinding.inflate(inflater)
+        return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
     }
-
-
-
-
 }
 
 

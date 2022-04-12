@@ -215,6 +215,20 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
 
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/EditBabyProfileBtn"
+                    android:layout_width="406dp"
+                    android:layout_height="52dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="93dp"
+                    android:clickable="true"
+                    android:contentDescription="@string/BUTTON"
+                    android:focusable="true"
+                    app:layout_constraintBottom_toTopOf="@+id/textView6"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:srcCompat="@drawable/ic_baseline_edit_24" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>
     </ScrollView>
@@ -314,6 +328,7 @@
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.449" />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

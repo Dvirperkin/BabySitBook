@@ -27,7 +27,44 @@ export const isNewUser = functions.https.onCall((async (data, context) => {
         }
       });
 }));
-
+export const isBabysitter = functions.https.onCall((async (data, context) => {
+  return firestore.collection("Babysitter").doc(data.uid).get()
+      .then((doc) => {
+        if (doc.exists) {
+          return {
+            "isBabysitter": true,
+          };
+        } else {
+          return {
+            "isBabysitter": false,
+          };
+        }
+      });
+}));
+export const getProfileData = functions.https.onCall((async (data, context) => {
+  return firestore.collection(data.type).doc(data.uid).get()
+      .then((doc) => {
+        if (doc.exists) {
+          return {
+            "displayName": doc.get("displayName"),
+            "Gender": doc.get("gender"),
+          };
+        } else {
+          return {
+            "NoUser": true,
+          };
+        }
+      });
+}));
+// eslint-disable-next-line max-len
+export const updateProfileDetails = functions.https.onCall((async (data, context) => {
+  return firestore.collection(data.type).doc(data.uid).get()
+      .then((doc) => {
+        if (doc.exists) {
+          firestore.collection(data.type).doc(data.uid).update(data);
+        }
+      });
+}));
 export const updateNewUser = functions.https.onCall((async (data, context) => {
   await firestore.collection(data.profile).doc(data.uid).set(data);
   await firestore.collection("new-users").doc(data.uid).delete();

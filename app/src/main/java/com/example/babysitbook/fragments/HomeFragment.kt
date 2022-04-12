@@ -9,12 +9,13 @@ import com.example.babysitbook.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment(){
     lateinit var binding: FragmentHomeBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding= FragmentHomeBinding.inflate(inflater)
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater)
         return binding.root
     }
 }

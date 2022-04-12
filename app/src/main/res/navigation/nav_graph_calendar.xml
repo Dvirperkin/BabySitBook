@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/calendarMainFragment"
-        android:name="com.example.babysitbook.fragments.CalendarMainFragment"
+        android:name="com.example.babysitbook.fragments.calendar.CalendarMainFragment"
         android:label="CalendarMainFragment"
         tools:layout="@layout/calendar_main">
         <action
@@ -19,7 +19,7 @@
     </fragment>
     <fragment
         android:id="@+id/editEventFragment"
-        android:name="com.example.babysitbook.fragments.EditEventFragment"
+        android:name="com.example.babysitbook.fragments.calendar.EditEventFragment"
         android:label="EditEventFragment"
         tools:layout="@layout/edit_event">
         <action
@@ -28,7 +28,7 @@
     </fragment>
     <fragment
         android:id="@+id/eventDetailsFragment"
-        android:name="com.example.babysitbook.fragments.EventDetailsFragment"
+        android:name="com.example.babysitbook.fragments.calendar.EventDetailsFragment"
         android:label="EventDetailsFragment"
         tools:layout="@layout/event_details">
         <action
