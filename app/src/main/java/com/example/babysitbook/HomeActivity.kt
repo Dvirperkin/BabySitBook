@@ -1,7 +1,13 @@
 package com.example.babysitbook
 
+import android.app.SearchManager
+import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.widget.SearchView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -58,4 +64,19 @@ class HomeActivity : AppCompatActivity() {
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the options menu from XML
+        val inflater = menuInflater
+        inflater.inflate(R.menu.top_bar_menu,menu)
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+
+        (menu.findItem(R.id.nav_search).actionView as SearchView).apply{
+            setSearchableInfo(searchManager.getSearchableInfo(ComponentName("com.example.babysitbook","com.example.babysitbook.SearchableActivity")))
+            isSubmitButtonEnabled = true
+            isIconifiedByDefault =true
+        }
+        return true
+    }
+
+
 }
