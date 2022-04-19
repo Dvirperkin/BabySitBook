@@ -11,12 +11,15 @@ import androidx.navigation.findNavController
 import com.example.babysitbook.databinding.LoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 
 class LoginFragment : Fragment() {
 
+    private lateinit var firestore: FirebaseFirestore
     private lateinit var functions: FirebaseFunctions
     private lateinit var binding: LoginBinding
     private lateinit var auth: FirebaseAuth
@@ -28,9 +31,11 @@ class LoginFragment : Fragment() {
     ): View {
         binding = LoginBinding.inflate(layoutInflater)
 
+        firestore = Firebase.firestore
         functions = Firebase.functions
         auth = Firebase.auth
 
+        firestore.useEmulator("10.0.2.2", 8080)
         functions.useEmulator("10.0.2.2", 5001)
         auth.useEmulator("10.0.2.2", 9099)
 
