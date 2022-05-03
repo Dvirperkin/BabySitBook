@@ -3,15 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:background="@drawable/clear_background">
+            android:background="@drawable/deck_background">
 
             <LinearLayout
                 android:id="@+id/EventTitle"
@@ -32,7 +28,7 @@
                     android:layout_weight="0"
                     android:text="@string/TITLE"
                     android:textAlignment="center"
-                    android:background="@drawable/gradient_background"
+                    android:background="@drawable/gradient_red_background"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:padding="10dp"/>
@@ -69,7 +65,7 @@
                     android:layout_weight="0"
                     android:text="@string/DATE"
                     android:textAlignment="center"
-                    android:background="@drawable/gradient_background"
+                    android:background="@drawable/gradient_red_background"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:padding="10dp"/>
@@ -106,7 +102,7 @@
                     android:layout_weight="0"
                     android:text="@string/TIME"
                     android:textAlignment="center"
-                    android:background="@drawable/gradient_background"
+                    android:background="@drawable/gradient_red_background"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:padding="10dp"/>
@@ -162,7 +158,7 @@
                     android:layout_weight="0"
                     android:text="@string/DETAILS"
                     android:textAlignment="center"
-                    android:background="@drawable/gradient_background"
+                    android:background="@drawable/gradient_red_background"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:padding="10dp"/>

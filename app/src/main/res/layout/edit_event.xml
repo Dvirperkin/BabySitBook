@@ -10,7 +10,7 @@
 <ScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/clear_background">
+    android:background="@drawable/deck_background">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -42,6 +42,7 @@
             android:minHeight="48dp"
             android:textSize="20sp"
             android:textAlignment="center"
+            android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/editTextStartTime"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -50,11 +51,12 @@
         <EditText
             android:id="@+id/details"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="20dp"
             android:hint="@string/DETAILS"
             android:inputType="textMultiLine"
-            android:layout_height="wrap_content"
             android:textSize="20sp"
+            android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/saveEventBtn"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -81,6 +83,7 @@
             android:minHeight="48dp"
             android:textSize="20sp"
             android:textAlignment="center"
+            android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/editTextEndTime"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -97,6 +100,7 @@
             android:minHeight="48dp"
             android:textSize="20sp"
             android:textAlignment="center"
+            android:gravity="center"
             app:layout_constraintBottom_toTopOf="@+id/details"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"

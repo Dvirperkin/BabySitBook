@@ -14,5 +14,6 @@
     <color name="colorDarkGray">#b4b4b4</color>
     <color name="colorLightGray">#ececec</color>
     <color name="colorGray">#dedede</color>
+    <color name="wine">#C52407</color>
 
 </resources>

@@ -52,15 +52,56 @@
     <string name="calendar">Calendar</string>
     <string name="event_details">Event Details</string>
     <string name="edit_event">Edit Event</string>
+    <string name="last_message">Last Message</string>
+    <string name="contact_name">Contact Name</string>
+    <string name="notifications">Notifications</string>
+    <string name="notification_title">Notification Title</string>
+    <string name="notification_description">Notification Description</string>
+    <string name="contact_image">Contact Image</string>
+    <string name="accept">Accept</string>
+    <string name="reject">Reject</string>
+    <string name="ignore">Ignore</string>
+    <string name="post">Post</string>
+    <string name="say_something">Say something...</string>
+    <string name="username">Username</string>
+    <string name="post_content">Post content</string>
+    <string name="delete_post">Delete Post</string>
+    <string name="place_holder_time">00:00:00</string>
+    <string name="reset">Reset</string>
+    <string name="start">Start</string>
+    <string name="charge">Charge</string>
+    <string name="choose_user_to_charge">Choose User to Charge</string>
+    <string name="billing_history">Billing History</string>
+    <string name="billings">Billings</string>
+    <string name="city">City</string>
+    <string name="experience">Experience</string>
+    <string name="hourly_rate">Hourly Rate</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="credit_card_details">Credit Card Details</string>
+    <string name="name">Name</string>
+    <string name="send_message">Send Message</string>
+    <string name="babysitter2">Babysitter,</string>
+    <string name="babysitter3">"Babysitter,  "</string>
+    <string name="mobility">Mobility</string>
+    <string name="reviews">Reviews</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="number_of_children">Number of Children</string>
+    <string name="add_friend">Add Friend</string>
+    <string name="parent2">Parent,</string>
 
     <string-array name="user_kind">
-        <item name="None"> None </item>
+        <item name="UserType"> User Type </item>
         <item name="Babysitter"> Babysitter </item>
         <item name="Parent"> Parent </item>
     </string-array>
     <string-array name="gender">
-        <item name="None"> None </item>
+        <item name="Gender"> Gender </item>
         <item name="Male"> Male </item>
         <item name="Female"> Female </item>
+    </string-array>
+    <string-array name="yesOrNo">
+        <item name="Mobility"> None </item>
+        <item name="yes"> Yes </item>
+        <item name="no"> No </item>
     </string-array>
 </resources>

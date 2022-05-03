@@ -29,13 +29,15 @@ class HomeActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
+        //todo: check if the user is a babysitter, and if it is- change the nav drawer!!!!
+
         //bottom navigator
         navController = (supportFragmentManager.findFragmentById(R.id.host_fragment) as NavHostFragment).navController
         binding.bottomNavigation.setupWithNavController(navController)
 
         //navigation UP button
         appBarConfiguration = AppBarConfiguration(setOf(R.id.homeFragment, R.id.chatFragment,
-                                R.id.favoriteFragment, R.id.calendarFragment, R.id.profileFragment), binding.drawerLayout)
+                                R.id.notificationsFragment, R.id.calendarFragment, R.id.profileFragment), binding.drawerLayout)
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
 
         //drawer navigator

@@ -37,14 +37,6 @@ class ChatContactFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-        binding.textView7.setOnClickListener {
-            val action = ChatContactFragmentDirections.actionChatContactFragmentToChatMessagesFragment()
-            findNavController().navigate(action)
-        }
-
-
-
         val auth = FirebaseAuth.getInstance().currentUser
 
         if(auth != null){

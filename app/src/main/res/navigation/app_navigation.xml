@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.example.babysitbook.fragments.HomeFragment"
-        android:label="@string/title_home"
+        android:label="BabysitBook"
         tools:layout="@layout/fragment_home"/>
     <fragment
         android:id="@+id/chatFragment"
@@ -16,10 +16,10 @@
         android:label="@string/title_chat"
         tools:layout="@layout/fragment_chat"/>
     <fragment
-        android:id="@+id/favoriteFragment"
-        android:name="com.example.babysitbook.fragments.FavoriteFragment"
-        android:label="@string/title_favorites"
-        tools:layout="@layout/fragment_favorite"/>
+        android:id="@+id/notificationsFragment"
+        android:name="com.example.babysitbook.fragments.NotificationsFragment"
+        android:label="Notifications"
+        tools:layout="@layout/fragment_notifications"/>
     <fragment
         android:id="@+id/calendarFragment"
         android:name="com.example.babysitbook.fragments.calendar.CalendarFragment"

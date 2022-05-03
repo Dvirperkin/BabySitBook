@@ -12,9 +12,9 @@
         android:title="@string/title_chat" />
 
     <item
-        android:id="@+id/favoriteFragment"
+        android:id="@+id/notificationsFragment"
         android:icon="@drawable/favorite_icon"
-        android:title="@string/title_favorites" />
+        android:title="@string/notifications" />
 
     <item
         android:id="@+id/calendarFragment"
