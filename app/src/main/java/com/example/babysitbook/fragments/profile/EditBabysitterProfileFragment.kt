@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import com.example.babysitbook.databinding.EditBabysitterFragmentBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -13,7 +16,7 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 
-class editBabysitterProfileFragment : Fragment() {
+class EditBabysitterProfileFragment : Fragment() {
     private lateinit var binding: EditBabysitterFragmentBinding
     private lateinit var functions: FirebaseFunctions
     private lateinit var auth: FirebaseAuth
@@ -21,13 +24,10 @@ class editBabysitterProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = EditBabysitterFragmentBinding.inflate(inflater)
         functions = Firebase.functions
         auth = Firebase.auth
-
-        functions.useEmulator("10.0.2.2",5001)
-        auth.useEmulator("10.0.2.2",9099)
 
         return binding.root
     }
@@ -35,8 +35,6 @@ class editBabysitterProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.ApplyEditBabysitter.setOnClickListener{ applyEdit(view) }
-
-
 
     }
     private fun applyEdit(view: View){
@@ -51,6 +49,7 @@ class editBabysitterProfileFragment : Fragment() {
             .continueWith{task->
                 if(task.isSuccessful){
                     Toast.makeText(requireActivity(), "Data has been changed", Toast.LENGTH_LONG).show()
+                    findNavController().popBackStack()
                 }
             }
     }

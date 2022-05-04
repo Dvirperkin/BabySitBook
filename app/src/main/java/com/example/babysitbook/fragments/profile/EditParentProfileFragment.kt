@@ -13,7 +13,7 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 
-class editParentProfileFragment : Fragment() {
+class EditParentProfileFragment : Fragment() {
     private lateinit var binding: EditParentFragmentBinding
     private lateinit var functions: FirebaseFunctions
     private lateinit var auth: FirebaseAuth
@@ -21,13 +21,10 @@ class editParentProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = EditParentFragmentBinding.inflate(inflater)
         functions = Firebase.functions
         auth = Firebase.auth
-
-        functions.useEmulator("10.0.2.2",5001)
-        auth.useEmulator("10.0.2.2",9099)
 
         return binding.root
     }

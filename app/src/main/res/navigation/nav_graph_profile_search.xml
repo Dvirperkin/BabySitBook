@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph_profile_search"
+    app:startDestination="@id/searchProfileResultsFragment">
+    <fragment
+        android:id="@+id/searchProfileResultsFragment"
+        android:name="com.example.babysitbook.fragments.searchProfile.SearchProfileResultsFragment"
+        android:label="SearchProfileResultsFragment"
+        tools:layout="@layout/fragment_search_profile_results">
+        <argument
+            android:name="searchQuery"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_searchProfileResultsFragment_to_otherBabysitterProfileFragment"
+            app:destination="@id/otherBabysitterProfileFragment" />
+        <action
+            android:id="@+id/action_searchProfileResultsFragment_to_otherParentProfileFragment"
+            app:destination="@id/otherParentProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/otherBabysitterProfileFragment"
+        android:name="com.example.babysitbook.fragments.searchProfile.OtherBabysitterProfileFragment"
+        android:label="fragment_other_babysitter_profile"
+        tools:layout="@layout/fragment_other_babysitter_profile" >
+        <argument
+            android:name="otherEmail"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/otherParentProfileFragment"
+        android:name="com.example.babysitbook.fragments.searchProfile.OtherParentProfileFragment"
+        android:label="fragment_other_parent_profile"
+        tools:layout="@layout/fragment_other_parent_profile" >
+        <argument
+            android:name="otherEmail"
+            app:argType="string" />
+    </fragment>
+</navigation>

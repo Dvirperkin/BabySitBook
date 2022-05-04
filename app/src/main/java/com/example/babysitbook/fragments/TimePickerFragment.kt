@@ -1,4 +1,4 @@
-package com.example.babysitbook.model
+package com.example.babysitbook.fragments
 
 import android.app.Dialog
 import android.app.TimePickerDialog

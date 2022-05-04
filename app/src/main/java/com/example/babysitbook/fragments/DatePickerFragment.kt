@@ -1,4 +1,4 @@
-package com.example.babysitbook.fragments.login
+package com.example.babysitbook.fragments
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -7,7 +7,6 @@ import android.widget.DatePicker
 import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.setFragmentResult
-import com.example.babysitbook.R
 import java.util.*
 
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {

@@ -10,6 +10,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import com.example.babysitbook.R
 import com.example.babysitbook.databinding.FirstLoginBinding
+import com.example.babysitbook.fragments.DatePickerFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.FirebaseFunctions
@@ -38,8 +39,6 @@ class FirstLoginFragment : Fragment(), AdapterView.OnItemSelectedListener{
 
         functions = Firebase.functions
         auth = Firebase.auth
-        functions.useEmulator("10.0.2.2", 5001)
-        auth.useEmulator("10.0.2.2", 9099)
 
         binding.profileSpinner.onItemSelectedListener = this
         binding.genderSpinner.onItemSelectedListener = this
@@ -121,7 +120,7 @@ class FirstLoginFragment : Fragment(), AdapterView.OnItemSelectedListener{
         return true
     }
 
-    fun processDatePickerResult(reqKey:String, bundle: Bundle){
+    private fun processDatePickerResult(reqKey:String, bundle: Bundle){
 
         val year =  bundle["year"] as Int
         val month = bundle["month"] as Int + 1

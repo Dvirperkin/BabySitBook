@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.babysitbook.databinding.ChatMessagesBinding
-import com.example.babysitbook.model.ChatMessage
-import com.example.babysitbook.model.ChatMessageAdapter
+import com.example.babysitbook.model.chat.ChatMessage
+import com.example.babysitbook.model.chat.ChatMessageAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase

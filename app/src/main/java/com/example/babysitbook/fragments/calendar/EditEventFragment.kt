@@ -8,9 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import com.example.babysitbook.databinding.EditEventBinding
-import com.example.babysitbook.fragments.calendar.EditEventFragmentDirections
-import com.example.babysitbook.model.CalendarEvent
-import com.example.babysitbook.model.TimePickerFragment
+import com.example.babysitbook.model.calendar.CalendarEvent
+import com.example.babysitbook.fragments.TimePickerFragment
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 

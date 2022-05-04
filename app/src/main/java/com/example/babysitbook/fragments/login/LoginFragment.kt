@@ -31,15 +31,11 @@ class LoginFragment : Fragment() {
         functions = Firebase.functions
         auth = Firebase.auth
 
-        functions.useEmulator("10.0.2.2", 5001)
-        auth.useEmulator("10.0.2.2", 9099)
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         binding.RegisterBtn.setOnClickListener { register(view) }
         binding.LoginBtn.setOnClickListener { login(view) }

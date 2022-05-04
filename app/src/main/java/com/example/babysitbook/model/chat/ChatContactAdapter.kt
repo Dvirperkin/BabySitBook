@@ -1,11 +1,10 @@
-package com.example.babysitbook.model
+package com.example.babysitbook.model.chat
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.babysitbook.R
 import com.example.babysitbook.databinding.ContactBinding
-import com.example.babysitbook.databinding.MessageBinding
 import com.firebase.ui.database.FirebaseRecyclerAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 

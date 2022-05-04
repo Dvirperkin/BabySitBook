@@ -13,7 +13,7 @@
         android:theme="@style/Theme.BabySitBook"
         tools:targetApi="m" >
         <activity
-            android:name=".LoginActivity"
+            android:name=".activities.LoginActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,11 +22,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HomeActivity"
+            android:name=".activities.HomeActivity"
             android:exported="false" />
 
         <activity
-            android:name=".SearchableActivity"
+            android:name=".activities.SearchableActivity"
             android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />

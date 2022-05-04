@@ -19,9 +19,6 @@ import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment(){
     private lateinit var binding: FragmentProfileBinding
-    enum class userKinds{
-        NONE, BABYSITTER, PARENT
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,9 +27,6 @@ class ProfileFragment : Fragment(){
     ): View {
         binding = FragmentProfileBinding.inflate(inflater)
         return binding.root
-    }
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
     }
 }
 

@@ -31,9 +31,6 @@ class ProfileChooserFragment: Fragment() {
         functions = Firebase.functions
         auth = Firebase.auth
 
-        functions.useEmulator("10.0.2.2", 5001)
-        auth.useEmulator("10.0.2.2", 9099)
-
         chooseProfile()
 
         return binding.root

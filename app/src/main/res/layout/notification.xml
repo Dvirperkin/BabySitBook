@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="408dp"
+    android:layout_height="48dp"
+    android:background="@drawable/rounded_message_gray"
+    android:orientation="horizontal"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent">
+
+    <TextView
+        android:id="@+id/notificationText"
+        android:layout_width="306dp"
+        android:layout_height="match_parent"
+        android:text="Yaniv sent you friend request"
+        android:textAlignment="viewStart" />
+
+    <ImageButton
+        android:id="@+id/acceptButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        app:srcCompat="@drawable/ic__accept_request" />
+
+    <ImageButton
+        android:id="@+id/ignoreButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="48dp"
+        app:srcCompat="@drawable/ic_ignore_request" />
+</LinearLayout>

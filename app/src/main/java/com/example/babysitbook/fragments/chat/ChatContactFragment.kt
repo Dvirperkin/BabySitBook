@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.babysitbook.databinding.ChatContactsBinding
-import com.example.babysitbook.model.ChatContact
-import com.example.babysitbook.model.ChatContactAdapter
+import com.example.babysitbook.model.chat.ChatContact
+import com.example.babysitbook.model.chat.ChatContactAdapter
 import com.firebase.ui.database.FirebaseRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.Query
@@ -37,13 +37,10 @@ class ChatContactFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         binding.textView7.setOnClickListener {
             val action = ChatContactFragmentDirections.actionChatContactFragmentToChatMessagesFragment()
             findNavController().navigate(action)
         }
-
-
 
         val auth = FirebaseAuth.getInstance().currentUser
 

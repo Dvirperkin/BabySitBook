@@ -34,10 +34,10 @@
     </fragment>
     <fragment
         android:id="@+id/editBabysitterProfileFragment"
-        android:name="com.example.babysitbook.fragments.profile.editBabysitterProfileFragment"
+        android:name="com.example.babysitbook.fragments.profile.EditBabysitterProfileFragment"
         android:label="editBabysitterProfileFragment" />
     <fragment
         android:id="@+id/editParentProfileFragment"
-        android:name="com.example.babysitbook.fragments.profile.editParentProfileFragment"
+        android:name="com.example.babysitbook.fragments.profile.EditParentProfileFragment"
         android:label="editParentProfileFragment" />
 </navigation>

@@ -29,17 +29,7 @@ class BabysitterProfileFragment : Fragment() {
         functions = Firebase.functions
         auth = Firebase.auth
 
-        functions.useEmulator("10.0.2.2",5001)
-        auth.useEmulator("10.0.2.2",9099)
-
-
-
         return binding.root
-    }
-
-    override fun onStop() {
-        super.onStop()
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -48,14 +38,12 @@ class BabysitterProfileFragment : Fragment() {
 
         functions.getHttpsCallable("getProfileData")
             .call(hashMapOf(
-                "uid" to auth.currentUser?.uid,
-                "type" to "Babysitter")
+                "email" to auth.currentUser?.email,)
             )
             .continueWith{task->
                 val res = task.result.data as HashMap<*, *>
 
                 binding.Name.text = res["displayName"].toString()
-
             }
     }
 

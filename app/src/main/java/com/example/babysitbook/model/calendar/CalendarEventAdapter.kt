@@ -1,4 +1,4 @@
-package com.example.babysitbook.model
+package com.example.babysitbook.model.calendar
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -18,7 +18,6 @@ import com.google.firebase.ktx.Firebase
 class RegisterFragment : Fragment() {
     //FireBase API
     private lateinit var auth: FirebaseAuth
-    private lateinit var firestore: FirebaseFirestore
 
     private lateinit var binding: RegisterBinding
     private lateinit var email: String
@@ -28,15 +27,10 @@ class RegisterFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = RegisterBinding.inflate(layoutInflater)
 
         auth = Firebase.auth
-        firestore = Firebase.firestore
-
-        Firebase.auth.useEmulator("10.0.2.2", 9099)
-        Firebase.functions.useEmulator("10.0.2.2", 5001)
-        Firebase.firestore.useEmulator("10.0.2.2", 8081)
 
         return binding.root
     }

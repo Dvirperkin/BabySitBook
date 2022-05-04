@@ -27,9 +27,6 @@ class ParentProfileFragment : Fragment() {
         functions = Firebase.functions
         auth = Firebase.auth
 
-        functions.useEmulator("10.0.2.2",5001)
-        auth.useEmulator("10.0.2.2",9099)
-
         return binding.root
     }
 
@@ -39,14 +36,12 @@ class ParentProfileFragment : Fragment() {
 
         functions.getHttpsCallable("getProfileData")
             .call(hashMapOf(
-                "uid" to auth.currentUser?.uid,
-                "type" to "Parent")
+                "uid" to auth.currentUser?.email,)
             )
             .continueWith{task->
                 val res = task.result.data as HashMap<*, *>
 
                 binding.Name.text = res["displayName"].toString()
-
             }
     }
     private fun editProfile(view: View) {
