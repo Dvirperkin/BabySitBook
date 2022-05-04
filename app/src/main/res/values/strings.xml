@@ -88,6 +88,15 @@
     <string name="number_of_children">Number of Children</string>
     <string name="add_friend">Add Friend</string>
     <string name="parent2">Parent,</string>
+    <string name="bills">Bills</string>
+    <string name="total_sum">Total Sum</string>
+    <string name="calculate">Calculate</string>
+    <string name="calculate_button">Calculate Button</string>
+    <string name="babysitbook_logo">Babysitbook Logo</string>
+    <string name="paid">Paid</string>
+    <string name="total_time">Total Time</string>
+    <string name="debtor">Debtor</string>
+    <string name="billing_history">Billing History</string>
 
     <string-array name="user_kind">
         <item name="UserType"> User Type </item>

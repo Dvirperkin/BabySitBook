@@ -74,3 +74,15 @@ export const deleteEvent = functions.https.onCall((async (data, context) => {
   await firestore.collection("calendar").doc(data.uid)
       .collection("events").doc(eventId).delete();
 }));
+
+export const charge = functions.https.onCall((async (data, context) => {
+  const date = data.date.replace(/\//gi, "");
+  await firestore.collection("bills")
+      .doc(data.uid + date + data.startTime).set(data);
+}));
+
+export const deleteBill = functions.https.onCall((async (data, context) => {
+  const date = data.date.replace(/\//gi, "");
+  await firestore.collection("bills")
+      .doc(data.uid + date + data.startTime).delete();
+}));

@@ -2,31 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fe8301c1-9652-42f6-a372-3430c4f3dde9" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/menu/nav_drawer_menu.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.firebaserc" beforeDir="false" afterPath="$PROJECT_DIR$/.firebaserc" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firebase.json" beforeDir="false" afterPath="$PROJECT_DIR$/firebase.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/firestore.indexes.json" beforeDir="false" afterPath="$PROJECT_DIR$/firestore.indexes.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/firestore.rules" beforeDir="false" afterPath="$PROJECT_DIR$/firestore.rules" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/functions/.eslintrc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/functions/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/tsconfig.dev.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/tsconfig.dev.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/functions/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/functions/tsconfig.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/calendar/CalendarMainFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/calendar/CalendarMainFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/calendar/EditEventFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/calendar/EditEventFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/login/LoginFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/login/LoginFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/CalendarEventAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/CalendarEventAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/edit_event.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/edit_event.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/event.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/event.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/navigation/nav_graph_calendar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/navigation/nav_graph_calendar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/HomeActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/HomeActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/drawable/home_icon.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/drawable/home_icon.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/activity_home.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/activity_home.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/babysitter_edit_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/babysitter_edit_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/charging_fragment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/charging_fragment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/closed_billing_request.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/closed_billing_request.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_calendar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_calendar.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/nav_header.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/nav_header.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/open_billing_request.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/open_billing_request.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/menu/babysitter_nav_drawer_menu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/menu/parent_nav_drawer_menu.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/navigation/app_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/navigation/app_navigation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,6 +66,8 @@
       <workItem from="1650311188877" duration="4577000" />
       <workItem from="1650354981455" duration="845000" />
       <workItem from="1650355875128" duration="2133000" />
+      <workItem from="1651654179193" duration="661000" />
+      <workItem from="1651665197501" duration="6269000" />
     </task>
     <servers />
   </component>
