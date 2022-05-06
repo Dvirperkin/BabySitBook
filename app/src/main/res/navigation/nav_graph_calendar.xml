@@ -14,7 +14,7 @@
             android:id="@+id/action_calendarMainFragment_to_editEventFragment"
             app:destination="@id/editEventFragment" />
         <action
-            android:id="@+id/action_calendarMainFragment_to_eventDetailsFragment2"
+            android:id="@+id/action_calendarMainFragment_to_eventDetailsFragment"
             app:destination="@id/eventDetailsFragment" />
     </fragment>
     <fragment

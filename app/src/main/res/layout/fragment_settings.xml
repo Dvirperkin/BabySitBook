@@ -1,29 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-
-    </data>
-
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F68E3E">
+        android:orientation="vertical"
+        android:background="@drawable/deck_background">
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:background="@drawable/red_border"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="50dp"
+            android:minHeight="48dp"
+            android:gravity="center"
+            android:layout_marginHorizontal="40dp">
 
             <TextView
-                android:id="@+id/iv_settings"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/settings"
-                android:textSize="50sp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_centerInParent="true" />
+                android:text="@string/edit_profile"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textAlignment="center"/>
 
-        </RelativeLayout>
-    </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/red_border"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_marginTop="25dp"
+            android:minHeight="48dp"
+            android:gravity="center"
+            android:layout_marginHorizontal="40dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/credit_card_details"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textAlignment="center"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
 </layout>

@@ -84,6 +84,7 @@ export const updateNewUser = functions.https.onCall((async (data, context) => {
   await firestore.collection("Users").doc(data.uid).set(data);
   await firestore.collection("new-users").doc(data.uid).delete();
 }));
+
 export const otherUserType = functions.https.onCall( (data, context) => {
   return firestore.collection("Users").where("email", "==", data.email).get()
       .then((doc) => {
@@ -229,3 +230,56 @@ export const deleteFriend = functions.https.onCall(async (data, context) => {
 
   return;
 });
+
+export const createEvent = functions.https.onCall((async (data, context) => {
+  const date = data.event.date.replace(/\//gi, "-");
+  return firestore.collection("calendar").doc(data.uid)
+      .collection("events").doc(date + data.event.title).get()
+      .then((doc) => {
+        if (doc.exists) {
+          return firestore.collection("calendar").doc(data.uid)
+              .collection("events").doc(date + data.event.title)
+              .update(data.event);
+        } else {
+          return firestore.collection("calendar").doc(data.uid)
+              .collection("events").doc(date + data.event.title)
+              .set(data.event);
+        }
+      });
+}));
+
+// eslint-disable-next-line max-len
+export const isEventTitleExists = functions.https.onCall((async (data, context) => {
+  const eventId = data.date.replace(/\//gi, "-") + data.title;
+  return firestore.collection("calendar").doc(data.uid)
+      .collection("events").doc(eventId).get()
+      .then((doc) => {
+        if (doc.exists) {
+          return {
+            "isEventTitleExists": true,
+          };
+        } else {
+          return {
+            "isEventTitleExists": false,
+          };
+        }
+      });
+}));
+
+export const deleteEvent = functions.https.onCall((async (data, context) => {
+  const eventId = data.date.replace(/\//gi, "-") + data.title;
+  await firestore.collection("calendar").doc(data.uid)
+      .collection("events").doc(eventId).delete();
+}));
+
+export const charge = functions.https.onCall((async (data, context) => {
+  const date = data.date.replace(/\//gi, "");
+  await firestore.collection("bills")
+      .doc(data.uid + date + data.startTime).set(data);
+}));
+
+export const deleteBill = functions.https.onCall((async (data, context) => {
+  const date = data.date.replace(/\//gi, "");
+  await firestore.collection("bills")
+      .doc(data.uid + date + data.startTime).delete();
+}));

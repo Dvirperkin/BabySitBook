@@ -3,19 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-    </data>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/clear_background">
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp">
+            android:layout_height="match_parent"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/deck_background">
 
             <LinearLayout
                 android:id="@+id/EventTitle"
@@ -36,12 +28,13 @@
                     android:layout_weight="0"
                     android:text="@string/TITLE"
                     android:textAlignment="center"
-                    android:background="@drawable/gradient_background"
+                    android:background="@drawable/gradient_red_background"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:padding="10dp"/>
 
                 <TextView
+                    android:id="@+id/EventTitleTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -72,12 +65,13 @@
                     android:layout_weight="0"
                     android:text="@string/DATE"
                     android:textAlignment="center"
-                    android:background="@drawable/gradient_background"
+                    android:background="@drawable/gradient_red_background"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:padding="10dp"/>
 
                 <TextView
+                    android:id="@+id/EventDateTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -108,12 +102,13 @@
                     android:layout_weight="0"
                     android:text="@string/TIME"
                     android:textAlignment="center"
-                    android:background="@drawable/gradient_background"
+                    android:background="@drawable/gradient_red_background"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:padding="10dp"/>
 
                 <TextView
+                    android:id="@+id/EventStartTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -131,6 +126,7 @@
                     android:layout_marginBottom="6dp"/>
 
                 <TextView
+                    android:id="@+id/EventEndTimeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -140,6 +136,7 @@
                     android:textSize="20sp"
                     android:padding="10dp"/>
             </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/EventDetails"
@@ -157,26 +154,31 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
                     android:layout_weight="0"
                     android:text="@string/DETAILS"
                     android:textAlignment="center"
-                    android:background="@drawable/gradient_background"
+                    android:background="@drawable/gradient_red_background"
                     android:textColor="@color/white"
                     android:textSize="20sp"
                     android:padding="10dp"/>
-
+                <ScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
                 <TextView
+                    android:id="@+id/EventDetailsTextView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:padding="10dp"
                     android:text="@string/DETAILS"
                     android:textAlignment="center"
                     android:textColor="@color/black"
                     android:textSize="16sp"
                     tools:ignore="TextContrastCheck" />
+                </ScrollView>
+
             </LinearLayout>
+
 
             <Button
                 android:id="@+id/EditButton"
@@ -202,6 +204,4 @@
                 app:layout_constraintTop_toBottomOf="@+id/EventDetails"
                 tools:ignore="TextContrastCheck" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </ScrollView>
 </layout>

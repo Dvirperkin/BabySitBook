@@ -11,21 +11,36 @@
         android:name="com.example.babysitbook.fragments.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
+
     <fragment
         android:id="@+id/chat"
         android:name="com.example.babysitbook.fragments.chat.ChatFragment"
         android:label="@string/title_chat"
+
         tools:layout="@layout/fragment_chat" />
     <fragment
         android:id="@+id/notificationsRecyclerView"
         android:name="com.example.babysitbook.fragments.NotificationsFragment"
         android:label="@string/notification"
         tools:layout="@layout/fragment_notifications" />
+
     <fragment
         android:id="@+id/calendar"
         android:name="com.example.babysitbook.fragments.calendar.CalendarFragment"
         android:label="@string/title_calendar"
-        tools:layout="@layout/fragment_calendar" />
+        tools:layout="@layout/fragment_calendar"/>
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.babysitbook.fragments.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile">
+
+        <action
+            android:id="@+id/action_profileFragment_to_nav_graph_profile"
+            app:destination="@id/nav_graph_profile" />
+    </fragment>
+
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.babysitbook.fragments.settings.SettingsFragment"
@@ -36,5 +51,9 @@
         android:name="com.example.babysitbook.fragments.profile.ProfileFragment"
         android:label="Profile" />
 
-
+    <fragment
+        android:id="@+id/FragmentBills"
+        android:name="com.example.babysitbook.fragments.charging.FragmentBills"
+        android:label="Bills"
+        tools:layout="@layout/fragment_bills"/>
 </navigation>

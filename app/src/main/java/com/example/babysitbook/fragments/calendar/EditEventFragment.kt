@@ -4,21 +4,31 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.babysitbook.R
 import com.example.babysitbook.databinding.EditEventBinding
-import com.example.babysitbook.model.calendar.CalendarEvent
+import com.example.babysitbook.fragments.login.DatePickerFragment
+import com.example.babysitbook.fragments.login.LoginFragmentDirections
+import com.example.babysitbook.model.CalendarEvent
+import com.example.babysitbook.model.TimeAsString
 import com.example.babysitbook.fragments.TimePickerFragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.functions.FirebaseFunctions
+import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 
 class EditEventFragment : Fragment() {
-    private val database =
-        Firebase.database("https://babysitbook-4e036-default-rtdb.europe-west1.firebasedatabase.app")
-    private val eventsRef = database.getReference("Calendar/Events")
     private var startTime = false
-
+    private lateinit var functions: FirebaseFunctions
+    private lateinit var auth: FirebaseAuth
     private lateinit var binding: EditEventBinding
 
     override fun onCreateView(
@@ -32,6 +42,12 @@ class EditEventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        functions = Firebase.functions
+        auth = Firebase.auth
+
+        binding.editTextDate.setOnClickListener {
+            showDatePickerDialog(view)
+        }
 
         binding.editTextStartTime.setOnClickListener {
             changeStartTime(view)
@@ -40,53 +56,128 @@ class EditEventFragment : Fragment() {
             changeEndTime(view)
         }
 
-        setFragmentResultListener("requestKey") { _, bundle ->
-            val hour = bundle["hour"]
-            val minute = bundle["minute"]
-            val time = "$hour : $minute"
-            if (startTime) {
-                binding.editTextStartTime.text = time
+        setFragmentResultListener("passEventDetailsToEdit") { _:String, bundle: Bundle ->
+            binding.Title.setText(bundle["title"] as String)
+            binding.editTextDate.text = bundle["date"] as String
+            binding.editTextStartTime.text = bundle["startTime"] as String
+            binding.editTextEndTime.text = bundle["endTime"] as String
+            binding.details.setText(bundle["details"] as String)
 
-            } else {
-                binding.editTextEndTime.text = time
+            if (auth.currentUser != null) {
+                functions.getHttpsCallable("deleteEvent").call(
+                    hashMapOf(
+                        "uid" to auth.currentUser!!.uid,
+                        "title" to binding.Title.text.toString(),
+                        "date" to binding.editTextDate.text.toString()
+                    ))
             }
         }
 
-        setFragmentResultListener("requestDateKey") { _, bundle ->
-            //TODO
+        setFragmentResultListener("passSelectedDate") { _:String, bundle: Bundle ->
+            binding.editTextDate.text = bundle["selectedDate"] as String
+        }
+
+        setFragmentResultListener("onDateSet") { _:String, bundle: Bundle ->
+            val year =  bundle["year"] as Int
+            val month = bundle["month"] as Int + 1
+            val day = bundle["day"] as Int
+
+            binding.editTextDate.text = getString(R.string.date, month, day, year)
+        }
+
+        setFragmentResultListener("requestKey") { _, bundle ->
+            val timeString = TimeAsString(bundle["hour"] as Int, bundle["minute"] as Int)
+            if (startTime) {
+                binding.editTextStartTime.text = timeString.getTimeString()
+
+            } else {
+                binding.editTextEndTime.text = timeString.getTimeString()
+            }
         }
 
         binding.saveEventBtn.setOnClickListener{
-            val calendarEvent = CalendarEvent(binding.Title.text.toString(),
-                binding.editTextDate.text.toString(),
-                binding.editTextStartTime.text.toString(),
-                binding.editTextEndTime.text.toString(),
-                binding.details.text.toString())
-
-            eventsRef.push().setValue(calendarEvent)
-
-            binding.Title.setText("")
-            binding.editTextDate.setText("")
-            binding.editTextStartTime.setText("")
-            binding.editTextEndTime.setText("")
-            binding.details.text = ""
-
-            val action = EditEventFragmentDirections.actionEditEventFragmentToCalendarMainFragment()
-            findNavController().navigate(action)
+            saveEvent()
         }
     }
 
-    fun changeStartTime(view: View){
+    private fun changeStartTime(view: View){
         startTime = true
         showTimePickerDialog(view)
     }
 
-    fun changeEndTime(view: View){
+    private fun changeEndTime(view: View){
         startTime = false
         showTimePickerDialog(view)
     }
 
     private fun showTimePickerDialog(view: View) {
         TimePickerFragment().show(parentFragmentManager, "timePicker")
+    }
+
+    private fun showDatePickerDialog(view: View){
+        val datePickerFragment = DatePickerFragment()
+        datePickerFragment.show(parentFragmentManager, "datePicker")
+    }
+
+    private fun saveEvent(){
+        if(eventValidation()) {
+            if (auth.currentUser != null) {
+                functions.getHttpsCallable("isEventTitleExists").call(
+                    hashMapOf(
+                        "uid" to auth.currentUser!!.uid,
+                        "title" to binding.Title.text.toString(),
+                        "date" to binding.editTextDate.text.toString()
+                    )
+                ).continueWith { task ->
+                    val res = task.result.data as HashMap<*, *>
+                    if (res["isEventTitleExists"] as Boolean) {
+                        createToast("Title exists! Choose another one")
+                    } else {
+                        createEvent()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun createEvent(){
+        functions.getHttpsCallable("createEvent").call(
+            hashMapOf(
+                "uid" to auth.currentUser!!.uid,
+                "event" to hashMapOf(
+                    "title" to binding.Title.text.toString(),
+                    "date" to binding.editTextDate.text.toString(),
+                    "startTime" to binding.editTextStartTime.text.toString(),
+                    "endTime" to binding.editTextEndTime.text.toString(),
+                    "details" to binding.details.text.toString()
+                )
+            )
+        )
+        val action =
+            EditEventFragmentDirections.actionEditEventFragmentToCalendarMainFragment()
+        findNavController().navigate(action)
+    }
+
+    private fun eventValidation(): Boolean {
+        return if(binding.Title.text.toString() == "" ||
+            binding.editTextDate.text.toString() == "" ||
+            binding.editTextStartTime.text.toString() == "" ||
+            binding.editTextEndTime.text.toString() == ""){
+            createToast("All fields are required! (except for details)")
+            false
+        } else if(binding.editTextEndTime.text.toString() <= binding.editTextStartTime.text.toString()){
+            createToast("Start time must be earlier than end time!")
+            false
+        } else {
+            true
+        }
+    }
+
+    private fun createToast(message: String){
+        Toast.makeText(
+            requireActivity(),
+            message,
+            Toast.LENGTH_LONG
+        ).show()
     }
 }

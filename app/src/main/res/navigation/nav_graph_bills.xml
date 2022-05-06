@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph_bills"
+    app:startDestination="@id/chargingFragment">
+
+    <fragment
+        android:id="@+id/chargingFragment"
+        android:name="com.example.babysitbook.fragments.charging.ChargingFragment"
+        android:label="ChargingFragment"
+        tools:layout="@layout/charging_fragment">
+        <action
+            android:id="@+id/action_chargingFragment_to_billingHistory"
+            app:destination="@id/billingHistory" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/billingHistory"
+        android:name="com.example.babysitbook.fragments.charging.BillingHistoryFragment"
+        android:label="BillingHistoryFragment"
+        tools:layout="@layout/billing_history">
+        <action
+            android:id="@+id/action_billingHistory_to_chargingFragment"
+            app:destination="@id/chargingFragment" />
+    </fragment>
+</navigation>

@@ -29,7 +29,7 @@ class ChatContactAdapter (
 
     inner class ContactViewHolder(private val binding: ContactBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item : ChatContact){
-            binding.contactTextView.text = item.contactName
+            binding.contactName.text = item.contactName
         }
     }
 }

@@ -66,6 +66,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.4.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.4.2'
 
+    //Adding the card view library
+    implementation 'androidx.cardview:cardview:1.0.0'
+
     //Firebase
     // Import the BoM for the Firebase platform
     // When using the BoM, you don't specify versions in Firebase library dependencies
@@ -79,7 +82,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database-ktx'
     // Declare the dependency for the functions library
     implementation 'com.google.firebase:firebase-functions-ktx'
-    
+
     // Firebase UI Library
     implementation 'com.firebaseui:firebase-ui-auth:8.0.0'
     implementation 'com.firebaseui:firebase-ui-database:8.0.0'
