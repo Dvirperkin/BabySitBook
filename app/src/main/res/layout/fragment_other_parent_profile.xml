@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginBottom="530dp"
-        android:background="@drawable/gradient_background"
+        android:background="@drawable/gradient_red_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -177,7 +177,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3">
 
-            <TableRow android:background="@drawable/gradient_background">
+            <TableRow android:background="@drawable/gradient_red_background">
 
                 <TextView
                     android:layout_width="wrap_content"

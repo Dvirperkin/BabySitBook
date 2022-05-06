@@ -31,11 +31,11 @@ class NotificationAdapter(
 
     inner class FriendRequestViewHolder(val binding: NotificationBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: Notification){
-            binding.notificationText.text = item.text
+            binding.notificationDescription.text = item.text
 
 
-            binding.acceptButton.setOnClickListener { accept(item) }
-            binding.ignoreButton.setOnClickListener { ignore(item) }
+            binding.acceptBtn.setOnClickListener { accept(item) }
+            binding.ignoreBtn.setOnClickListener { ignore(item) }
         }
 
         private fun accept(request: Notification){

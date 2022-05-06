@@ -10,8 +10,8 @@ import androidx.fragment.app.setFragmentResult
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.babysitbook.databinding.CalendarMainBinding
-import com.example.babysitbook.model.CalendarEvent
-import com.example.babysitbook.model.CalendarEventAdapter
+import com.example.babysitbook.model.calendar.CalendarEvent
+import com.example.babysitbook.model.calendar.CalendarEventAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
