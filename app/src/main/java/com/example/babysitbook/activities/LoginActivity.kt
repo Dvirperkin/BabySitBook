@@ -20,6 +20,9 @@ class LoginActivity() : AppCompatActivity(){
     private lateinit var functions: FirebaseFunctions
     private lateinit var firestore: FirebaseFirestore
 
+    companion object {
+        var isEmulatorsConnected: Boolean = false
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -29,9 +32,12 @@ class LoginActivity() : AppCompatActivity(){
         functions = Firebase.functions
         firestore = Firebase.firestore
 
-        auth.useEmulator("10.0.2.2", 9099)
-        functions.useEmulator("10.0.2.2", 5001)
-        firestore.useEmulator("10.0.2.2", 8080)
+        if(!isEmulatorsConnected) {
+            isEmulatorsConnected = true
+            auth.useEmulator("10.0.2.2", 9099)
+            functions.useEmulator("10.0.2.2", 5001)
+            firestore.useEmulator("10.0.2.2", 8080)
+        }
     }
 
     override fun onStart() {

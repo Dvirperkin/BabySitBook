@@ -50,6 +50,7 @@ android {
             }
         }
     }
+    namespace 'com.example.babysitbook'
 }
 
 dependencies {

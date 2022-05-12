@@ -52,14 +52,6 @@
                 android:textStyle="bold"
                 android:text="@string/contact_name" />
 
-            <TextView
-                android:id="@+id/lastMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="18sp"
-                android:textColor="@color/black"
-                android:text="@string/last_message" />
-
         </LinearLayout>
 </LinearLayout>
 </layout>

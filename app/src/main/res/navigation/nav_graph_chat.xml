@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_chatContactFragment_to_chatMessagesFragment"
             app:destination="@id/chatMessagesFragment" />
+        <action
+            android:id="@+id/action_chatContactFragment_to_addChatFragment"
+            app:destination="@id/addChatFragment" />
     </fragment>
     <fragment
         android:id="@+id/chatMessagesFragment"
@@ -22,5 +25,29 @@
         <action
             android:id="@+id/action_chatMessagesFragment_to_chatContactFragment"
             app:destination="@id/chatContactFragment" />
+        <argument
+            android:name="contactEmail"
+            app:argType="string" />
+        <argument
+            android:name="contactName"
+            app:argType="string" />
+        <argument
+            android:name="contactImage"
+            app:argType="string" />
+        <argument
+            android:name="chatKey"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/addChatFragment"
+        android:name="com.example.babysitbook.fragments.chat.AddChatFragment"
+        android:label="AddChatFragment"
+        tools:layout="@layout/fragment_add_chat">
+        <action
+            android:id="@+id/action_addChatFragment_to_chatMessagesFragment"
+            app:destination="@id/chatMessagesFragment" />
+        <argument
+            android:name="activeChatFriends"
+            app:argType="string[]" />
     </fragment>
 </navigation>

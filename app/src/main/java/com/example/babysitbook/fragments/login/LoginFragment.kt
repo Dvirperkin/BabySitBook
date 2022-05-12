@@ -62,12 +62,11 @@ class LoginFragment : Fragment() {
                 functions.getHttpsCallable("isNewUser").call(hashMapOf("uid" to auth.currentUser?.uid))
                     .continueWith { task ->
                         val res = task.result.data as HashMap<*, *>
-                        if(res["isNewUser"] as Boolean){
-                            action = LoginFragmentDirections.actionLoginFragmentToFirstLoginFragment()
+                        action = if(res["isNewUser"] as Boolean){
+                            LoginFragmentDirections.actionLoginFragmentToFirstLoginFragment()
                         } else {
-                            action = LoginFragmentDirections.actionLoginFragmentToHomeActivity()
+                            LoginFragmentDirections.actionLoginFragmentToHomeActivity()
                         }
-                        Toast.makeText(requireActivity(), task.result.data.toString(), Toast.LENGTH_LONG).show()
 
                         view.findNavController().navigate(action)
                     }

@@ -1,4 +1,6 @@
 package com.example.babysitbook.model.chat
 
-class ChatContact(val contactName: String = "") {
-}
+class ChatContact(
+    val email: String = "",
+    val displayName: String = "",
+    val image: String = "")

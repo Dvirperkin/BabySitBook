@@ -83,6 +83,7 @@ class FirstLoginFragment : Fragment(), AdapterView.OnItemSelectedListener{
                     "uid" to auth.currentUser!!.uid,
                     "email" to auth.currentUser!!.email,
                     "displayName" to binding.ETFirstName.text.toString() + " " + binding.ETLastName.text.toString(),
+                    "image" to "",
                     "gender" to genderChoice.toString(),
                     "birthdate" to binding.Date.text
                 )

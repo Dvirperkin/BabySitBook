@@ -51,8 +51,11 @@ class SearchProfileResultsFragment : Fragment() {
     }
 
     private fun searchProfile(searchQuery : String){
+        query = firestore.collection("Users")
+            .orderBy("displayName")
+            .startAt(searchQuery)
+            .endAt(searchQuery + '\uf8ff')
 
-        query = firestore.collection("Users").whereEqualTo("displayName", searchQuery)
 
         firestore.collection("Users")
         val options = FirestoreRecyclerOptions.Builder<User>()

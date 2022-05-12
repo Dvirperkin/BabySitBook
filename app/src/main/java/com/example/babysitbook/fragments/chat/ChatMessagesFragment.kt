@@ -5,22 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.babysitbook.databinding.ChatMessagesBinding
 import com.example.babysitbook.model.chat.ChatMessage
 import com.example.babysitbook.model.chat.ChatMessageAdapter
-import com.firebase.ui.database.FirebaseRecyclerOptions
-import com.google.firebase.database.ktx.database
+import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 
-class ChatMessagesFragment : Fragment() {
-    private val database = Firebase.database("https://babysitbook-4e036-default-rtdb.europe-west1.firebasedatabase.app")
-    private val messagesRef = database.getReference("Chat/Messages")
 
+class ChatMessagesFragment : Fragment() {
+
+    private var firestore: FirebaseFirestore = Firebase.firestore
+
+    private lateinit var query: Query
     private lateinit var binding: ChatMessagesBinding
     private lateinit var adapter: ChatMessageAdapter
     private lateinit var manager: LinearLayoutManager
+    private lateinit var chatKey: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,14 +39,14 @@ class ChatMessagesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.textView8.setOnClickListener {
-            val action = ChatMessagesFragmentDirections.actionChatMessagesFragmentToChatContactFragment()
-            findNavController().navigate(action)
-        }
+        chatKey = arguments?.get("chatKey").toString()
 
+        query = firestore.collection("Chats")
+            .document(chatKey)
+            .collection("Messages")
 
-        val options = FirebaseRecyclerOptions.Builder<ChatMessage>()
-            .setQuery(messagesRef, ChatMessage::class.java)
+        val options = FirestoreRecyclerOptions.Builder<ChatMessage>()
+            .setQuery(query, ChatMessage::class.java)
             .build()
         adapter = ChatMessageAdapter(options)
         manager = LinearLayoutManager(context)
@@ -50,10 +55,12 @@ class ChatMessagesFragment : Fragment() {
         binding.chatMessagesRecyclerView.layoutManager = manager
         binding.chatMessagesRecyclerView.adapter = adapter
 
-
         binding.sendButton.setOnClickListener{
             val chatMessage = ChatMessage(binding.messageEditText.text.toString())
-            messagesRef.push().setValue(chatMessage)
+            Firebase.functions.getHttpsCallable("sendMessage").call(hashMapOf(
+                "chatKey" to arguments?.get("chatKey").toString(),
+                "message" to chatMessage.message
+            ))
             binding.messageEditText.setText("")
         }
     }

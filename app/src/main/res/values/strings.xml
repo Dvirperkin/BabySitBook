@@ -114,6 +114,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="applyBtn">apply</string>
     <string name="notification">Notification</string>
+    <string name="add_chat">Add Chat</string>
     <string-array name="yesOrNo">
         <item name="Mobility"> None </item>
         <item name="yes"> Yes </item>

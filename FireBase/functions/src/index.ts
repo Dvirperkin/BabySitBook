@@ -1,6 +1,6 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
-
+/* eslint-disable */
 admin.initializeApp();
 
 const firestore = admin.firestore();
@@ -18,6 +18,24 @@ const getUidFromEmail = async (email: string) => {
   } else {
     return null;
   }
+};
+
+const getUidData = async (uid: string) => {
+    const doc = await firestore.collection("Users")
+        .where("uid", "==", uid)
+        .get();
+
+    if (!doc.empty) {
+        return {
+            "displayName": doc.docs[0].get("displayName"),
+            "email": doc.docs[0].get("email"),
+            "image": doc.docs[0].get("image"),
+            "uid": doc.docs[0].get("uid").toString(),
+            "gender": doc.docs[0].get("gender"),
+        }
+    } else {
+        return null;
+    }
 };
 
 export const userCreate = functions.auth.user().onCreate((user, context) => {
@@ -60,8 +78,10 @@ export const getProfileData = functions.https.onCall((async (data, context) => {
       .then((doc) => {
         if (!doc.empty) {
           return {
-            "displayName": doc.docs[0].get("displayName"),
-            "Gender": doc.docs[0].get("gender"),
+              "displayName": doc.docs[0].get("displayName"),
+              "email": doc.docs[0].get("email"),
+              "image": doc.docs[0].get("image"),
+              "gender": doc.docs[0].get("gender"),
           };
         } else {
           return {
@@ -168,19 +188,30 @@ export const acceptFriendRequest = functions.https.onCall(async (data, context) 
       "error": "You don't have permission to access this service",
     };
   }
+
   const otherUid = await getUidFromEmail(data.email);
+
+  const myData = await getUidData(myUid);
+  const otherData = await getUidData(otherUid);
 
   await firestore.collection("Users")
       .doc(myUid)
       .collection("Friends")
-      .doc(otherUid).update({
-        "relation": "friends",
-      });
+      .doc(otherUid).set({
+          "displayName": otherData?.displayName,
+          "email": otherData?.email,
+          "image": otherData?.image,
+          "relation": "friends",
+          }
+      );
   await firestore.collection("Users")
       .doc(otherUid)
       .collection("Friends")
-      .doc(context.auth?.uid).update({
-        "relation": "friends",
+      .doc(context.auth?.uid).set({
+          "displayName": myData?.displayName,
+          "email": myData?.email,
+          "image": myData?.image,
+          "relation": "friends",
       });
 
   await firestore.collection("Users")
@@ -283,3 +314,80 @@ export const deleteBill = functions.https.onCall((async (data, context) => {
   await firestore.collection("bills")
       .doc(data.uid + date + data.startTime).delete();
 }));
+
+export const createNewChat = functions.https.onCall(async (data, context) => {
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+
+    const otherUid = await getUidFromEmail(data.email);
+
+    const myData = await getUidData(myUid);
+    const otherData = await getUidData(otherUid);
+
+    let docRef = await firestore.collection("Chats").add({
+            "contacts": {
+                "1": myUid,
+                "2": otherUid
+            }
+        }
+    )
+    await firestore.collection("Users").doc(myUid)
+        .collection("Chats").doc(otherUid)
+        .set({
+            "displayName": otherData?.displayName,
+            "email": otherData?.email,
+            "image": otherData?.image,
+            "chatKey": docRef.id
+        })
+
+    await firestore.collection("Users").doc(otherUid)
+        .collection("Chats").doc(myUid)
+        .set({
+            "displayName": myData?.displayName,
+            "email": myData?.email,
+            "image": myData?.image,
+            "chatKey": docRef.id
+        })
+    return {
+        "chatKey": docRef.id
+    };
+})
+export const getChatKey = functions.https.onCall(async (data, context) => {
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+
+    const otherUid = await getUidFromEmail(data.email);
+
+    return firestore.collection("Users").doc(myUid)
+        .collection("Chats").doc(otherUid)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                return {
+                    chatKey: doc.get("chatKey"),
+                };
+            } else {
+                return {
+                    chatKey: null,
+                };
+            }
+        });
+});
+export const sendMessage = functions.https.onCall((data, context) => {
+    firestore.collection("Chats").doc(data.chatKey)
+        .collection("Messages").add({
+        "message": data.message
+    })
+})

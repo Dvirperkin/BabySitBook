@@ -4,18 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.example.babysitbook.model.Babysitter
-import com.example.babysitbook.model.Parent
-import com.example.babysitbook.R
 import com.example.babysitbook.databinding.FragmentProfileBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 
 class ProfileFragment : Fragment(){
     private lateinit var binding: FragmentProfileBinding

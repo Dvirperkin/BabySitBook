@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.babysitbook.R
 import com.example.babysitbook.databinding.FragmentOtherParentProfileBinding
+import com.example.babysitbook.model.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
@@ -16,6 +17,7 @@ class OtherParentProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentOtherParentProfileBinding
     private lateinit var otherEmail: String
+    private lateinit var otherUser: User
 
     private var functions = Firebase.functions
     private var auth = Firebase.auth
@@ -44,10 +46,12 @@ class OtherParentProfileFragment : Fragment() {
 
     private fun setDetails(){
         functions.getHttpsCallable("getProfileData").call(hashMapOf("email" to otherEmail))
-            .continueWith { task ->
-                if(task.isSuccessful){
-                    val res = task.result.data as HashMap<*,*>
-                    binding.Name.text = res["displayName"].toString()
+            .continueWith {
+                if(it.isSuccessful){
+                    val res = it.result.data as HashMap<*,*>
+                    otherUser = User(res["displayName"].toString(),
+                        res["email"].toString(),
+                        res["image"].toString())
                 } else {
                     Toast.makeText(context, "Error: Failed to load profile", Toast.LENGTH_LONG).show()
                 }
@@ -78,7 +82,9 @@ class OtherParentProfileFragment : Fragment() {
     private fun sendFriendRequest(){
         functions.getHttpsCallable("sendFriendRequest").call(hashMapOf(
             "uid" to auth.currentUser?.uid,
-            "email" to otherEmail))
+            "email" to otherUser.email,
+            "displayName" to otherUser.displayName,
+            "image" to otherUser.image))
             .continueWith { task ->
                 if(task.isSuccessful){
                     binding.ParentRelationshipBtn.text = getString(R.string.pending)

@@ -2,19 +2,34 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ea6e2902-2180-454a-b965-c1640261f936" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/chat/AddChatFragment.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/chat/ShowFriendsAdapter.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_add_chat.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../app/src/main/res/layouts/login/drawable/ic_add.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/functions/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/functions/src/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/calendar/CalendarMainFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/calendar/CalendarMainFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/calendar/EditEventFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/calendar/EditEventFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/charging/ChargingFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/charging/ChargingFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/activities/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/activities/LoginActivity.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/chat/ChatContactFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/chat/ChatContactFragment.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/notification/NotificationAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/notification/NotificationAdapter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/babysitter_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/babysitter_profile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_other_babysitter_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_other_babysitter_profile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_other_parent_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_other_parent_profile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/parent_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/parent_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/chat/ChatFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/chat/ChatFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/chat/ChatMessagesFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/chat/ChatMessagesFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/login/FirstLoginFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/login/FirstLoginFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/login/LoginFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/login/LoginFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/profile/ProfileFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/profile/ProfileFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/searchProfile/OtherParentProfileFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/searchProfile/OtherParentProfileFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/searchProfile/SearchProfileResultsFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/fragments/searchProfile/SearchProfileResultsFragment.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/User.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/User.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/chat/ChatContact.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/chat/ChatContact.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/chat/ChatContactAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/chat/ChatContactAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/chat/ChatMessage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/chat/ChatMessage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/chat/ChatMessageAdapter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/java/com/example/babysitbook/model/chat/ChatMessageAdapter.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/chat_contacts.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/chat_contacts.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/chat_messages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/chat_messages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/contact.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/contact.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_chat.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/fragment_chat.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/layout/message.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/layout/message.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/navigation/app_navigation.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/navigation/app_navigation.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../app/src/main/res/navigation/nav_graph_chat.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/navigation/nav_graph_chat.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +73,11 @@
       <workItem from="1650194315101" duration="819000" />
       <workItem from="1650620675181" duration="875000" />
       <workItem from="1650627663358" duration="3100000" />
-      <workItem from="1651656049650" duration="7432000" />
+      <workItem from="1651656049650" duration="22537000" />
+      <workItem from="1651957434641" duration="666000" />
+      <workItem from="1652001795050" duration="612000" />
+      <workItem from="1652035894035" duration="19000" />
+      <workItem from="1652374588641" duration="594000" />
     </task>
     <servers />
   </component>
