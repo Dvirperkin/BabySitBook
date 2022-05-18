@@ -99,7 +99,8 @@
     <string name="paid">Paid</string>
     <string name="total_time">Total Time</string>
     <string name="debtor">Debtor</string>
-
+    <string name="who_are_you">Who are you?</string>
+    <string name="submit">Submit</string>
     <string-array name="user_kind">
         <item name="UserType"> User Type </item>
         <item name="Babysitter"> Babysitter </item>
@@ -115,8 +116,8 @@
     <string name="applyBtn">apply</string>
     <string name="notification">Notification</string>
     <string name="add_chat">Add Chat</string>
-    <string-array name="yesOrNo">
-        <item name="Mobility"> None </item>
+    <string-array name="mobility">
+        <item name="Mobility"> Mobility </item>
         <item name="yes"> Yes </item>
         <item name="no"> No </item>
     </string-array>
