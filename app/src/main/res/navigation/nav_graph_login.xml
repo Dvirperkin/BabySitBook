@@ -40,6 +40,29 @@
         android:label="FirstLoginFragment"
         tools:layout="@layout/first_login">
         <action
+            android:id="@+id/action_firstLoginFragment_to_parentEditProfileFragment"
+            app:destination="@id/parentEditProfileFragment" />
+        <action
+            android:id="@+id/action_firstLoginFragment_to_babysitterEditProfileFragment"
+            app:destination="@id/babysitterEditProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/parentEditProfileFragment"
+        android:name="com.example.babysitbook.fragments.settings.ParentEditProfileFragment"
+        android:label="ParentEditProfile"
+        tools:layout="@layout/parent_edit_profile">
+        <action
+            android:id="@+id/action_firstLoginFragment_to_homeActivity2"
+            app:destination="@id/homeActivity" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/babysitterEditProfileFragment"
+        android:name="com.example.babysitbook.fragments.settings.BabysitterEditProfileFragment"
+        android:label="BabysitterEditProfile"
+        tools:layout="@layout/babysitter_edit_profile">
+        <action
             android:id="@+id/action_firstLoginFragment_to_homeActivity2"
             app:destination="@id/homeActivity" />
     </fragment>

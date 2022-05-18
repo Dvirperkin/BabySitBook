@@ -96,7 +96,8 @@
     <string name="paid">Paid</string>
     <string name="total_time">Total Time</string>
     <string name="debtor">Debtor</string>
-    <string name="billing_history">Billing History</string>
+    <string name="who_are_you">Who are you?</string>
+    <string name="submit">Submit</string>
 
     <string-array name="user_kind">
         <item name="UserType"> User Type </item>
@@ -108,8 +109,8 @@
         <item name="Male"> Male </item>
         <item name="Female"> Female </item>
     </string-array>
-    <string-array name="yesOrNo">
-        <item name="Mobility"> None </item>
+    <string-array name="mobility">
+        <item name="Mobility"> Mobility </item>
         <item name="yes"> Yes </item>
         <item name="no"> No </item>
     </string-array>

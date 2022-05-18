@@ -40,12 +40,6 @@
             app:destination="@id/nav_graph_profile" />
     </fragment>
 
-    <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.babysitbook.fragments.settings.SettingsFragment"
-        android:label="Settings"
-        tools:layout="@layout/fragment_settings"/>
-
     <include app:graph="@navigation/nav_graph_profile" />
 
     <fragment
@@ -53,4 +47,29 @@
         android:name="com.example.babysitbook.fragments.charging.FragmentBills"
         android:label="Bills"
         tools:layout="@layout/fragment_bills"/>
+
+    <fragment
+        android:id="@+id/editProfile"
+        android:name="com.example.babysitbook.fragments.settings.EditProfileFragment">
+
+        <action
+            android:id="@+id/action_editProfileFragment_to_BabysitterEditProfileFragment"
+            app:destination="@id/BabysitterEditProfileFragment" />
+
+        <action
+            android:id="@+id/action_editProfileFragment_to_ParentEditProfileFragment"
+            app:destination="@id/ParentEditProfileFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/BabysitterEditProfileFragment"
+        android:name="com.example.babysitbook.fragments.settings.BabysitterEditProfileFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/babysitter_edit_profile"/>
+
+    <fragment
+        android:id="@+id/ParentEditProfileFragment"
+        android:name="com.example.babysitbook.fragments.settings.ParentEditProfileFragment"
+        android:label="Edit Profile"
+        tools:layout="@layout/parent_edit_profile"/>
 </navigation>

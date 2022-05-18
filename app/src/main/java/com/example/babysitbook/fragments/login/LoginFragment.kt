@@ -80,10 +80,6 @@ class LoginFragment : Fragment() {
 
                         view.findNavController().navigate(action)
                     }
-
-
-
-
             } else {
                 Toast.makeText(requireActivity(), task.exception.toString(), Toast.LENGTH_LONG).show()
             }
