@@ -37,7 +37,8 @@ class ProfileChooserFragment: Fragment() {
     }
     private fun chooseProfile(){
         var action : NavDirections
-        functions.getHttpsCallable("isBabysitter").call(hashMapOf("uid" to auth.currentUser?.uid))
+        functions.getHttpsCallable("isBabysitter")
+            .call(hashMapOf("uid" to auth.currentUser?.uid))
             .continueWith{ task ->
                 val res = task.result.data as HashMap<*,*>
                 action = if(res["isBabysitter"] as Boolean)

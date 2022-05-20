@@ -103,6 +103,7 @@ export const getProfileData = functions.https.onCall((async (data, context) => {
                     "NoUser": false
                 };
             }
+
         } else {
           return {
             "NoUser": true,
@@ -110,16 +111,35 @@ export const getProfileData = functions.https.onCall((async (data, context) => {
         }
       });
 }));
-
-// eslint-disable-next-line max-len
+export const getDisplayName = functions.https.onCall((async (data, context) => {
+    if (context.auth?.uid == undefined) {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+    return firestore.collection("Users").doc(context.auth?.uid).get()
+        .then((doc) => {
+            if (doc.exists) {
+                console.log(doc.get("displayName"))
+                return {
+                    "displayName": doc.get("displayName"),
+                };
+            } else {
+                return {
+                    "NoUser": true,
+                };
+            }
+        });
+}));
 export const updateProfileDetails = functions.https.onCall((async (data, context) => {
-  return firestore.collection("Users").doc(data.uid).get()
+    return firestore.collection("Users").doc(data.uid).get()
       .then((doc) => {
         if (doc.exists) {
           firestore.collection("Users").doc(data.uid).update(data);
         }
       });
 }));
+
 export const updateNewUser = functions.https.onCall((async (data, context) => {
   await firestore.collection("Users").doc(data.uid).set(data);
   await firestore.collection("new-users").doc(data.uid).delete();
@@ -193,8 +213,9 @@ export const sendFriendRequest = functions.https.onCall(async (data, context) =>
   }
   return firestore.collection("Users").doc(otherUid)
       .collection("Notifications").add({
-        email: context.auth?.token.email,
-        text: context.auth?.token.email + "sent you a friend request",
+          email: context.auth?.token.email,
+          text: data.displayName + " has sent you a friend request",
+          title: "Friend Request"
       });
 });
 
@@ -279,6 +300,35 @@ export const acceptFriendRequest = functions.https.onCall(async (data, context) 
   return;
 });
 
+export const getFriendList = functions.https.onCall(async (data,context)=>{
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+    return firestore.collection("Users")
+        .doc(myUid)
+        .collection("Friends")
+        .get()
+        .then((doc) => {
+            if (!doc.empty) {
+                let friendsID = doc.docs.map((currentDocument)=>{
+                    if(currentDocument.get("relation")=="friends")
+                        return currentDocument.id;
+                    return ;
+                })
+                console.log(friendsID);
+                return friendsID;
+            } else {
+                return;
+            }
+        })
+});
+
+
 // eslint-disable-next-line max-len
 export const ignoreFriendRequest = functions.https.onCall(async (data, context) => {
   const otherUid = await getUidFromEmail(data.email);
@@ -338,6 +388,8 @@ export const isEventTitleExists = functions.https.onCall((async (data, context) 
       .collection("events").doc(eventId).get()
       .then((doc) => {
         if (doc.exists) {
+            
+            doc.get("likes").has()
           return {
             "isEventTitleExists": true,
           };
@@ -354,6 +406,11 @@ export const deleteEvent = functions.https.onCall((async (data, context) => {
   await firestore.collection("calendar").doc(data.uid)
       .collection("events").doc(eventId).delete();
 }));
+export const deletePost = functions.https.onCall((async (data, context) => {
+    if (context.auth?.uid != null) {
+        await firestore.collection("Post").doc(data.postID).delete();
+    }
+}));
 
 export const charge = functions.https.onCall((async (data, context) => {
   const date = data.date.replace(/\//gi, "");
@@ -362,8 +419,8 @@ export const charge = functions.https.onCall((async (data, context) => {
 }));
 
 export const deleteBill = functions.https.onCall((async (data, context) => {
-  const date = data.date.replace(/\//gi, "");
-  await firestore.collection("bills")
+    const date = data.date.replace(/\//gi, "");
+    await firestore.collection("bills")
       .doc(data.uid + date + data.startTime).delete();
 }));
 
@@ -438,26 +495,64 @@ export const getChatKey = functions.https.onCall(async (data, context) => {
         });
 });
 export const sendMessage = functions.https.onCall((data, context) => {
+    console.log("hey from sendMessage")
+
     firestore.collection("Chats").doc(data.chatKey)
         .collection("Messages").add({
-        "message": data.message
+        "message": data.message,
+        "date": data.date,
+        "sender":  context.auth?.uid
     })
 })
 
+
 export const getHourlyRate = functions.https.onCall((async (data, context) => {
-    return firestore.collection("Users").doc(data.uid).get()
+  return firestore.collection("Users").doc(data.uid).get()
+      .then((doc) => {
+          if (doc.exists) {
+              return {
+                  "hourlyRate": doc.get("hourlyRate")
+              };
+          } else {
+              return {
+                  "hourlyRate": 0
+              };
+          }
+        });
+}));
+
+export const isSender = functions.https.onCall((async (data, context) => {
+    console.log("hey from sender")
+    return firestore.collection("Chats").doc(data.chatKey).collection("Messages")
+        .doc().get()
         .then((doc) => {
-            if (doc.exists) {
+            if (doc.exists && doc.get("sender")==context.auth?.uid) {
+                console.log("isSender true")
                 return {
-                    "hourlyRate": doc.get("hourlyRate")
+                    "isSender": true,
                 };
+
             } else {
+                console.log("isSender false")
                 return {
-                    "hourlyRate": 0
+                    "isSender": false,
                 };
             }
         });
 }));
+
+export const postToFeed = functions.https.onCall((data, context) => {
+  console.log("hey from postToFeed")
+  firestore.collection("Post").add({
+      "displayName": data.displayName,
+      "postedKey": data.postedKey,
+      "postContent": data.postContent,
+      "date": data.date,
+      "postID" : ""
+  }).then(doc=>{
+      firestore.collection("Post").doc(doc.id).update({"postID": doc.id})
+  })
+})
 
 export const checkLike = functions.https.onCall((async (data, context) => {
     const otherUid = await getUidFromEmail(data.email);

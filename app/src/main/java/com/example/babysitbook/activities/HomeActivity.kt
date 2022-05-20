@@ -19,6 +19,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.babysitbook.R
 import com.example.babysitbook.databinding.ActivityHomeBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -82,6 +83,7 @@ class HomeActivity : AppCompatActivity() {
         startActivity(Intent(this, LoginActivity::class.java))
         finish()
     }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the options menu from XML
         val inflater = menuInflater
@@ -97,5 +99,13 @@ class HomeActivity : AppCompatActivity() {
         return true
     }
 
-
+    override fun onStart() {
+        super.onStart()
+        val currentUser : FirebaseUser? = auth.currentUser
+        if(currentUser == null){
+            startActivity(Intent(this, LoginActivity::class.java))
+            finish()
+            return
+        }
+    }
 }

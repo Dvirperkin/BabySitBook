@@ -45,6 +45,8 @@ class ChatContactAdapter (
                 ).addOnCompleteListener { task ->
                     run {
                         val res = task.result.data as HashMap<*, *>
+                        println("chatkey: ")
+                        println(res["chatKey"].toString())
                         openChat(it, item, res["chatKey"].toString())
                     }
                 }

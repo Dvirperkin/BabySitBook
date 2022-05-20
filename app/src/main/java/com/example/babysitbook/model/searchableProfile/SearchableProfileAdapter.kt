@@ -39,7 +39,9 @@ class SearchableProfileAdapter (
         private var functions = Firebase.functions
 
         fun bind(item : User){
-            binding.profileTextView.text = item.displayName
+            val firstLast =item.displayName.split(' ')
+            val displayName= firstLast.joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
+            binding.profileTextView.text = displayName
             binding.emailTextView.text = item.email
             binding.profileTextView.setOnClickListener { view ->
                 functions.getHttpsCallable("otherUserType").call(hashMapOf("email" to item.email))

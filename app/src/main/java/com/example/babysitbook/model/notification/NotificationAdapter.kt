@@ -32,6 +32,7 @@ class NotificationAdapter(
     inner class FriendRequestViewHolder(val binding: NotificationBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item: Notification){
             binding.notificationDescription.text = item.text
+            binding.notificationTitle.text = item.title
 
 
             binding.acceptBtn.setOnClickListener { accept(item) }
