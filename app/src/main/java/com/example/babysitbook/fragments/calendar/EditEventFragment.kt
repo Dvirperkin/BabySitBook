@@ -72,11 +72,18 @@ class EditEventFragment : Fragment() {
         }
 
         setFragmentResultListener("onDateSet") { _:String, bundle: Bundle ->
-            val year =  bundle["year"] as Int
-            val month = bundle["month"] as Int + 1
-            val day = bundle["day"] as Int
+            val year =  (bundle["year"] as Int).toString()
+            var month = (bundle["month"] as Int + 1).toString()
+            var day = (bundle["day"] as Int).toString()
 
-            binding.editTextDate.text = getString(R.string.date, month, day, year)
+            if(month.length == 1){
+                month = "0$month"
+            }
+            if(day.length == 1){
+                day = "0$day"
+            }
+            val date = "$day/$month/$year"
+            binding.editTextDate.text = date
         }
 
         setFragmentResultListener("requestKey") { _, bundle ->

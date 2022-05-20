@@ -61,11 +61,18 @@ class ChargingFragment : Fragment() {
         }
 
         setFragmentResultListener("onDateSet") { _:String, bundle: Bundle ->
-            val year =  bundle["year"] as Int
-            val month = bundle["month"] as Int + 1
-            val day = bundle["day"] as Int
+            val year =  (bundle["year"] as Int).toString()
+            var month = (bundle["month"] as Int + 1).toString()
+            var day = (bundle["day"] as Int).toString()
 
-            binding.Date.text = getString(R.string.date, month, day, year)
+            if(month.length == 1){
+                month = "0$month"
+            }
+            if(day.length == 1){
+                day = "0$day"
+            }
+            val date = "$day/$month/$year"
+            binding.Date.text = date
         }
 
         binding.startTime.setOnClickListener {
@@ -147,8 +154,18 @@ class ChargingFragment : Fragment() {
             if (hours < 0) {
                 hours += 24
             }
-            val totalSum = ((hours + minutes) * 50).toInt().toString()
-            binding.totalSum.setText(totalSum) //todo: get the money from database
+
+            if (auth.currentUser != null) {
+                functions.getHttpsCallable("getHourlyRate").call(hashMapOf("uid" to auth.currentUser!!.uid))
+                    .continueWith { task ->
+                        if (task.isSuccessful) {
+                            val res = task.result.data as HashMap<*, *>
+                            val hourlyRate = res["hourlyRate"].toString().toFloat()
+                            val totalSum = ((hours + minutes) * hourlyRate).toInt().toString()
+                            binding.totalSum.setText(totalSum)
+                        }
+                    }
+            }
         }
         else{
             createToast("All time fields are required for calculation!")

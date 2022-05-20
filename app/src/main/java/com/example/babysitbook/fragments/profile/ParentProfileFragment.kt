@@ -32,20 +32,20 @@ class ParentProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.EditParentProfileBtn.setOnClickListener { editProfile(view) }
 
-        functions.getHttpsCallable("getProfileData")
-            .call(hashMapOf(
-                "uid" to auth.currentUser?.email,)
-            )
-            .continueWith{task->
+        if(auth.currentUser != null) {
+            functions.getHttpsCallable("getProfileData").call(
+                hashMapOf("email" to auth.currentUser!!.email)
+            ).continueWith { task ->
                 val res = task.result.data as HashMap<*, *>
-
-                binding.Name.text = res["displayName"].toString()
+                if (!(res["NoUser"] as Boolean)) {
+                    binding.Name.text =  res["displayName"].toString().split(' ')
+                        .joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
+                    binding.city.text = res["city"].toString().replaceFirstChar { it.uppercase() }
+                    binding.numberOfChildren.text = res["children"] as String
+                    binding.description.text = res["description"] as String
+                }
             }
-    }
-    private fun editProfile(view: View) {
-        val action = ParentProfileFragmentDirections.actionParentProfileFragmentToEditParentProfileFragment()
-        findNavController().navigate(action)
+        }
     }
 }

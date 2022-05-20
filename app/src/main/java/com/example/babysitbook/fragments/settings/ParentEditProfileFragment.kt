@@ -47,6 +47,26 @@ class ParentEditProfileFragment : Fragment() {
         binding.saveButton.setOnClickListener {
             saveUserDetails(view)
         }
+
+        getUserDetails()
+    }
+
+    private fun getUserDetails(){
+        if(auth.currentUser != null) {
+            functions.getHttpsCallable("getProfileData").call(
+                hashMapOf("email" to auth.currentUser!!.email)
+            ).continueWith { task ->
+                val res = task.result.data as HashMap<*, *>
+                if(!(res["NoUser"] as Boolean)){
+                    val name = res["displayName"].toString().split(' ')
+                    binding.firstName.setText(name[0].replaceFirstChar { it.uppercase() })
+                    binding.lastName.setText(name[1].replaceFirstChar { it.uppercase() })
+                    binding.city.setText(res["city"].toString().replaceFirstChar { it.uppercase() })
+                    binding.children.setText(res["children"] as String)
+                    binding.description.setText(res["description"] as String)
+                }
+            }
+        }
     }
 
     private fun saveUserDetails(view : View){
@@ -58,10 +78,25 @@ class ParentEditProfileFragment : Fragment() {
                         updateNewUser()
                         view.findNavController().navigate(BabysitterEditProfileFragmentDirections.actionFirstLoginFragmentToHomeActivity2())
                     } else {
-//                        action = LoginFragmentDirections.actionLoginFragmentToHomeActivity()
+                        updateUser()
+                        Toast.makeText(requireActivity(), "Details saved!", Toast.LENGTH_LONG).show()
                     }
-                    Toast.makeText(requireActivity(), task.result.data.toString(), Toast.LENGTH_LONG).show()
                 }
+        }
+    }
+
+    private fun updateUser(){
+        if(auth.currentUser != null) {
+            functions.getHttpsCallable("updateProfileDetails").call(
+                hashMapOf(
+                    "uid" to auth.currentUser!!.uid,
+                    "displayName" to binding.firstName.text.toString().trim().lowercase() + " "
+                            + binding.lastName.text.toString().trim().lowercase(),
+                    "city" to binding.city.text.toString().trim().lowercase(),
+                    "children" to binding.children.text.toString().trim(),
+                    "description" to binding.description.text.toString().trim()
+                )
+            )
         }
     }
 
@@ -75,7 +110,7 @@ class ParentEditProfileFragment : Fragment() {
                     "displayName" to binding.firstName.text.toString().trim().lowercase() + " "
                             + binding.lastName.text.toString().trim().lowercase(),
                     "city" to binding.city.text.toString().trim().lowercase(),
-                    "children" to binding.children.text.trim(),
+                    "children" to binding.children.text.toString().trim(),
                     "description" to binding.description.text.toString().trim()
                 )
             )

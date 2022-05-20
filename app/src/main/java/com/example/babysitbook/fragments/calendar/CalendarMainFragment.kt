@@ -22,6 +22,7 @@ import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import java.text.DateFormat
+import java.text.SimpleDateFormat
 import java.util.*
 
 class CalendarMainFragment : Fragment(){
@@ -85,8 +86,8 @@ class CalendarMainFragment : Fragment(){
 
     private fun dateStringify(calendar: Calendar) {
         calendar.timeInMillis = binding.calendarView2.date
-        val dateFormatter = DateFormat.getDateInstance(DateFormat.SHORT)
-        date = dateFormatter.format(binding.calendarView2.date)
+        val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        date = sdf.format(Date(binding.calendarView2.getDate()))
     }
 
     private fun setRecyclerView() {

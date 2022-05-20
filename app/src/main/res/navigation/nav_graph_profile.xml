@@ -8,17 +8,11 @@
         android:id="@+id/babysitterProfileFragment"
         android:name="com.example.babysitbook.fragments.profile.BabysitterProfileFragment"
         android:label="BabysitterProfileFragment" >
-        <action
-            android:id="@+id/action_babysitterProfileFragment_to_editBabysitterProfileFragment"
-            app:destination="@id/editBabysitterProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/parentProfileFragment"
         android:name="com.example.babysitbook.fragments.profile.ParentProfileFragment"
         android:label="ParentProfileFragment" >
-        <action
-            android:id="@+id/action_parentProfileFragment_to_editParentProfileFragment"
-            app:destination="@id/editParentProfileFragment" />
     </fragment>
     <fragment
         android:id="@+id/profileChooserFragment"
@@ -32,12 +26,4 @@
             android:id="@+id/action_profileChooserFragment_to_babysitterProfileFragment"
             app:destination="@id/babysitterProfileFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/editBabysitterProfileFragment"
-        android:name="com.example.babysitbook.fragments.profile.EditBabysitterProfileFragment"
-        android:label="editBabysitterProfileFragment" />
-    <fragment
-        android:id="@+id/editParentProfileFragment"
-        android:name="com.example.babysitbook.fragments.profile.EditParentProfileFragment"
-        android:label="editParentProfileFragment" />
 </navigation>

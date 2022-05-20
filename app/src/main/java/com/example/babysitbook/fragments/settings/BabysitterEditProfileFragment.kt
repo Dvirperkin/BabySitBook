@@ -13,9 +13,12 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import com.example.babysitbook.R
 import com.example.babysitbook.databinding.BabysitterEditProfileBinding
-import com.example.babysitbook.fragments.login.DatePickerFragment
+import com.example.babysitbook.fragments.DatePickerFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
@@ -30,6 +33,9 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
     private lateinit var profileType: Any
     private lateinit var genderChoice: Any
     private lateinit var mobilityChoice: Any
+
+    var genderMap = hashMapOf("Male" to 1, "Female" to 2)
+    var mobilityMap = hashMapOf("Yes" to 1, "No" to 2)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -86,6 +92,30 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
         binding.saveButton.setOnClickListener {
             saveUserDetails(view)
         }
+
+        getUserDetails()
+    }
+
+    private fun getUserDetails(){
+        if(auth.currentUser != null) {
+            functions.getHttpsCallable("getProfileData").call(
+                hashMapOf("email" to auth.currentUser!!.email)
+            ).continueWith { task ->
+                val res = task.result.data as HashMap<*, *>
+                if(!(res["NoUser"] as Boolean)){
+                    val name = res["displayName"].toString().split(' ')
+                    binding.firstName.setText(name[0].replaceFirstChar { it.uppercase() })
+                    binding.lastName.setText(name[1].replaceFirstChar { it.uppercase() })
+                    binding.city.setText(res["city"].toString().replaceFirstChar { it.uppercase() })
+                    binding.gender.setSelection(genderMap[res["gender"]] as Int)
+                    binding.mobility.setSelection(mobilityMap[res["mobility"]] as Int)
+                    binding.birthDate.text = res["birthdate"] as String
+                    binding.experience.setText(res["experience"] as String)
+                    binding.hourlyRate.setText(res["hourlyRate"] as String)
+                    binding.description.setText(res["description"] as String)
+                }
+            }
+        }
     }
 
     private fun saveUserDetails(view : View){
@@ -97,10 +127,29 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
                         updateNewUser()
                         view.findNavController().navigate(BabysitterEditProfileFragmentDirections.actionFirstLoginFragmentToHomeActivity2())
                     } else {
-//                        action = LoginFragmentDirections.actionLoginFragmentToHomeActivity()
+                        updateUser()
+                        Toast.makeText(requireActivity(), "Details saved!", Toast.LENGTH_LONG).show()
                     }
-                    Toast.makeText(requireActivity(), task.result.data.toString(), Toast.LENGTH_LONG).show()
                 }
+        }
+    }
+
+    private fun updateUser(){
+        if(auth.currentUser != null) {
+            functions.getHttpsCallable("updateProfileDetails").call(
+                hashMapOf(
+                    "uid" to auth.currentUser!!.uid,
+                    "displayName" to binding.firstName.text.toString().trim().lowercase() + " "
+                            + binding.lastName.text.toString().trim().lowercase(),
+                    "gender" to genderChoice.toString(),
+                    "birthdate" to binding.birthDate.text.toString(),
+                    "city" to binding.city.text.toString().trim().lowercase(),
+                    "experience" to binding.experience.text.toString().trim(),
+                    "hourlyRate" to binding.hourlyRate.text.toString().trim(),
+                    "mobility" to mobilityChoice.toString(),
+                    "description" to binding.description.text.toString().trim()
+                )
+            )
         }
     }
 
@@ -116,10 +165,11 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
                     "gender" to genderChoice.toString(),
                     "birthdate" to binding.birthDate.text.toString(),
                     "city" to binding.city.text.toString().trim().lowercase(),
-                    "experience" to binding.experience.text.trim(),
-                    "hourlyRate" to binding.hourlyRate.text.trim(),
+                    "experience" to binding.experience.text.toString().trim(),
+                    "hourlyRate" to binding.hourlyRate.text.toString().trim(),
                     "mobility" to mobilityChoice.toString(),
-                    "description" to binding.description.text.toString().trim()
+                    "description" to binding.description.text.toString().trim(),
+                    "likes" to HashMap<String, String>()
                 )
             )
         }
@@ -151,12 +201,16 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
             valid = false
         }
 
+        val chosenDate = binding.birthDate.text.toString().split("/")
+        val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).split("/")
+
         if (binding.birthDate.text.isEmpty()){
             binding.birthDate.error = "Choose birth date"
             valid = false
-        } else if(binding.birthDate.text.toString() >=
-            LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))) {
-            binding.birthDate.error = "Birth date should be earlier than today"
+        } else if(currentDate[2].toInt() - 12 < chosenDate[2].toInt() ||
+                    currentDate[1].toInt() < chosenDate[1].toInt() ||
+                    currentDate[0].toInt() < chosenDate[0].toInt()) {
+            binding.birthDate.error = "Minimum age for registration is 12"
             valid = false
         }
 
@@ -174,11 +228,18 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
     }
 
     private fun processDatePickerResult(reqKey:String, bundle: Bundle){
-        val year =  bundle["year"] as Int
-        val month = bundle["month"] as Int + 1
-        val day = bundle["day"] as Int
+        val year =  (bundle["year"] as Int).toString()
+        var month = (bundle["month"] as Int + 1).toString()
+        var day = (bundle["day"] as Int).toString()
 
-        binding.birthDate.text = getString(R.string.date, day, month, year)
+        if(month.length == 1){
+            month = "0$month"
+        }
+        if(day.length == 1){
+            day = "0$day"
+        }
+        val date = "$day/$month/$year"
+        binding.birthDate.text = date
     }
 
     private fun showDatePickerDialog(view: View){

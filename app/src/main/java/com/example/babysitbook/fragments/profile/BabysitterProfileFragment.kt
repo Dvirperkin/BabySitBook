@@ -13,6 +13,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import java.time.LocalDate
+import java.time.format.DateTimeFormatter
 
 class BabysitterProfileFragment : Fragment() {
     private lateinit var binding: BabysitterProfileBinding
@@ -34,21 +36,36 @@ class BabysitterProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.EditBabyProfileBtn.setOnClickListener { editProfile(view) }
 
-        functions.getHttpsCallable("getProfileData")
-            .call(hashMapOf(
-                "email" to auth.currentUser?.email,)
-            )
-            .continueWith{task->
+        if(auth.currentUser != null) {
+            functions.getHttpsCallable("getProfileData").call(
+                hashMapOf("email" to auth.currentUser!!.email)
+            ).continueWith { task ->
                 val res = task.result.data as HashMap<*, *>
-
-                binding.Name.text = res["displayName"].toString()
+                if (!(res["NoUser"] as Boolean)) {
+                    binding.Name.text =  res["displayName"].toString().split(' ')
+                        .joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
+                    binding.city.text = res["city"].toString().replaceFirstChar { it.uppercase() }
+                    binding.gender.text = res["gender"] as String
+                    binding.mobility.text = res["mobility"] as String
+                    binding.age.text = calculateAge(res["birthdate"] as String)
+                    binding.experience.text = res["experience"] as String
+                    binding.hourlyRate.text = res["hourlyRate"] as String
+                    binding.description.text = res["description"] as String
+                    binding.likes.text = res["likes"] as String
+                }
             }
+        }
     }
 
-     private fun editProfile(view: View) {
-        val action = BabysitterProfileFragmentDirections.actionBabysitterProfileFragmentToEditBabysitterProfileFragment()
-         findNavController().navigate(action)
+    private fun calculateAge(birthdate : String) : String{
+        val birthDate = birthdate.split("/")
+        val currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).split("/")
+        var age = currentDate[2].toInt() - birthDate[2].toInt()
+        if(birthDate[1].toInt() > currentDate[1].toInt() ||
+            birthDate[0].toInt() > currentDate[0].toInt()){
+            age -= 1
+        }
+        return age.toString()
     }
 }

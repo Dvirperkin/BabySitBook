@@ -3,44 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_navigation"
-    app:startDestination="@id/homeFragment">
+    android:label="@string/notification"
+    app:startDestination="@id/home">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/home"
         android:name="com.example.babysitbook.fragments.HomeFragment"
-        android:label="BabysitBook"
-        tools:layout="@layout/fragment_home"/>
+        android:label="@string/title_home"
+        tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/chatFragment"
+        android:id="@+id/chat"
         android:name="com.example.babysitbook.fragments.chat.ChatFragment"
         android:label="@string/title_chat"
-        tools:layout="@layout/fragment_chat"/>
-
+        tools:layout="@layout/fragment_chat" />
     <fragment
-        android:id="@+id/notificationsFragment"
+        android:id="@+id/notificationsRecyclerView"
         android:name="com.example.babysitbook.fragments.NotificationsFragment"
-        android:label="Notifications"
-        tools:layout="@layout/fragment_notifications"/>
+        android:label="@string/notification"
+        tools:layout="@layout/fragment_notifications" />
 
     <fragment
-        android:id="@+id/calendarFragment"
+        android:id="@+id/calendar"
         android:name="com.example.babysitbook.fragments.calendar.CalendarFragment"
         android:label="@string/title_calendar"
         tools:layout="@layout/fragment_calendar"/>
 
     <fragment
-        android:id="@+id/profileFragment"
+        android:id="@+id/settingsFragment"
+        android:name="com.example.babysitbook.fragments.settings.SettingsFragment"
+        android:label="Settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/profile"
         android:name="com.example.babysitbook.fragments.profile.ProfileFragment"
-        android:label="@string/title_profile"
-        tools:layout="@layout/fragment_profile">
-
-        <action
-            android:id="@+id/action_profileFragment_to_nav_graph_profile"
-            app:destination="@id/nav_graph_profile" />
-    </fragment>
-
-    <include app:graph="@navigation/nav_graph_profile" />
+        android:label="Profile"
+        tools:layout="@layout/fragment_profile"/>
 
     <fragment
         android:id="@+id/FragmentBills"
@@ -50,26 +48,8 @@
 
     <fragment
         android:id="@+id/editProfile"
-        android:name="com.example.babysitbook.fragments.settings.EditProfileFragment">
+        android:name="com.example.babysitbook.fragments.settings.EditProfileFragment"
+        android:label="Profile"
+        tools:layout="@layout/fragment_edit_profile"/>
 
-        <action
-            android:id="@+id/action_editProfileFragment_to_BabysitterEditProfileFragment"
-            app:destination="@id/BabysitterEditProfileFragment" />
-
-        <action
-            android:id="@+id/action_editProfileFragment_to_ParentEditProfileFragment"
-            app:destination="@id/ParentEditProfileFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/BabysitterEditProfileFragment"
-        android:name="com.example.babysitbook.fragments.settings.BabysitterEditProfileFragment"
-        android:label="Edit Profile"
-        tools:layout="@layout/babysitter_edit_profile"/>
-
-    <fragment
-        android:id="@+id/ParentEditProfileFragment"
-        android:name="com.example.babysitbook.fragments.settings.ParentEditProfileFragment"
-        android:label="Edit Profile"
-        tools:layout="@layout/parent_edit_profile"/>
 </navigation>

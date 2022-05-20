@@ -77,12 +77,32 @@ export const getProfileData = functions.https.onCall((async (data, context) => {
   return firestore.collection("Users").where("email", "==", data.email).get()
       .then((doc) => {
         if (!doc.empty) {
-          return {
-              "displayName": doc.docs[0].get("displayName"),
-              "email": doc.docs[0].get("email"),
-              "image": doc.docs[0].get("image"),
-              "gender": doc.docs[0].get("gender"),
-          };
+            if(doc.docs[0].get("profile") == "Babysitter"){
+              return {
+                  "displayName": doc.docs[0].get("displayName"),
+                  "image": doc.docs[0].get("image"),
+                  "gender": doc.docs[0].get("gender"),
+                  "birthdate": doc.docs[0].get("birthdate"),
+                  "city": doc.docs[0].get("city"),
+                  "experience": doc.docs[0].get("experience"),
+                  "hourlyRate": doc.docs[0].get("hourlyRate"),
+                  "mobility": doc.docs[0].get("mobility"),
+                  "description": doc.docs[0].get("description"),
+                  "likes": Object.keys(doc.docs[0].get("likes")).length.toString(),
+                  "NoUser": false
+
+              };
+            }
+            else {
+                return {
+                    "displayName": doc.docs[0].get("displayName"),
+                    "image": doc.docs[0].get("image"),
+                    "city": doc.docs[0].get("city"),
+                    "children": doc.docs[0].get("children"),
+                    "description": doc.docs[0].get("description"),
+                    "NoUser": false
+                };
+            }
         } else {
           return {
             "NoUser": true,
@@ -177,6 +197,38 @@ export const sendFriendRequest = functions.https.onCall(async (data, context) =>
         text: context.auth?.token.email + "sent you a friend request",
       });
 });
+
+export const likeFriend = functions.https.onCall(async (data, context) => {
+    if (context.auth?.uid == null) {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+    const otherUid = await getUidFromEmail(data.email);
+    let added = false
+        return firestore.collection("Users")
+            .doc(otherUid)
+            .get()
+            .then(document => {
+                if (document.exists) {
+                    let likes = new Map(Object.entries(document.get("likes")))
+                    if (!likes.has(<string>context.auth?.uid)) {
+                        likes.set(<string>context.auth?.uid, "")
+                        added = true
+                    } else {
+                        likes.delete(<string>context.auth?.uid)
+                    }
+                    firestore.collection("Users").doc(otherUid).update({"likes": Object.fromEntries(likes)})
+                    return {
+                        "added": added
+                    }
+                } else {
+                    console.log("yaniv")
+                    return
+                }
+            })
+});
+
 
 // eslint-disable-next-line max-len
 export const acceptFriendRequest = functions.https.onCall(async (data, context) => {
@@ -391,3 +443,36 @@ export const sendMessage = functions.https.onCall((data, context) => {
         "message": data.message
     })
 })
+
+export const getHourlyRate = functions.https.onCall((async (data, context) => {
+    return firestore.collection("Users").doc(data.uid).get()
+        .then((doc) => {
+            if (doc.exists) {
+                return {
+                    "hourlyRate": doc.get("hourlyRate")
+                };
+            } else {
+                return {
+                    "hourlyRate": 0
+                };
+            }
+        });
+}));
+
+export const checkLike = functions.https.onCall((async (data, context) => {
+    const otherUid = await getUidFromEmail(data.email);
+    return firestore.collection("Users").doc(otherUid).get()
+        .then((document) => {
+            if(document.exists) {
+                let likes = new Map(Object.entries(document.get("likes")))
+                return {
+                    "like": likes.has(<string>context.auth?.uid)
+                }
+            }
+            else{
+                return {
+                    "error": "No such user!"
+                }
+            }
+        });
+}));

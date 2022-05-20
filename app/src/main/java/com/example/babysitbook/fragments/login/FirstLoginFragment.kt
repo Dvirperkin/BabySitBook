@@ -80,21 +80,6 @@ class FirstLoginFragment : Fragment(), AdapterView.OnItemSelectedListener{
                 view.findNavController().navigate(FirstLoginFragmentDirections.actionFirstLoginFragmentToBabysitterEditProfileFragment())
             }
         }
-//        if(auth.currentUser != null) {
-//            functions.getHttpsCallable("updateNewUser").call(
-//                hashMapOf(
-//                    "profile" to profileChoice.toString(),
-//                    "uid" to auth.currentUser!!.uid,
-//                    "email" to auth.currentUser!!.email,
-//                    "displayName" to binding.ETFirstName.text.toString() + " " + binding.ETLastName.text.toString(),
-//                    "gender" to genderChoice.toString(),
-//                    "birthdate" to binding.Date.text
-//                )
-//            )
-//        }
-
-//        val action = FirstLoginFragmentDirections.actionFirstLoginFragmentToHomeActivity2()
-//        view.findNavController().navigate(action)
     }
 
     private fun validateForm() : Boolean{

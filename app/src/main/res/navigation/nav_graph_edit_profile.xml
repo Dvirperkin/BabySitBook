@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/nav_graph_edit_profile"
+android:label="Edit Profile"
+app:startDestination="@id/editProfile">
+
+<fragment
+    android:id="@+id/editProfile"
+    android:name="com.example.babysitbook.fragments.settings.EditProfileChooserFragment">
+
+    <action
+        android:id="@+id/action_editProfileFragment_to_BabysitterEditProfileFragment"
+        app:destination="@id/BabysitterEditProfileFragment" />
+
+    <action
+        android:id="@+id/action_editProfileFragment_to_ParentEditProfileFragment"
+        app:destination="@id/ParentEditProfileFragment" />
+</fragment>
+
+<fragment
+    android:id="@+id/BabysitterEditProfileFragment"
+    android:name="com.example.babysitbook.fragments.settings.BabysitterEditProfileFragment"
+    android:label="Edit Profile"
+    tools:layout="@layout/babysitter_edit_profile"/>
+
+<fragment
+    android:id="@+id/ParentEditProfileFragment"
+    android:name="com.example.babysitbook.fragments.settings.ParentEditProfileFragment"
+    android:label="Edit Profile"
+    tools:layout="@layout/parent_edit_profile"/>
+</navigation>

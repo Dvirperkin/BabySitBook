@@ -49,9 +49,13 @@ class OtherParentProfileFragment : Fragment() {
             .continueWith {
                 if(it.isSuccessful){
                     val res = it.result.data as HashMap<*,*>
-                    otherUser = User(res["displayName"].toString(),
-                        res["email"].toString(),
-                        res["image"].toString())
+                    if (!(res["NoUser"] as Boolean)) {
+                        binding.Name.text =  res["displayName"].toString().split(' ')
+                            .joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
+                        binding.city.text = res["city"].toString().replaceFirstChar { it.uppercase() }
+                        binding.numberOfChildren.text = res["children"] as String
+                        binding.description.text = res["description"] as String
+                    }
                 } else {
                     Toast.makeText(context, "Error: Failed to load profile", Toast.LENGTH_LONG).show()
                 }
