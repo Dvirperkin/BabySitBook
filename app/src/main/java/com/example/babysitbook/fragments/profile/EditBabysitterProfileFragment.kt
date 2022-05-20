@@ -44,7 +44,7 @@ class EditBabysitterProfileFragment : Fragment() {
             .call(hashMapOf(
                 "uid" to auth.currentUser?.uid,
                 "type" to "Babysitter",
-                "displayName" to binding.editTextNameBabysitter.text.toString() + " " + binding.editTextLastNameBabysitter.text.toString(),
+                "displayName" to binding.editTextNameBabysitter.text.toString().lowercase() + " " + binding.editTextLastNameBabysitter.text.toString().lowercase(),
             ))
             .continueWith{task->
                 if(task.isSuccessful){

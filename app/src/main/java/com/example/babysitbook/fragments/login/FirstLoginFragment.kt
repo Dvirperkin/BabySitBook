@@ -82,10 +82,13 @@ class FirstLoginFragment : Fragment(), AdapterView.OnItemSelectedListener{
                     "profile" to profileChoice.toString(),
                     "uid" to auth.currentUser!!.uid,
                     "email" to auth.currentUser!!.email,
-                    "displayName" to binding.ETFirstName.text.toString() + " " + binding.ETLastName.text.toString(),
+                    "displayName" to binding.ETFirstName.text.toString().lowercase() + " " + binding.ETLastName.text.toString().lowercase(),
                     "image" to "",
                     "gender" to genderChoice.toString(),
-                    "birthdate" to binding.Date.text
+                    "birthdate" to binding.Date.text,
+                    "city" to "N/A",
+                    "description" to "N/A",
+                    "children" to "N/A"
                 )
             )
         }

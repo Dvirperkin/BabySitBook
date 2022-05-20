@@ -3,8 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.163" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.1" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/drawable/red_border.xml" value="0.1965" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/drawable/rounded_message_gray.xml" value="0.1665" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/drawable/rounded_message_green.xml" value="0.1515" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/activity_home.xml" value="0.33" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/activity_login.xml" value="0.2337719298245614" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/babysitter_edit_profile.xml" value="0.3140625" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/babysitter_form.xml" value="0.1" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/babysitter_profile.xml" value="0.25" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/calendar_main.xml" value="0.25104166666666666" />
@@ -15,14 +21,24 @@
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/edit_parent_fragment.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/event_details.xml" value="0.1" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/first_login.xml" value="0.25104166666666666" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_add_chat.xml" value="0.259375" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_bills.xml" value="0.3914590747330961" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_calendar.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_chat.xml" value="0.25104166666666666" />
-        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_feed_post.xml" value="0.25625" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_home.xml" value="0.18620689655172415" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_other_babysitter_profile.xml" value="0.34814814814814815" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_other_parent_profile.xml" value="0.34814814814814815" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_profile.xml" value="0.33" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_profile_chooser.xml" value="0.46979166666666666" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_settings.xml" value="0.34814814814814815" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/message.xml" value="0.1" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/nav_header.xml" value="0.2337719298245614" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/notification.xml" value="0.19322916666666667" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/parent_edit_profile.xml" value="0.3140625" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/parent_form.xml" value="0.3890625" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/parent_profile.xml" value="0.22" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/post.xml" value="0.25" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/register.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/menu/nav_drawer_menu.xml" value="0.49166666666666664" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/menu/top_bar_menu.xml" value="0.49166666666666664" />
@@ -143,7 +159,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

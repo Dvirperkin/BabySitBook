@@ -42,8 +42,10 @@ class BabysitterProfileFragment : Fragment() {
             )
             .continueWith{task->
                 val res = task.result.data as HashMap<*, *>
-
-                binding.Name.text = res["displayName"].toString()
+                val firstLast =res["displayName"].toString().split(' ')
+                val displayName= firstLast.joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
+                binding.Name.text = displayName
+                binding.gender.text = res["gender"].toString()
             }
     }
 

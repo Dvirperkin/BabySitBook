@@ -16,6 +16,7 @@ import com.google.firebase.ktx.Firebase
 class ParentProfileFragment : Fragment() {
     private lateinit var binding: ParentProfileBinding
     private lateinit var functions: FirebaseFunctions
+    private lateinit var attributesFiled : Array<String>
     private lateinit var auth: FirebaseAuth
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,19 +34,34 @@ class ParentProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.EditParentProfileBtn.setOnClickListener { editProfile(view) }
+        attributesFiled = arrayOf()
 
         functions.getHttpsCallable("getProfileData")
             .call(hashMapOf(
-                "uid" to auth.currentUser?.email,)
+                "email" to auth.currentUser?.email,)
             )
             .continueWith{task->
                 val res = task.result.data as HashMap<*, *>
+                val firstLast = res["displayName"].toString().split(' ')
+                val displayName= firstLast.joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
+                binding.Name.text = displayName
+                binding.description.text = res["description"].toString()
+                binding.city.text = res["city"].toString()
+                binding.numberOfChildren.text = res["children"].toString()
+                val atterMap:HashMap<*,*> =
+                    hashMapOf(
+                        "description" to res["description"],
+                        "displayName" to displayName,
+                        "city" to res["city"],
+                        "children" to res["children"])
+                attributesFiled = attributesFiled.plus(atterMap.toString())
+                println(attributesFiled[0])
 
-                binding.Name.text = res["displayName"].toString()
+
             }
     }
     private fun editProfile(view: View) {
-        val action = ParentProfileFragmentDirections.actionParentProfileFragmentToEditParentProfileFragment()
+        val action = ParentProfileFragmentDirections.actionParentProfileFragmentToParentEditProfile(attributesFiled)
         findNavController().navigate(action)
     }
 }

@@ -18,7 +18,7 @@ class OtherParentProfileFragment : Fragment() {
     private lateinit var binding: FragmentOtherParentProfileBinding
     private lateinit var otherEmail: String
     private lateinit var otherUser: User
-
+    private lateinit var myDisplayName: String
     private var functions = Firebase.functions
     private var auth = Firebase.auth
 
@@ -28,8 +28,14 @@ class OtherParentProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         super.onCreateView(inflater, container, savedInstanceState)
-
         binding = FragmentOtherParentProfileBinding.inflate(layoutInflater)
+        functions.getHttpsCallable("getDisplayName").call()
+            .continueWith { task ->
+                val res = task.result.data as HashMap<*, *>
+                println(res["displayName"])
+                val firstLast = res["displayName"].toString().split(' ')
+                myDisplayName = firstLast.joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
+            }
 
         otherEmail = arguments?.get("otherEmail").toString()
 
@@ -46,10 +52,13 @@ class OtherParentProfileFragment : Fragment() {
 
     private fun setDetails(){
         functions.getHttpsCallable("getProfileData").call(hashMapOf("email" to otherEmail))
-            .continueWith {
-                if(it.isSuccessful){
-                    val res = it.result.data as HashMap<*,*>
-                    otherUser = User(res["displayName"].toString(),
+            .continueWith { task ->
+                if(task.isSuccessful){
+                    val res = task.result.data as HashMap<*,*>
+                    val firstLast =res["displayName"].toString().split(' ')
+                    val displayName= firstLast.joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
+                    binding.Name.text = displayName
+                    otherUser = User(displayName,
                         res["email"].toString(),
                         res["image"].toString())
                 } else {
@@ -83,7 +92,7 @@ class OtherParentProfileFragment : Fragment() {
         functions.getHttpsCallable("sendFriendRequest").call(hashMapOf(
             "uid" to auth.currentUser?.uid,
             "email" to otherUser.email,
-            "displayName" to otherUser.displayName,
+            "displayName" to myDisplayName,
             "image" to otherUser.image))
             .continueWith { task ->
                 if(task.isSuccessful){
@@ -93,12 +102,16 @@ class OtherParentProfileFragment : Fragment() {
             }
     }
 
+
     private fun deleteFriend(){
-        functions.getHttpsCallable("deleteFriend").call(hashMapOf(
-            "uid" to auth.currentUser?.uid,
-            "email" to otherEmail))
+        functions.getHttpsCallable("deleteFriend").call(
+            hashMapOf(
+                "uid" to auth.currentUser?.uid,
+                "email" to otherEmail
+            )
+        )
             .continueWith { task ->
-                if(task.isSuccessful){
+                if (task.isSuccessful) {
                     binding.ParentRelationshipBtn.text = getString(R.string.add_friend)
                     binding.ParentRelationshipBtn.setOnClickListener { sendFriendRequest() }
                 }

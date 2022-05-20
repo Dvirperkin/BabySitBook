@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.babysitbook.R
 import com.example.babysitbook.databinding.FragmentOtherBabysitterProfileBinding
+import com.example.babysitbook.model.User
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
@@ -46,7 +47,10 @@ class OtherBabysitterProfileFragment : Fragment() {
             .continueWith { task ->
                 if(task.isSuccessful){
                     val res = task.result.data as HashMap<*,*>
-                    binding.Name.text = res["displayName"].toString()
+                    val firstLast = res["displayName"].toString().split(' ')
+                    val displayName = firstLast.joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
+
+                    binding.Name.text = displayName
                     binding.Gender.text = res["Gender"].toString()
                 } else {
                     Toast.makeText(context, "Error: Failed to load profile", Toast.LENGTH_LONG).show()

@@ -53,8 +53,8 @@ class SearchProfileResultsFragment : Fragment() {
     private fun searchProfile(searchQuery : String){
         query = firestore.collection("Users")
             .orderBy("displayName")
-            .startAt(searchQuery)
-            .endAt(searchQuery + '\uf8ff')
+            .startAt(searchQuery.lowercase())
+            .endAt(searchQuery.lowercase() + '\uf8ff')
 
 
         firestore.collection("Users")
