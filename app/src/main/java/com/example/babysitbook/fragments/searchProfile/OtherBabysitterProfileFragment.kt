@@ -18,6 +18,7 @@ class OtherBabysitterProfileFragment : Fragment() {
 
     private lateinit var binding: FragmentOtherBabysitterProfileBinding
     private lateinit var otherEmail: String
+    private lateinit var myDisplayName:String
 
     private var functions = Firebase.functions
     private var auth = Firebase.auth
@@ -30,6 +31,14 @@ class OtherBabysitterProfileFragment : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         binding = FragmentOtherBabysitterProfileBinding.inflate(layoutInflater)
+        functions.getHttpsCallable("getDisplayName").call()
+            .continueWith { task ->
+                val res = task.result.data as HashMap<*, *>
+                println(res["displayName"])
+                val firstLast = res["displayName"].toString().split(' ')
+                myDisplayName = firstLast.joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
+            }
+
         otherEmail = arguments?.get("otherEmail").toString()
         return binding.root
     }
@@ -106,6 +115,7 @@ class OtherBabysitterProfileFragment : Fragment() {
         functions.getHttpsCallable("sendFriendRequest").call(
             hashMapOf(
                 "uid" to auth.currentUser?.uid,
+                "displayName" to myDisplayName,
                 "email" to otherEmail
             )
         )
