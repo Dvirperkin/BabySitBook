@@ -12,6 +12,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 
 class LoginActivity() : AppCompatActivity(){
 
@@ -19,6 +21,7 @@ class LoginActivity() : AppCompatActivity(){
     private lateinit var auth: FirebaseAuth
     private lateinit var functions: FirebaseFunctions
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var storage: FirebaseStorage
 
     companion object {
         var isEmulatorsConnected: Boolean = false
@@ -31,12 +34,14 @@ class LoginActivity() : AppCompatActivity(){
         auth = Firebase.auth
         functions = Firebase.functions
         firestore = Firebase.firestore
+        storage = Firebase.storage
 
         if(!isEmulatorsConnected) {
             isEmulatorsConnected = true
             auth.useEmulator("10.0.2.2", 9099)
             functions.useEmulator("10.0.2.2", 5001)
             firestore.useEmulator("10.0.2.2", 8080)
+            storage.useEmulator("10.0.2.2", 9199)
         }
     }
 

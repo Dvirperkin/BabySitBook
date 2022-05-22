@@ -47,8 +47,13 @@ class OtherBabysitterProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setDetails()
-        setRelationShip()
-        checkLike()
+        if(otherEmail != auth.currentUser?.email) {
+            setRelationShip()
+            checkLike()
+        } else {
+            binding.likeBtn.visibility = View.GONE
+            binding.BabysitterRelationshipBtn.visibility = View.GONE
+        }
         binding.likeBtn.setOnClickListener { likeFriend() }
     }
 
@@ -116,7 +121,7 @@ class OtherBabysitterProfileFragment : Fragment() {
             hashMapOf(
                 "uid" to auth.currentUser?.uid,
                 "displayName" to myDisplayName,
-                "email" to otherEmail
+                "email" to otherEmail,
             )
         )
             .continueWith { task ->

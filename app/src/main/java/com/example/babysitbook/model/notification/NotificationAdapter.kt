@@ -41,9 +41,21 @@ class NotificationAdapter(
 
         private fun accept(request: Notification){
             val function = Firebase.functions
-            function.getHttpsCallable("acceptFriendRequest").call(hashMapOf(
-                "email" to request.email
-            ))
+
+            if( request.title == "Friend Request") {
+                function.getHttpsCallable("acceptFriendRequest").call(
+                    hashMapOf(
+                        "email" to request.email
+                    )
+                )
+            } else if ( request.title == "Charge Request" ){
+                function.getHttpsCallable("acceptCharge").call(
+                    hashMapOf(
+                        "email" to request.email,
+                        "notificationID" to request.notificationID
+                    )
+                )
+            }
         }
 
         private fun ignore(request: Notification){

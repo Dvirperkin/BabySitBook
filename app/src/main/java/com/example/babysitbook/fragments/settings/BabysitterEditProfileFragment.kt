@@ -41,7 +41,7 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = BabysitterEditProfileBinding.inflate(inflater)
         return binding.root
     }
@@ -51,8 +51,6 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
 
         functions = Firebase.functions
         auth = Firebase.auth
-        functions.useEmulator("10.0.2.2", 5001)
-        auth.useEmulator("10.0.2.2", 9099)
 
         binding.gender.onItemSelectedListener = this
         binding.mobility.onItemSelectedListener = this
@@ -162,6 +160,7 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
                     "email" to auth.currentUser!!.email,
                     "displayName" to binding.firstName.text.toString().trim().lowercase() + " "
                                     + binding.lastName.text.toString().trim().lowercase(),
+                    "image" to "",
                     "gender" to genderChoice.toString(),
                     "birthdate" to binding.birthDate.text.toString(),
                     "city" to binding.city.text.toString().trim().lowercase(),

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_chargingFragment_to_billingHistory"
             app:destination="@id/billingHistory" />
+        <action
+            android:id="@+id/action_chargingFragment_to_chooseFromFriendsFragment"
+            app:destination="@id/chooseFromFriendsFragment" />
     </fragment>
 
     <fragment
@@ -22,6 +25,15 @@
         tools:layout="@layout/billing_history">
         <action
             android:id="@+id/action_billingHistory_to_chargingFragment"
+            app:destination="@id/chargingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseFromFriendsFragment"
+        android:name="com.example.babysitbook.fragments.charging.ChooseFromFriendsFragment"
+        android:label="ChooseFromFriendsFragment"
+        tools:layout="@layout/fragment_choose_from_friends">
+        <action
+            android:id="@+id/action_chooseFromFriendsFragment_to_chargingFragment"
             app:destination="@id/chargingFragment" />
     </fragment>
 </navigation>

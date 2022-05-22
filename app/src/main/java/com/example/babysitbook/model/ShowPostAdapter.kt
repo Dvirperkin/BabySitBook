@@ -40,7 +40,7 @@ class ShowPostAdapter(
         @SuppressLint("ResourceAsColor")
         fun bind(item : Post){
             if(item.postedKey != auth.currentUser?.uid.toString()){
-                binding.deletePostButton.visibility = View.GONE;
+                binding.deletePostButton.visibility = View.GONE
             }
             else {
                 binding.deletePostButton.setOnClickListener{ handleDelete(it,item.postID)}

@@ -26,7 +26,7 @@ class ParentEditProfileFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= ParentEditProfileBinding.inflate(inflater)
         return binding.root
     }
@@ -36,9 +36,6 @@ class ParentEditProfileFragment : Fragment() {
 
         functions = Firebase.functions
         auth = Firebase.auth
-        functions.useEmulator("10.0.2.2", 5001)
-        auth.useEmulator("10.0.2.2", 9099)
-
 
         setFragmentResultListener("passProfileType") { _:String, bundle: Bundle ->
             profileType = bundle["profileType"] as String
@@ -107,6 +104,7 @@ class ParentEditProfileFragment : Fragment() {
                     "profile" to profileType.toString(),
                     "uid" to auth.currentUser!!.uid,
                     "email" to auth.currentUser!!.email,
+                    "image" to "",
                     "displayName" to binding.firstName.text.toString().trim().lowercase() + " "
                             + binding.lastName.text.toString().trim().lowercase(),
                     "city" to binding.city.text.toString().trim().lowercase(),

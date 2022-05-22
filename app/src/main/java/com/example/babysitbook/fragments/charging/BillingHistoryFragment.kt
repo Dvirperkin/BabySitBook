@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.babysitbook.databinding.BillingHistoryBinding
-import com.example.babysitbook.databinding.FragmentBillsBinding
 
 class BillingHistoryFragment : Fragment(){
     lateinit var binding: BillingHistoryBinding

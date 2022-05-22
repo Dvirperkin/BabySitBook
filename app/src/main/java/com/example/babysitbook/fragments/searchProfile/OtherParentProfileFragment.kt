@@ -47,8 +47,12 @@ class OtherParentProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setDetails()
-        setRelationShip()
 
+        if(otherEmail != auth.currentUser?.email) {
+            setRelationShip()
+        } else {
+            binding.ParentRelationshipBtn.visibility = View.GONE
+        }
     }
 
     private fun setDetails(){

@@ -36,7 +36,6 @@ class FirstLoginFragment : Fragment(), AdapterView.OnItemSelectedListener{
         super.onViewCreated(view, savedInstanceState)
 
         binding.profileSpinner.onItemSelectedListener = this
-//        binding.genderSpinner.onItemSelectedListener = this
 
         ArrayAdapter.createFromResource(
             requireActivity(),
@@ -49,21 +48,6 @@ class FirstLoginFragment : Fragment(), AdapterView.OnItemSelectedListener{
             binding.profileSpinner.adapter = adapter
         }
 
-//        ArrayAdapter.createFromResource(
-//            requireActivity(),
-//            R.array.gender,
-//            android.R.layout.simple_spinner_item
-//        ).also { adapter ->
-//            // Specify the layout to use when the list of choices appears
-//            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//            // Apply the adapter to the spinner
-////            binding.genderSpinner.adapter = adapter
-//        }
-
-//        binding.Date.setOnClickListener { showDatePickerDialog(view) }
-//        setFragmentResultListener("onDateSet") { reqKey:String, bundle: Bundle ->
-//            processDatePickerResult(reqKey, bundle)
-//        }
         binding.submitBtn.setOnClickListener { submit(view) }
 
     }
@@ -89,43 +73,16 @@ class FirstLoginFragment : Fragment(), AdapterView.OnItemSelectedListener{
             Toast.makeText(requireActivity(), "Choose one of the options", Toast.LENGTH_LONG).show()
             valid = false
         }
-//        if (genderChoice.toString() == "None"){
-//            (binding.genderSpinner.selectedView as TextView).error = ""
-//            Toast.makeText(requireActivity(), "Choose a gender", Toast.LENGTH_LONG).show()
-//            valid = false
-//        }
-//        if (binding.ETFirstName.text.isEmpty()){
-//            binding.ETFirstName.error = "Enter first name"
-//            valid = false
-//        }
-//        if (binding.ETLastName.text.isEmpty()){
-//            binding.ETLastName.error = "Enter last name"
-//            valid = false
-//        }
 
         return valid
     }
 
-//    fun processDatePickerResult(reqKey:String, bundle: Bundle){
-//
-//        val year =  bundle["year"] as Int
-//        val month = bundle["month"] as Int + 1
-//        val day = bundle["day"] as Int
-//
-//        binding.Date.text = getString(R.string.date, day, month, year)
-//    }
-
-//    private fun showDatePickerDialog(view: View){
-//        val datePickerFragment = DatePickerFragment()
-//        datePickerFragment.show(parentFragmentManager, "datePicker")
-//    }
 
     override fun onItemSelected(parent: AdapterView<*>, view: View?, pos: Int, id: Long) {
         // An item was selected.
 
         when(parent.id){
             binding.profileSpinner.id -> { profileChoice = parent.getItemAtPosition(pos) }
-//            binding.genderSpinner.id -> { genderChoice = parent.getItemAtPosition(pos) }
         }
     }
 

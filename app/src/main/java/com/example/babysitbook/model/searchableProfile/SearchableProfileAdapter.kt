@@ -12,6 +12,7 @@ import com.example.babysitbook.fragments.searchProfile.SearchProfileResultsFragm
 import com.example.babysitbook.model.User
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase

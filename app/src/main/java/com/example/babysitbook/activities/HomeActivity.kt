@@ -6,8 +6,8 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
-import android.widget.SearchView
 import android.view.MenuItem
+import android.widget.SearchView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -21,10 +21,6 @@ import com.example.babysitbook.databinding.ActivityHomeBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.functions.FirebaseFunctions
-import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 
 class HomeActivity : AppCompatActivity() {
@@ -55,11 +51,6 @@ class HomeActivity : AppCompatActivity() {
         navController = (supportFragmentManager.findFragmentById(R.id.host_fragment) as NavHostFragment).navController
         binding.bottomNavigation.setupWithNavController(navController)
 
-        //navigation UP button
-
-        //appBarConfiguration = AppBarConfiguration(setOf(R.id.home, R.id.chat, R.id.notificationsRecyclerView, R.id.calendar, R.id.profile), binding.drawerLayout)
-        //NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration)
-
         appBarConfiguration = AppBarConfiguration(navController.graph, binding.drawerLayout)
         NavigationUI.setupActionBarWithNavController(this, navController, binding.drawerLayout)
 
@@ -70,13 +61,6 @@ class HomeActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         return NavigationUI.navigateUp(navController, appBarConfiguration)
     }
-
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if(toggle.onOptionsItemSelected(item)){
-//            return true
-//        }
-//        return super.onOptionsItemSelected(item)
-//    }
 
     fun logout(item: MenuItem) {
         auth.signOut()

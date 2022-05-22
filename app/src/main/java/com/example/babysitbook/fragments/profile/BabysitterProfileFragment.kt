@@ -1,18 +1,20 @@
 package com.example.babysitbook.fragments.profile
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.addCallback
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.example.babysitbook.databinding.BabysitterProfileBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -20,6 +22,15 @@ class BabysitterProfileFragment : Fragment() {
     private lateinit var binding: BabysitterProfileBinding
     private lateinit var functions: FirebaseFunctions
     private lateinit var auth: FirebaseAuth
+    private lateinit var storage: FirebaseStorage
+
+    private val getProfileImage = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        if (uri != null) {
+            binding.profilePicture.setImageURI(uri)
+            uploadImage(uri)
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,6 +40,7 @@ class BabysitterProfileFragment : Fragment() {
         binding = BabysitterProfileBinding.inflate(inflater)
 
         functions = Firebase.functions
+        storage = Firebase.storage
         auth = Firebase.auth
 
         return binding.root
@@ -55,6 +67,9 @@ class BabysitterProfileFragment : Fragment() {
                     binding.likes.text = res["likes"] as String
                 }
             }
+            binding.profilePicture.setOnClickListener {
+                chooseProfileImage()
+            }
         }
     }
 
@@ -67,5 +82,16 @@ class BabysitterProfileFragment : Fragment() {
             age -= 1
         }
         return age.toString()
+    }
+
+    private fun chooseProfileImage(){
+
+        getProfileImage.launch("image/*")
+    }
+
+    private fun uploadImage(uri: Uri){
+        val storageRef = storage.reference
+        val profileImageRef = storageRef.child(auth.currentUser!!.uid + "/profileImage.jpg")
+        profileImageRef.putFile(uri)
     }
 }

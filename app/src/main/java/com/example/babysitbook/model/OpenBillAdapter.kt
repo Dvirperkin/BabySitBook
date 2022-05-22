@@ -41,7 +41,7 @@ class OpenBillAdapter (
             binding.date.text = item.date
             binding.time.text = item.time
             binding.totalSum.text = item.totalSum
-            binding.user.text = item.user
+            binding.user.text = item.emailToCharge
 
             functions = Firebase.functions
             auth = Firebase.auth

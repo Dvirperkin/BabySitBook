@@ -290,7 +290,8 @@ export const acceptFriendRequest = functions.https.onCall(async (data, context) 
   await firestore.collection("Users")
       .doc(myUid)
       .collection("Notifications")
-      .where("email", "==", data.email).get()
+      .where("email", "==", data.email)
+      .where("title", "==", "Friend Request").get()
       .then((doc) => {
         firestore.collection("Users")
             .doc(myUid)
@@ -388,7 +389,7 @@ export const isEventTitleExists = functions.https.onCall((async (data, context) 
       .collection("events").doc(eventId).get()
       .then((doc) => {
         if (doc.exists) {
-            
+
             doc.get("likes").has()
           return {
             "isEventTitleExists": true,
@@ -406,6 +407,7 @@ export const deleteEvent = functions.https.onCall((async (data, context) => {
   await firestore.collection("calendar").doc(data.uid)
       .collection("events").doc(eventId).delete();
 }));
+
 export const deletePost = functions.https.onCall((async (data, context) => {
     if (context.auth?.uid != null) {
         await firestore.collection("Post").doc(data.postID).delete();
@@ -413,10 +415,75 @@ export const deletePost = functions.https.onCall((async (data, context) => {
 }));
 
 export const charge = functions.https.onCall((async (data, context) => {
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+
+
   const date = data.date.replace(/\//gi, "");
   await firestore.collection("bills")
       .doc(data.uid + date + data.startTime).set(data);
+
+    const otherUid = await getUidFromEmail(data.emailToCharge);
+    const myData = await getUidData(myUid);
+
+    return firestore.collection("Users").doc(otherUid)
+        .collection("Notifications").add({
+            email: context.auth?.token.email,
+            text: myData?.displayName + " has charged you for " + data.totalSum,
+            title: "Charge Request",
+            notificationID: ""
+        }).then(doc => {
+            doc.update({"chargeID": doc.id})
+        });
 }));
+
+export const acceptCharge = functions.https.onCall(async (data, context) => {
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+
+
+    //const otherUid = await getUidFromEmail(data.email);
+
+    // const myData = await getUidData(myUid);
+
+    // const otherData = await getUidData(otherUid);
+
+
+
+
+
+
+
+
+
+
+
+
+    await firestore.collection("Users")
+        .doc(myUid)
+        .collection("Notifications")
+        .where("notificationID", "==", data.notificationID)
+        .get()
+        .then((doc) => {
+            firestore.collection("Users")
+                .doc(myUid)
+                .collection("Notifications")
+                .doc(doc.docs[0].id).delete();
+        });
+    return;
+})
 
 export const deleteBill = functions.https.onCall((async (data, context) => {
     const date = data.date.replace(/\//gi, "");

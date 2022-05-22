@@ -1,19 +1,22 @@
 package com.example.babysitbook.fragments.charging
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.babysitbook.R
 import com.example.babysitbook.databinding.ChargingFragmentBinding
 import com.example.babysitbook.fragments.DatePickerFragment
 import com.example.babysitbook.fragments.TimePickerFragment
-import com.example.babysitbook.model.*
+import com.example.babysitbook.model.OpenBill
+import com.example.babysitbook.model.OpenBillAdapter
+import com.example.babysitbook.model.TimeAsString
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -39,6 +42,8 @@ class ChargingFragment : Fragment() {
     private var endTimeMinute = 0
     private var hours = 0
     private var minutes = 0.0f
+
+    private var contactToCharge: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -100,6 +105,8 @@ class ChargingFragment : Fragment() {
             calculateTotalSum()
         }
 
+        binding.chooseUser.setOnClickListener { setUserToCharge() }
+
         binding.chargeButton.setOnClickListener{
             charge()
             resetForm()
@@ -115,16 +122,28 @@ class ChargingFragment : Fragment() {
             val action = ChargingFragmentDirections.actionChargingFragmentToBillingHistory()
             findNavController().navigate(action)
         }
+
+        setFragmentResultListener("contactToCharge") { _:String, bundle: Bundle ->
+            contactToCharge = bundle["chargeEmail"].toString()
+            binding.chooseUser.text = bundle["chargeName"].toString()
+        }
+    }
+
+    private fun setUserToCharge() {
+        val action = ChargingFragmentDirections.actionChargingFragmentToChooseFromFriendsFragment()
+        findNavController().navigate(action)
     }
 
     override fun onPause() {
         super.onPause()
         adapter.stopListening()
+        binding.openBillingRecyclerView.recycledViewPool.clear()
     }
 
     override fun onResume() {
         super.onResume()
         adapter.startListening()
+
     }
 
     private fun showDatePickerDialog(view: View){
@@ -183,14 +202,13 @@ class ChargingFragment : Fragment() {
                         "time" to hours.toString() + ":" + (minutes * 60).toInt().toString(),
                         "totalSum" to binding.totalSum.text.toString(),
                         "isOpen" to true,
-                        "isPaid" to false
-                        //"user" to binding.totalSum.text.toString() todo: add user to charge
+                        "isPaid" to false,
+                        "emailToCharge" to contactToCharge,
                     )
                 )
             }
-        }
-        else{
-            createToast("All time fields are required!")
+        } else {
+            createToast("All fields are required!")
         }
     }
 
@@ -198,8 +216,8 @@ class ChargingFragment : Fragment() {
         return binding.Date.text != "" &&
                 binding.startTime.text != "" &&
                 binding.endTime.text != "" &&
-                binding.totalSum.text.toString() != "" //&&
-                //binding.chooseUser.text != ""
+                binding.totalSum.text.toString() != "" &&
+                contactToCharge != ""
     }
 
     private fun resetForm(){
@@ -235,7 +253,6 @@ class ChargingFragment : Fragment() {
             .build()
         adapter = OpenBillAdapter(options)
         manager = LinearLayoutManager(context)
-        manager.stackFromEnd = false
 
         binding.openBillingRecyclerView.layoutManager = manager
         binding.openBillingRecyclerView.adapter = adapter

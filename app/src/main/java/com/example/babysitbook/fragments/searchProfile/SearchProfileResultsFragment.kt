@@ -10,6 +10,8 @@ import com.example.babysitbook.databinding.FragmentSearchProfileResultsBinding
 import com.example.babysitbook.model.searchableProfile.SearchableProfileAdapter
 import com.example.babysitbook.model.User
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.firestore
@@ -20,6 +22,7 @@ class SearchProfileResultsFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchProfileResultsBinding
     private lateinit var firestore: FirebaseFirestore
+    private lateinit var auth: FirebaseAuth
     private lateinit var searchQuery: String
 
 
@@ -40,6 +43,7 @@ class SearchProfileResultsFragment : Fragment() {
         searchQuery = arguments?.get("query").toString()
 
         firestore = Firebase.firestore
+        auth = Firebase.auth
 
         return binding.root
     }

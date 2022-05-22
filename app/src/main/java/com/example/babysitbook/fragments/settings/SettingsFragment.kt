@@ -13,7 +13,7 @@ class SettingsFragment : Fragment(){
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding= FragmentSettingsBinding.inflate(inflater)
         return binding.root
     }
