@@ -211,6 +211,7 @@ export const sendFriendRequest = functions.https.onCall(async (data, context) =>
           "relation": "pending",
         });
   }
+
   return firestore.collection("Users").doc(otherUid)
       .collection("Notifications").add({
           email: context.auth?.token.email,
@@ -424,10 +425,7 @@ export const charge = functions.https.onCall((async (data, context) => {
         };
     }
 
-
-  const date = data.date.replace(/\//gi, "");
-  await firestore.collection("bills")
-      .doc(data.uid + date + data.startTime).set(data);
+  await firestore.collection("OpenBills").add(data);
 
     const otherUid = await getUidFromEmail(data.emailToCharge);
     const myData = await getUidData(myUid);
@@ -453,23 +451,31 @@ export const acceptCharge = functions.https.onCall(async (data, context) => {
         };
     }
 
+    const otherUid = await getUidFromEmail(data.email);
 
-    //const otherUid = await getUidFromEmail(data.email);
-
-    // const myData = await getUidData(myUid);
+    const myData = await getUidData(myUid);
+    console.log(data.email)
+    console.log(myData?.email)
 
     // const otherData = await getUidData(otherUid);
 
-
-
-
-
-
-
-
-
-
-
+    await firestore.collection("OpenBills")
+        .where("uid", "==", otherUid)
+        .where("emailToCharge", "==", myData?.email)
+        .get()
+        .then((doc) => {
+            firestore.collection("ClosedBills").add({
+                "uid": doc.docs[0].get("uid"),
+                "date": doc.docs[0].get("date"),
+                "time": doc.docs[0].get("time"),
+                "totalSum": doc.docs[0].get("totalSum"),
+                "emailToCharge": doc.docs[0].get("emailToCharge"),
+                "paid": true
+            })
+            firestore.collection("OpenBills")
+                .doc(doc.docs[0].id)
+                .delete()
+        });
 
     await firestore.collection("Users")
         .doc(myUid)
@@ -485,11 +491,55 @@ export const acceptCharge = functions.https.onCall(async (data, context) => {
     return;
 })
 
-export const deleteBill = functions.https.onCall((async (data, context) => {
-    const date = data.date.replace(/\//gi, "");
-    await firestore.collection("bills")
-      .doc(data.uid + date + data.startTime).delete();
-}));
+export const ignoreCharge = functions.https.onCall(async (data, context) => {
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+
+    const otherUid = await getUidFromEmail(data.email);
+
+    const myData = await getUidData(myUid);
+    console.log(data.email)
+    console.log(myData?.email)
+
+    // const otherData = await getUidData(otherUid);
+
+    await firestore.collection("OpenBills")
+        .where("uid", "==", otherUid)
+        .where("emailToCharge", "==", myData?.email)
+        .get()
+        .then((doc) => {
+            firestore.collection("ClosedBills").add({
+                "uid": doc.docs[0].get("uid"),
+                "date": doc.docs[0].get("date"),
+                "time": doc.docs[0].get("time"),
+                "totalSum": doc.docs[0].get("totalSum"),
+                "emailToCharge": doc.docs[0].get("emailToCharge"),
+                "paid": false
+            })
+            firestore.collection("OpenBills")
+                .doc(doc.docs[0].id)
+                .delete()
+        });
+
+    await firestore.collection("Users")
+        .doc(myUid)
+        .collection("Notifications")
+        .where("notificationID", "==", data.notificationID)
+        .get()
+        .then((doc) => {
+            firestore.collection("Users")
+                .doc(myUid)
+                .collection("Notifications")
+                .doc(doc.docs[0].id).delete();
+        });
+    return;
+})
 
 export const createNewChat = functions.https.onCall(async (data, context) => {
     let myUid: string;
@@ -534,6 +584,7 @@ export const createNewChat = functions.https.onCall(async (data, context) => {
         "chatKey": docRef.id
     };
 })
+
 export const getChatKey = functions.https.onCall(async (data, context) => {
     let myUid: string;
     if (context.auth?.uid != null) {
@@ -561,6 +612,7 @@ export const getChatKey = functions.https.onCall(async (data, context) => {
             }
         });
 });
+
 export const sendMessage = functions.https.onCall((data, context) => {
     console.log("hey from sendMessage")
 
@@ -571,7 +623,6 @@ export const sendMessage = functions.https.onCall((data, context) => {
         "sender":  context.auth?.uid
     })
 })
-
 
 export const getHourlyRate = functions.https.onCall((async (data, context) => {
   return firestore.collection("Users").doc(data.uid).get()

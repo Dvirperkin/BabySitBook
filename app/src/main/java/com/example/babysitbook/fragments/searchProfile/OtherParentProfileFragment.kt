@@ -109,9 +109,8 @@ class OtherParentProfileFragment : Fragment() {
     private fun sendFriendRequest(){
         functions.getHttpsCallable("sendFriendRequest").call(hashMapOf(
             "uid" to auth.currentUser?.uid,
-            "email" to otherUser.email,
-            "displayName" to myDisplayName,
-            "image" to otherUser.image))
+            "email" to otherEmail,
+            "displayName" to myDisplayName,))
             .continueWith { task ->
                 if(task.isSuccessful){
                     binding.ParentRelationshipBtn.text = getString(R.string.pending)

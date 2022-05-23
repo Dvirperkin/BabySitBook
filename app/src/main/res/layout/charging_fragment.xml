@@ -9,6 +9,18 @@
         android:background="@drawable/deck_background">
 
         <TextView
+            android:id="@+id/choose_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:hint="@string/choose_user_to_charge"
+            android:minHeight="48dp"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <TextView
             android:id="@+id/Date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -71,18 +83,6 @@
             android:text=""
             android:autofillHints="Total Sum"
             android:textAlignment="center"/>
-
-        <TextView
-            android:id="@+id/choose_user"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:hint="@string/choose_user_to_charge"
-            android:minHeight="48dp"
-            android:textSize="20sp"
-            android:textAlignment="center"
-            android:layout_gravity="center"
-            android:gravity="center"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

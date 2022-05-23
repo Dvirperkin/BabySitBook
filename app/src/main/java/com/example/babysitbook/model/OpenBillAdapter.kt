@@ -18,9 +18,6 @@ class OpenBillAdapter (
     private val options: FirestoreRecyclerOptions<OpenBill>
 ): FirestoreRecyclerAdapter<OpenBill, RecyclerView.ViewHolder>(options){
 
-    private lateinit var functions: FirebaseFunctions
-    private lateinit var auth: FirebaseAuth
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.open_billing_request, parent, false)
@@ -42,21 +39,6 @@ class OpenBillAdapter (
             binding.time.text = item.time
             binding.totalSum.text = item.totalSum
             binding.user.text = item.emailToCharge
-
-            functions = Firebase.functions
-            auth = Firebase.auth
-
-            binding.deleteButton.setOnClickListener{
-                if (auth.currentUser != null) {
-                    functions.getHttpsCallable("deleteBill").call(
-                        hashMapOf(
-                            "uid" to auth.currentUser!!.uid,
-                            "startTime" to item.startTime,
-                            "date" to item.date
-                        )
-                    )
-                }
-            }
         }
     }
 

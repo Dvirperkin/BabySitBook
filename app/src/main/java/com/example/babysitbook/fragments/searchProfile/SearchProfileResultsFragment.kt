@@ -79,6 +79,5 @@ class SearchProfileResultsFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        adapter.stopListening()
     }
 }

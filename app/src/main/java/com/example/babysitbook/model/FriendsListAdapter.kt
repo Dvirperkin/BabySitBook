@@ -39,7 +39,8 @@ class FriendsListAdapter (
 
     inner class FriendViewHolder(private val binding: ContactBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item : User){
-            binding.contactName.text = item.displayName
+            binding.contactName.text = item.displayName.split(' ')
+                .joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
 
             val storageRef = Firebase.storage.reference
             val profileImageRef = storageRef.child("profileImages/" + item.email + ".jpg")

@@ -153,9 +153,14 @@
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/activity_searchable.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/babysitter_edit_profile.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/babysitter_profile.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/billing_history.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/charging_chooser.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/charging_fragment.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_contacts.xml" value="0.16203703703703703" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_messages.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/closed_billing_request.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/edit_babysitter_fragment.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_bills.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_chat.xml" value="0.1" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_edit_profile.xml" value="0.26328125" />
@@ -167,6 +172,7 @@
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/nav_header.xml" value="0.17552083333333332" />
+        <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/open_billing_request.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/parent_edit_profile.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/parent_profile.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/register.xml" value="0.20675105485232068" />

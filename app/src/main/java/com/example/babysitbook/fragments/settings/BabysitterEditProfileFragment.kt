@@ -207,8 +207,11 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
             binding.birthDate.error = "Choose birth date"
             valid = false
         } else if(currentDate[2].toInt() - 12 < chosenDate[2].toInt() ||
-                    currentDate[1].toInt() < chosenDate[1].toInt() ||
-                    currentDate[0].toInt() < chosenDate[0].toInt()) {
+                (currentDate[2].toInt() - 12 == chosenDate[2].toInt() &&
+                currentDate[1].toInt() < chosenDate[1].toInt()) ||
+                (currentDate[2].toInt() - 12 == chosenDate[2].toInt() &&
+                currentDate[1].toInt() == chosenDate[1].toInt() &&
+                currentDate[0].toInt() < chosenDate[0].toInt())) {
             binding.birthDate.error = "Minimum age for registration is 12"
             valid = false
         }
