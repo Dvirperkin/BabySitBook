@@ -1,5 +1,6 @@
 package com.example.babysitbook.fragments.profile
 
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.ktx.storage
+import java.io.File
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -70,6 +72,15 @@ class BabysitterProfileFragment : Fragment() {
             binding.profilePicture.setOnClickListener {
                 chooseProfileImage()
             }
+
+            val storageRef = storage.reference
+            val profileImageRef = storageRef.child("profileImages/" + auth.currentUser!!.email + ".jpg")
+            val localFile: File = File.createTempFile("tempFile", ".jpg")
+
+            profileImageRef.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                binding.profilePicture.setImageBitmap(bitmap)
+            }
         }
     }
 
@@ -91,7 +102,7 @@ class BabysitterProfileFragment : Fragment() {
 
     private fun uploadImage(uri: Uri){
         val storageRef = storage.reference
-        val profileImageRef = storageRef.child(auth.currentUser!!.uid + "/profileImage.jpg")
+        val profileImageRef = storageRef.child("profileImages/" + auth.currentUser!!.email + ".jpg")
         profileImageRef.putFile(uri)
     }
 }

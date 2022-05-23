@@ -1,5 +1,6 @@
 package com.example.babysitbook.fragments.searchProfile
 
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,8 @@ import com.example.babysitbook.databinding.FragmentOtherBabysitterProfileBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.File
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -54,6 +57,17 @@ class OtherBabysitterProfileFragment : Fragment() {
             binding.likeBtn.visibility = View.GONE
             binding.BabysitterRelationshipBtn.visibility = View.GONE
         }
+
+        val storageRef = Firebase.storage.reference
+        val profileImageRef = storageRef.child("profileImages/$otherEmail.jpg")
+        val localFile: File = File.createTempFile("tempFile", ".jpg")
+
+        profileImageRef.getFile(localFile).addOnSuccessListener {
+            val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+            binding.profilePicture.setImageBitmap(bitmap)
+        }
+
+
         binding.likeBtn.setOnClickListener { likeFriend() }
     }
 

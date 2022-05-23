@@ -1,6 +1,7 @@
 package com.example.babysitbook.model
 
 import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.File
 
 class ShowPostAdapter(
     options: FirestoreRecyclerOptions<Post>
@@ -50,6 +53,15 @@ class ShowPostAdapter(
             binding.postUsername.text = item.displayName
             binding.postContent.text = item.postContent.trim()
             binding.postDate.text = item.date;
+
+            val storageRef = Firebase.storage.reference
+            val profileImageRef = storageRef.child("profileImages/" + item.email + ".jpg")
+            val localFile: File = File.createTempFile("tempFile", ".jpg")
+
+            profileImageRef.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                binding.contactImage.setImageBitmap(bitmap)
+            }
         }
 
         private fun handleDelete(it: View?,post_id: String) {
