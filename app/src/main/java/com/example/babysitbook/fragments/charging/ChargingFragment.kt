@@ -1,12 +1,10 @@
 package com.example.babysitbook.fragments.charging
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
@@ -119,13 +117,14 @@ class ChargingFragment : Fragment() {
         setRecyclerView()
 
         binding.historyButton.setOnClickListener{
-            val action = ChargingFragmentDirections.actionChargingFragmentToBillingHistory()
+            val action = ChargingFragmentDirections.actionChargingFragmentToBillingHistory(true)
             findNavController().navigate(action)
         }
 
         setFragmentResultListener("contactToCharge") { _:String, bundle: Bundle ->
             contactToCharge = bundle["chargeEmail"].toString()
-            binding.chooseUser.text = bundle["chargeName"].toString()
+            binding.chooseUser.text = bundle["chargeName"].toString().split(' ')
+                .joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
         }
     }
 
@@ -136,7 +135,6 @@ class ChargingFragment : Fragment() {
 
     override fun onPause() {
         super.onPause()
-        adapter.stopListening()
         binding.openBillingRecyclerView.recycledViewPool.clear()
     }
 
@@ -198,11 +196,8 @@ class ChargingFragment : Fragment() {
                     hashMapOf(
                         "uid" to auth.currentUser!!.uid,
                         "date" to binding.Date.text.toString(),
-                        "startTime" to binding.startTime.text.toString(),
-                        "time" to hours.toString() + ":" + (minutes * 60).toInt().toString(),
+                        "time" to kotlin.math.abs(hours).toString() + ":" + kotlin.math.abs((minutes * 60).toInt()).toString(),
                         "totalSum" to binding.totalSum.text.toString(),
-                        "isOpen" to true,
-                        "isPaid" to false,
                         "emailToCharge" to contactToCharge,
                     )
                 )
@@ -244,9 +239,9 @@ class ChargingFragment : Fragment() {
     }
 
     private fun setRecyclerView() {
-        query = firestore.collection("bills")
+        query = firestore.collection("OpenBills")
             .whereEqualTo("uid", auth.currentUser!!.uid)
-            .whereEqualTo("isOpen", true).orderBy("date")
+            .orderBy("date")
 
         val options = FirestoreRecyclerOptions.Builder<OpenBill>()
             .setQuery(query, OpenBill::class.java)

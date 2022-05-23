@@ -3,7 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph_bills"
-    app:startDestination="@id/chargingFragment">
+    app:startDestination="@id/chargingChooser">
+
+    <fragment
+        android:id="@+id/chargingChooser"
+        android:name="com.example.babysitbook.fragments.charging.ChargingChooser">
+        <action
+            android:id="@+id/action_chargingChooser_to_chargingFragment"
+            app:destination="@id/chargingFragment" />
+        <action
+            android:id="@+id/action_chargingChooser_to_billingHistory"
+            app:destination="@id/billingHistory" />
+    </fragment>
 
     <fragment
         android:id="@+id/chargingFragment"
@@ -26,6 +37,9 @@
         <action
             android:id="@+id/action_billingHistory_to_chargingFragment"
             app:destination="@id/chargingFragment" />
+        <argument
+            android:name="isBabysitter"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/chooseFromFriendsFragment"

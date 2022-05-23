@@ -35,7 +35,8 @@ class FriendsListAdapter (
 
     inner class FriendViewHolder(private val binding: ContactBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item : User){
-            binding.contactName.text = item.displayName
+            binding.contactName.text = item.displayName.split(' ')
+                .joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
 
             binding.contact.setOnClickListener { view ->
                 fragment.setFragmentResult("contactToCharge", bundleOf(
