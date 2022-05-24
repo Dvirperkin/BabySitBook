@@ -48,6 +48,7 @@ class ChatContactAdapter (
                 val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                 binding.contactImage.setImageBitmap(bitmap)
             }
+            binding.lastmessage.text = item.lastMessage
 
             binding.contact.setOnClickListener {
                 Firebase.functions.getHttpsCallable("getChatKey").call(

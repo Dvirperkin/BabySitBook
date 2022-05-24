@@ -52,6 +52,11 @@
                 android:textStyle="bold"
                 android:text="@string/contact_name" />
 
+            <TextView
+                android:id="@+id/lastmessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 </LinearLayout>
 </layout>

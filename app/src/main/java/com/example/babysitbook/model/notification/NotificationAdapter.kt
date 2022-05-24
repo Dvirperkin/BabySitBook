@@ -2,6 +2,7 @@ package com.example.babysitbook.model.notification
 
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.babysitbook.R
@@ -45,9 +46,13 @@ class NotificationAdapter(
                 val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                 binding.contactImage.setImageBitmap(bitmap)
             }
-
-            binding.acceptBtn.setOnClickListener { accept(item) }
-            binding.ignoreBtn.setOnClickListener { ignore(item) }
+            if(item.title == "Friend Request" || item.title == "Charge Request"){
+                binding.acceptBtn.setOnClickListener { accept(item) }
+                binding.ignoreBtn.setOnClickListener { ignore(item) }
+            }else{
+                binding.acceptBtn.visibility = View.GONE
+                binding.ignoreBtn.visibility = View.GONE
+            }
         }
 
         private fun accept(request: Notification){

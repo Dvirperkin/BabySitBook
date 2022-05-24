@@ -16,6 +16,7 @@
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/calendar_main.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_contacts.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_messages.xml" value="0.25104166666666666" />
+        <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/contact.xml" value="0.42592592592592593" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/edit_babysitter_fragment.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/edit_event.xml" value="0.25104166666666666" />
         <entry key="..\:/Users/USER/Documents/GitHub/BabySitBook/app/src/main/res/layout/edit_parent_fragment.xml" value="0.25104166666666666" />
@@ -94,7 +95,6 @@
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/babysitter_edit_profile.xml" value="0.296875" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/babysitter_form.xml" value="0.190625" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/babysitter_profile.xml" value="0.5145599842968755" />
-        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/billing_history.xml" value="0.2410623084780388" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/charging_fragment.xml" value="0.38399998828125037" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_contacts.xml" value="0.19199999414062519" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_messages.xml" value="0.38399998828125037" />
@@ -102,7 +102,6 @@
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/contact.xml" value="0.19199999414062519" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/edit_babysitter_fragment.xml" value="0.3458333333333333" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/edit_parent_fragment.xml" value="0.3458333333333333" />
-        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/event.xml" value="0.2410623084780388" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_add_chat.xml" value="0.1" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_calendar.xml" value="0.38399998828125037" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_chat.xml" value="0.19199999414062519" />
@@ -118,7 +117,6 @@
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/message.xml" value="0.25343999226562525" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/nav_header.xml" value="0.2015625" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/notification.xml" value="0.16895999484375016" />
-        <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/open_billing_request.xml" value="0.2410623084780388" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/parent_form.xml" value="0.1" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/parent_profile.xml" value="0.25343999226562525" />
         <entry key="..\:/Users/dvirp/OneDrive - edu.hac.ac.il/Documents/GitHub/BabySitBook/app/src/main/res/layout/post.xml" value="0.25677083333333334" />
@@ -153,14 +151,9 @@
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/activity_searchable.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/babysitter_edit_profile.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/babysitter_profile.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/billing_history.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/charging_chooser.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/charging_fragment.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_contacts.xml" value="0.16203703703703703" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/chat_messages.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/closed_billing_request.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/edit_babysitter_fragment.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_bills.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_calendar.xml" value="0.1" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_chat.xml" value="0.1" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_edit_profile.xml" value="0.26328125" />
@@ -172,7 +165,6 @@
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_profile.xml" value="0.1" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/fragment_settings.xml" value="0.1" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/nav_header.xml" value="0.17552083333333332" />
-        <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/open_billing_request.xml" value="0.16666666666666666" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/parent_edit_profile.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/parent_profile.xml" value="0.17552083333333332" />
         <entry key="..\:/Users/leele/Documents/GitHub/BabySitBook/app/src/main/res/layout/register.xml" value="0.20675105485232068" />
@@ -184,7 +176,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_16_PREVIEW" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

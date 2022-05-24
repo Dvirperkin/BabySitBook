@@ -58,6 +58,7 @@ export const isNewUser = functions.https.onCall((async (data, context) => {
         }
       });
 }));
+
 export const isBabysitter = functions.https.onCall((async (data, context) => {
   return firestore.collection("Users").doc(data.uid).get()
       .then((doc) => {
@@ -73,6 +74,7 @@ export const isBabysitter = functions.https.onCall((async (data, context) => {
         }
       });
 }));
+
 export const getProfileData = functions.https.onCall((async (data, context) => {
   return firestore.collection("Users").where("email", "==", data.email).get()
       .then((doc) => {
@@ -111,6 +113,7 @@ export const getProfileData = functions.https.onCall((async (data, context) => {
         }
       });
 }));
+
 export const getDisplayName = functions.https.onCall((async (data, context) => {
     if (context.auth?.uid == undefined) {
         return {
@@ -131,6 +134,7 @@ export const getDisplayName = functions.https.onCall((async (data, context) => {
             }
         });
 }));
+
 export const updateProfileDetails = functions.https.onCall((async (data, context) => {
     return firestore.collection("Users").doc(data.uid).get()
       .then((doc) => {
@@ -158,7 +162,7 @@ export const otherUserType = functions.https.onCall( (data, context) => {
           "profile": "None"};
       });
 });
-// eslint-disable-next-line max-len
+
 export const checkRelationShip = functions.https.onCall(async (data, context) => {
   const userUid = context.auth?.uid;
   const otherUid = await getUidFromEmail(data.email);
@@ -199,7 +203,6 @@ export const checkRelationShip = functions.https.onCall(async (data, context) =>
       );
 });
 
-// eslint-disable-next-line max-len
 export const sendFriendRequest = functions.https.onCall(async (data, context) => {
   const otherUid = await getUidFromEmail(data.email);
 
@@ -226,6 +229,17 @@ export const likeFriend = functions.https.onCall(async (data, context) => {
             "error": "You don't have permission to access this service",
         };
     }
+    let myDisplayName = await firestore.collection("Users")
+        .doc(context.auth?.uid)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                return doc.get("displayName").toString()
+            } else {
+                return "none"
+            }
+        })
+
     const otherUid = await getUidFromEmail(data.email);
     let added = false
         return firestore.collection("Users")
@@ -237,6 +251,14 @@ export const likeFriend = functions.https.onCall(async (data, context) => {
                     if (!likes.has(<string>context.auth?.uid)) {
                         likes.set(<string>context.auth?.uid, "")
                         added = true
+                        firestore.collection("Users").doc(otherUid)
+                            .collection("Notifications")
+                            .add({
+                                email: context.auth?.token.email,
+                                receiver: otherUid,
+                                text: myDisplayName + " has like your profile request",
+                                title: "People Likes You!"
+                            });
                     } else {
                         likes.delete(<string>context.auth?.uid)
                     }
@@ -251,8 +273,6 @@ export const likeFriend = functions.https.onCall(async (data, context) => {
             })
 });
 
-
-// eslint-disable-next-line max-len
 export const acceptFriendRequest = functions.https.onCall(async (data, context) => {
   let myUid: string;
   if (context.auth?.uid != null) {
@@ -268,11 +288,23 @@ export const acceptFriendRequest = functions.https.onCall(async (data, context) 
   const myData = await getUidData(myUid);
   const otherData = await getUidData(otherUid);
 
+  let myDisplayName = await firestore.collection("Users")
+      .doc(context.auth?.uid)
+      .get()
+      .then((doc) => {
+          if (doc.exists) {
+              return doc.get("displayName").toString()
+          } else {
+              return "none"
+          }
+      })
+
   await firestore.collection("Users")
       .doc(myUid)
       .collection("Friends")
       .doc(otherUid).set({
           "displayName": otherData?.displayName,
+          receiver: otherUid,
           "email": otherData?.email,
           "image": otherData?.image,
           "relation": "friends",
@@ -299,6 +331,14 @@ export const acceptFriendRequest = functions.https.onCall(async (data, context) 
             .collection("Notifications")
             .doc(doc.docs[0].id).delete();
       });
+    await firestore.collection("Users").doc(otherUid)
+        .collection("Notifications")
+        .add({
+            email: context.auth?.token.email,
+            receiver: otherUid,
+            text: myDisplayName + " has accept your friend request",
+            title: "Accept Friend Request"
+        });
   return;
 });
 
@@ -330,8 +370,6 @@ export const getFriendList = functions.https.onCall(async (data,context)=>{
         })
 });
 
-
-// eslint-disable-next-line max-len
 export const ignoreFriendRequest = functions.https.onCall(async (data, context) => {
   const otherUid = await getUidFromEmail(data.email);
 
@@ -383,7 +421,6 @@ export const createEvent = functions.https.onCall((async (data, context) => {
       });
 }));
 
-// eslint-disable-next-line max-len
 export const isEventTitleExists = functions.https.onCall((async (data, context) => {
   const eventId = data.date.replace(/\//gi, "-") + data.title;
   return firestore.collection("calendar").doc(data.uid)
@@ -433,6 +470,7 @@ export const charge = functions.https.onCall((async (data, context) => {
     return firestore.collection("Users").doc(otherUid)
         .collection("Notifications").add({
             email: context.auth?.token.email,
+            receiver: otherUid,
             text: myData?.displayName + " has charged you for " + data.totalSum,
             title: "Charge Request",
             notificationID: ""
@@ -452,7 +490,16 @@ export const acceptCharge = functions.https.onCall(async (data, context) => {
     }
 
     const otherUid = await getUidFromEmail(data.email);
-
+    let myDisplayName = await firestore.collection("Users")
+        .doc(context.auth?.uid)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                return doc.get("displayName").toString()
+            } else {
+                return "none"
+            }
+        })
     const myData = await getUidData(myUid);
     console.log(data.email)
     console.log(myData?.email)
@@ -487,6 +534,15 @@ export const acceptCharge = functions.https.onCall(async (data, context) => {
                 .doc(myUid)
                 .collection("Notifications")
                 .doc(doc.docs[0].id).delete();
+        });
+
+    await firestore.collection("Users").doc(otherUid)
+        .collection("Notifications")
+        .add({
+            email: context.auth?.token.email,
+            receiver: otherUid,
+            text: myDisplayName + " has comment to your charge request check your billing history for more.",
+            title: "People Likes You!"
         });
     return;
 })
@@ -569,7 +625,8 @@ export const createNewChat = functions.https.onCall(async (data, context) => {
             "displayName": otherData?.displayName,
             "email": otherData?.email,
             "image": otherData?.image,
-            "chatKey": docRef.id
+            "chatKey": docRef.id,
+            "lastMessage": ""
         })
 
     await firestore.collection("Users").doc(otherUid)
@@ -613,15 +670,34 @@ export const getChatKey = functions.https.onCall(async (data, context) => {
         });
 });
 
-export const sendMessage = functions.https.onCall((data, context) => {
-    console.log("hey from sendMessage")
+export const sendMessage = functions.https.onCall(async (data, context) => {
+    const otherUid = await getUidFromEmail(data.otherEmail);
 
-    firestore.collection("Chats").doc(data.chatKey)
-        .collection("Messages").add({
-        "message": data.message,
-        "date": data.date,
-        "sender":  context.auth?.uid
-    })
+    if (context.auth == undefined) {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+    if (otherUid == undefined) {
+        return {
+            "error": "No such user",
+        };
+    }
+    await firestore.collection("Chats").doc(data.chatKey)
+        .collection("Messages").doc().set({
+            "message": data.message,
+            "date": data.date,
+            "sender": context.auth?.uid,
+            "reciver": otherUid
+        })
+
+    await firestore.collection("Users").doc(context.auth?.uid)
+        .collection("Chats").doc(otherUid)
+        .update({"lastMessage": data.message})
+    await firestore.collection("Users").doc(otherUid)
+        .collection("Chats").doc(context.auth?.uid)
+        .update({"lastMessage": data.message})
+    return
 })
 
 export const getHourlyRate = functions.https.onCall((async (data, context) => {
