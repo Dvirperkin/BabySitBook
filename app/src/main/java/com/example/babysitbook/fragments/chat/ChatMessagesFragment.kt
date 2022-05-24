@@ -77,7 +77,7 @@ class ChatMessagesFragment : Fragment() {
         binding.sendButton.setOnClickListener {
             val current = LocalDateTime.now(ZoneOffset.UTC)
             val ldtZone = current.atZone(ZoneId.systemDefault())
-            val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
+            val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")
             val date = ldtZone.format(formatter)
 
             val chatMessage = ChatMessage(binding.messageEditText.text.toString(),

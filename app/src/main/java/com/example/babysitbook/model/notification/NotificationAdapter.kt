@@ -46,7 +46,8 @@ class NotificationAdapter(
                 val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
                 binding.contactImage.setImageBitmap(bitmap)
             }
-            if(item.title == "Friend Request" || item.title == "Charge Request"){
+            if(item.title == "Friend Request" || item.title == "Charge Request"
+                ||item.title == "Event Sharing Request"||item.title == "Event Updating Request"){
                 binding.acceptBtn.setOnClickListener { accept(item) }
                 binding.ignoreBtn.setOnClickListener { ignore(item) }
             }else{

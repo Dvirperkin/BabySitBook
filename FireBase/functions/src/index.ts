@@ -429,10 +429,13 @@ export const createEvent = functions.https.onCall((async (data, context) => {
     if(data.contactToShare != "") {
         const otherUid = await getUidFromEmail(data.contactToShare);
         const myData = await getUidData(myUid);
+        const now = new Date()
 
         return firestore.collection("Users").doc(otherUid)
             .collection("Notifications").add({
                 email: context.auth?.token.email,
+                receiverUid: otherUid,
+                date: now.toLocaleString(),
                 text: myData?.displayName + " has shared an event with you:\n"
                     + data.title + ", at " + data.date + ", " + data.startTime + "-" + data.endTime,
                 title: "Event Sharing Request",
@@ -453,6 +456,7 @@ export const updateEvent = functions.https.onCall((async (data, context) => {
             "error": "You don't have permission to access this service",
         };
     }
+    const now = new Date()
 
     await firestore.collection("calendar").doc(data.uid).collection("events")
         .doc(data.eventID).update(data)
@@ -460,35 +464,66 @@ export const updateEvent = functions.https.onCall((async (data, context) => {
     if(data.contactToShare != "") {
         const otherUid = await getUidFromEmail(data.contactToShare);
         const myData = await getUidData(myUid);
-
-        return firestore.collection("Users").doc(otherUid)
+        await firestore.collection("Users").doc(otherUid)
             .collection("Notifications").add({
                 email: context.auth?.token.email,
+                receiverUid: otherUid,
                 text: myData?.displayName + " has updated an event into:\n"
                     + data.title + ", at " + data.date + ", " + data.startTime + "-" + data.endTime,
                 title: "Event Updating Request",
                 notificationID: "",
+                date: now.toLocaleString(),
                 eventID: data.eventID
             }).then(doc => {
                 doc.update({"eventUpdatingID": doc.id})
             });
     }
+    return
 }));
 
 export const deleteEvent = functions.https.onCall((async (data, context) => {
+    const now = new Date();
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+    let myDisplayName = await firestore.collection("Users")
+        .doc(myUid)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                return doc.get("displayName").toString()
+            } else {
+                return "none"
+            }
+        })
+
     await firestore.collection("calendar").doc(data.uid).collection("events")
         .where("eventID", "==", data.eventID)
         .get()
         .then(async (doc) => {
             const otherUid = await getUidFromEmail(doc.docs[0].get("contactToShare"))
             if (otherUid != "") {
-                //todo sent a notification about deletion
+                await firestore.collection("Users").doc(otherUid)
+                    .collection("Notifications")
+                    .add({
+                        email: context.auth?.token.email,
+                        receiverUid: otherUid,
+                        date: now.toLocaleString(),
+                        text: myDisplayName + " has deleted event with you",
+                        title: "Delete Event"
+                    });
                 await firestore.collection("calendar").doc(otherUid).collection("events")
                     .doc(data.eventID).delete()
             }
             await firestore.collection("calendar").doc(data.uid).collection("events")
                 .doc(data.eventID).delete()
         });
+    return;
 }));
 
 export const acceptEventSharing = functions.https.onCall(async (data, context) => {
@@ -500,8 +535,21 @@ export const acceptEventSharing = functions.https.onCall(async (data, context) =
             "error": "You don't have permission to access this service",
         };
     }
+    const now = new Date()
+
+    let myDisplayName = await firestore.collection("Users")
+        .doc(myUid)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                return doc.get("displayName").toString()
+            } else {
+                return "none"
+            }
+        })
 
     const otherUid = await getUidFromEmail(data.email);
+
     let eventID = ""
 
     await firestore.collection("Users")
@@ -532,6 +580,16 @@ export const acceptEventSharing = functions.https.onCall(async (data, context) =
                 contactToShare: data.email,
                 eventID: eventID
             })
+        });
+
+    await firestore.collection("Users").doc(otherUid)
+        .collection("Notifications")
+        .add({
+            email: context.auth?.token.email,
+            receiverUid: otherUid,
+            date: now.toLocaleString(),
+            text: myDisplayName + " has accepted your event",
+            title: "Accept Event"
         });
 
     return;
@@ -577,6 +635,18 @@ export const acceptEventUpdating = functions.https.onCall(async (data, context) 
             "error": "You don't have permission to access this service",
         };
     }
+    const now = new Date()
+
+    let myDisplayName = await firestore.collection("Users")
+        .doc(myUid)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                return doc.get("displayName").toString()
+            } else {
+                return "none"
+            }
+        })
 
     const otherUid = await getUidFromEmail(data.email);
     let eventID = ""
@@ -609,6 +679,15 @@ export const acceptEventUpdating = functions.https.onCall(async (data, context) 
                 contactToShare: data.email,
                 eventID: eventID
             })
+        });
+    await firestore.collection("Users").doc(otherUid)
+        .collection("Notifications")
+        .add({
+            email: context.auth?.token.email,
+            receiverUid: otherUid,
+            date: now.toLocaleString(),
+            text: myDisplayName + " has accepted your updates ",
+            title: "Update Event"
         });
 
     return;
