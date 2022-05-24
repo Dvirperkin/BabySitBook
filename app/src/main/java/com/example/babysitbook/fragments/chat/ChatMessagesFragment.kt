@@ -39,6 +39,7 @@ class ChatMessagesFragment : Fragment() {
     private lateinit var adapter: ChatMessageAdapter
     private lateinit var manager: LinearLayoutManager
     private lateinit var chatKey: String
+    private lateinit var otherEmail: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,6 +57,7 @@ class ChatMessagesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         chatKey = arguments?.get("chatKey").toString()
+        otherEmail = arguments?.get("contactEmail").toString()
 
         query = firestore.collection("Chats")
             .document(chatKey)
@@ -89,6 +91,7 @@ class ChatMessagesFragment : Fragment() {
                     "chatKey" to arguments?.get("chatKey").toString(),
                     "message" to chatMessage.message,
                     "date" to date.toString(),
+                    "otherEmail" to arguments?.get("contactEmail").toString()
                 )
             )
             binding.messageEditText.setText("")

@@ -215,6 +215,7 @@ export const sendFriendRequest = functions.https.onCall(async (data, context) =>
   return firestore.collection("Users").doc(otherUid)
       .collection("Notifications").add({
           email: context.auth?.token.email,
+          receiverUid: otherUid,
           text: data.displayName + " has sent you a friend request",
           title: "Friend Request"
       });
@@ -433,6 +434,7 @@ export const charge = functions.https.onCall((async (data, context) => {
     return firestore.collection("Users").doc(otherUid)
         .collection("Notifications").add({
             email: context.auth?.token.email,
+            receiverUid: otherUid,
             text: myData?.displayName + " has charged you for " + data.totalSum,
             title: "Charge Request",
             notificationID: ""
@@ -613,15 +615,28 @@ export const getChatKey = functions.https.onCall(async (data, context) => {
         });
 });
 
-export const sendMessage = functions.https.onCall((data, context) => {
-    console.log("hey from sendMessage")
+export const sendMessage = functions.https.onCall(async (data, context) => {
+    const otherUid = await getUidFromEmail(data.otherEmail)
 
-    firestore.collection("Chats").doc(data.chatKey)
-        .collection("Messages").add({
-        "message": data.message,
-        "date": data.date,
-        "sender":  context.auth?.uid
-    })
+    if (context.auth == undefined) {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+    if (otherUid == undefined) {
+        return {
+            "error": "No such user",
+        };
+    }
+
+    await firestore.collection("Chats").doc(data.chatKey)
+        .collection("Messages").doc().set({
+            "message": data.message,
+            "date": data.date,
+            "sender": context.auth?.uid,
+            "receiver": otherUid
+        })
+    return
 })
 
 export const getHourlyRate = functions.https.onCall((async (data, context) => {
@@ -690,3 +705,63 @@ export const checkLike = functions.https.onCall((async (data, context) => {
             }
         });
 }));
+
+export const sendNewMessageNotification = functions.firestore.document("Chats/{chatKey}/Messages/{docId}").onCreate(
+    (snapshot, context) => {
+        firestore.collection("Users")
+            .doc(snapshot.data().receiver)
+            .get()
+            .then(
+                document => {
+                    let registrationTokens: string[] = []
+                    if(document.exists) {
+                        document.get("deviceTokens").forEach(
+                            (token: string) => {
+                                registrationTokens.push(token)
+                            }
+                        )
+
+                        admin.messaging().sendMulticast(
+                            {
+                                tokens: registrationTokens,
+                                data: {
+                                    title: "New Message",
+                                    body: snapshot.get("message")
+                                }
+                            }
+                        )
+                    }
+                }
+            )
+    }
+)
+
+export const sendNewNotificationNotification = functions.firestore.document("Users/{userID}/Notifications/{docId}").onCreate(
+    (snapshot, context) => {
+        firestore.collection("Users")
+            .doc(snapshot.data().receiverUid)
+            .get()
+            .then(
+                document => {
+                    let registrationTokens: string[] = []
+                    if(document.exists) {
+                        document.get("deviceTokens").forEach(
+                            (token: string) => {
+                                registrationTokens.push(token)
+                            }
+                        )
+
+                        admin.messaging().sendMulticast(
+                            {
+                                tokens: registrationTokens,
+                                data: {
+                                    title: snapshot.get("title"),
+                                    body: snapshot.get("text")
+                                }
+                            }
+                        )
+                    }
+                }
+            )
+    }
+)

@@ -1,6 +1,7 @@
 package com.example.babysitbook.fragments.settings
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,11 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.findNavController
 import com.example.babysitbook.databinding.ParentEditProfileBinding
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 
 class ParentEditProfileFragment : Fragment() {
 
@@ -21,6 +24,7 @@ class ParentEditProfileFragment : Fragment() {
     private lateinit var functions: FirebaseFunctions
     private lateinit var auth: FirebaseAuth
     private lateinit var profileType: Any
+    private lateinit var token: String
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,6 +76,14 @@ class ParentEditProfileFragment : Fragment() {
                 .continueWith { task ->
                     val res = task.result.data as HashMap<*, *>
                     if(res["isNewUser"] as Boolean){
+
+                        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener {  task ->
+                            if (!task.isSuccessful) {
+                                Log.w("TokenFail", "Fetching FCM registration token failed", task.exception)
+                            }
+                            token = task.result
+                        })
+
                         updateNewUser()
                         view.findNavController().navigate(BabysitterEditProfileFragmentDirections.actionFirstLoginFragmentToHomeActivity2())
                     } else {
@@ -109,7 +121,8 @@ class ParentEditProfileFragment : Fragment() {
                             + binding.lastName.text.toString().trim().lowercase(),
                     "city" to binding.city.text.toString().trim().lowercase(),
                     "children" to binding.children.text.toString().trim(),
-                    "description" to binding.description.text.toString().trim()
+                    "description" to binding.description.text.toString().trim(),
+                    "deviceTokens" to listOf(token)
                 )
             )
         }
