@@ -1,5 +1,6 @@
 package com.example.babysitbook.model
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
@@ -12,6 +13,9 @@ import com.example.babysitbook.fragments.charging.ChooseFromFriendsFragment
 import com.example.babysitbook.fragments.charging.ChooseFromFriendsFragmentDirections
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.File
 
 class FriendsListAdapter (
     private val fragment: ChooseFromFriendsFragment,
@@ -37,6 +41,16 @@ class FriendsListAdapter (
         fun bind(item : User){
             binding.contactName.text = item.displayName.split(' ')
                 .joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
+
+            val storageRef = Firebase.storage.reference
+            val profileImageRef = storageRef.child("profileImages/" + item.email + ".jpg")
+            val localFile: File = File.createTempFile("tempFile", ".jpg")
+
+            profileImageRef.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                binding.contactImage.setImageBitmap(bitmap)
+            }
+
 
             binding.contact.setOnClickListener { view ->
                 fragment.setFragmentResult("contactToCharge", bundleOf(

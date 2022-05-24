@@ -55,7 +55,6 @@ class HomeFragment : Fragment(){
             .call()
             .continueWith { task ->
                 val res = task.result.data as HashMap<*, *>
-                println(res["displayName"])
                 val firstLast = res["displayName"].toString().split(' ')
                 displayName = firstLast.joinToString(separator = " ") { word -> word.replaceFirstChar { it.uppercase() } }
             }
@@ -70,9 +69,10 @@ class HomeFragment : Fragment(){
         if(auth.currentUser?.uid != null){
             friendList.add(auth.currentUser!!.uid)
             query = firestore.collection("Post")
+                .orderBy("date", Query.Direction.DESCENDING)
                 .orderBy("postedKey")
-                .orderBy("date")
                 .whereIn("postedKey", friendList.toList())
+
 
             val options = FirestoreRecyclerOptions.Builder<Post>()
                 .setQuery(query, Post::class.java)
@@ -103,7 +103,8 @@ class HomeFragment : Fragment(){
                 "displayName" to post.displayName,
                 "postedKey" to post.postedKey,
                 "postContent" to post.postContent,
-                "date" to date.toString()
+                "date" to date.toString(),
+                "email" to auth.currentUser?.email
             )
         )
         binding.postEditText.setText("")

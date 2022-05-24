@@ -1,5 +1,6 @@
 package com.example.babysitbook.model.notification
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.File
 
 class NotificationAdapter(
     val options: FirestoreRecyclerOptions<Notification>
@@ -34,6 +37,14 @@ class NotificationAdapter(
             binding.notificationDescription.text = item.text
             binding.notificationTitle.text = item.title
 
+            val storageRef = Firebase.storage.reference
+            val profileImageRef = storageRef.child("profileImages/" + item.email + ".jpg")
+            val localFile: File = File.createTempFile("tempFile", ".jpg")
+
+            profileImageRef.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                binding.contactImage.setImageBitmap(bitmap)
+            }
 
             binding.acceptBtn.setOnClickListener { accept(item) }
             binding.ignoreBtn.setOnClickListener { ignore(item) }

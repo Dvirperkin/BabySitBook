@@ -41,7 +41,6 @@ class LoginActivity() : AppCompatActivity(){
             auth.useEmulator("10.0.2.2", 9099)
             functions.useEmulator("10.0.2.2", 5001)
             firestore.useEmulator("10.0.2.2", 8080)
-            storage.useEmulator("10.0.2.2", 9199)
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.babysitbook.model.chat
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import com.firebase.ui.firestore.FirestoreRecyclerAdapter
 import com.firebase.ui.firestore.FirestoreRecyclerOptions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.ktx.storage
+import java.io.File
 
 class ShowFriendsAdapter (
     private val options: FirestoreRecyclerOptions<ChatContact>
@@ -35,6 +38,15 @@ class ShowFriendsAdapter (
     inner class FriendViewHolder(private val binding: ContactBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item : ChatContact){
             binding.contactName.text = item.displayName
+
+            val storageRef = Firebase.storage.reference
+            val profileImageRef = storageRef.child("profileImages/" + item.email + ".jpg")
+            val localFile: File = File.createTempFile("tempFile", ".jpg")
+
+            profileImageRef.getFile(localFile).addOnSuccessListener {
+                val bitmap = BitmapFactory.decodeFile(localFile.absolutePath)
+                binding.contactImage.setImageBitmap(bitmap)
+            }
 
             binding.contact.setOnClickListener { view ->
                 run {

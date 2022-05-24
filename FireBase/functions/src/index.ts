@@ -850,7 +850,8 @@ export const postToFeed = functions.https.onCall((data, context) => {
       "postedKey": data.postedKey,
       "postContent": data.postContent,
       "date": data.date,
-      "postID" : ""
+      "postID": "",
+      "email": data.email
   }).then(doc=>{
       firestore.collection("Post").doc(doc.id).update({"postID": doc.id})
   })

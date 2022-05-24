@@ -88,6 +88,7 @@ dependencies {
     implementation 'com.firebaseui:firebase-ui-auth:8.0.0'
     implementation 'com.firebaseui:firebase-ui-database:8.0.0'
     implementation 'com.firebaseui:firebase-ui-firestore:8.0.0'
+    implementation 'com.firebaseui:firebase-ui-storage:7.2.0'
 
 
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
