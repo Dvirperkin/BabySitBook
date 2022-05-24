@@ -8,8 +8,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResult
 import androidx.fragment.app.setFragmentResultListener
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import com.example.babysitbook.databinding.EventDetailsBinding
+import com.example.babysitbook.fragments.charging.ChargingChooserDirections
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.functions.FirebaseFunctions
@@ -21,6 +23,8 @@ class EventDetailsFragment : Fragment(){
     private lateinit var binding: EventDetailsBinding
     private lateinit var functions: FirebaseFunctions
     private lateinit var auth: FirebaseAuth
+    private lateinit var eventID: String
+    private var contactToShare: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +46,17 @@ class EventDetailsFragment : Fragment(){
             binding.EventStartTimeTextView.text = bundle["startTime"] as String
             binding.EventEndTimeTextView.text = bundle["endTime"] as String
             binding.EventDetailsTextView.text = bundle["details"] as String
+            eventID = bundle["eventID"] as String
+            contactToShare = bundle["contactToShare"] as String
+
+            functions.getHttpsCallable("getProfileData").call(
+                hashMapOf(
+                    "email" to bundle["contactToShare"] as String
+                )
+            ).continueWith { task ->
+                val res = task.result.data as HashMap<*, *>
+                binding.EventContactTextView.text = res["displayName"] as String
+            }
         }
 
         binding.EditButton.setOnClickListener{
@@ -50,9 +65,12 @@ class EventDetailsFragment : Fragment(){
                     "date" to binding.EventDateTextView.text,
                     "startTime" to binding.EventStartTimeTextView.text,
                     "endTime" to binding.EventEndTimeTextView.text,
-                    "details" to binding.EventDetailsTextView.text)
+                    "details" to binding.EventDetailsTextView.text,
+                    "eventID" to eventID,
+                    "contactToShare" to binding.EventContactTextView.text,
+                    "contactToShareEmail" to contactToShare)
             )
-            val action = EventDetailsFragmentDirections.actionEventDetailsFragmentToEditEventFragment()
+            val action = EventDetailsFragmentDirections.actionEventDetailsFragmentToEditEventFragment(true)
             findNavController().navigate(action)
         }
 
@@ -61,8 +79,7 @@ class EventDetailsFragment : Fragment(){
                 functions.getHttpsCallable("deleteEvent").call(
                     hashMapOf(
                         "uid" to auth.currentUser!!.uid,
-                        "title" to binding.EventTitleTextView.text.toString(),
-                        "date" to binding.EventDateTextView.text.toString()
+                        "eventID" to eventID
                     )
                 )
             }

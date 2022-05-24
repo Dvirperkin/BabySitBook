@@ -25,6 +25,12 @@
         <action
             android:id="@+id/action_editEventFragment_to_calendarMainFragment"
             app:destination="@id/calendarMainFragment" />
+        <action
+            android:id="@+id/action_editEventFragment_to_chooseFromFriendsFragment"
+            app:destination="@id/chooseFromFriendsFragment" />
+        <argument
+            android:name="isUpdate"
+            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/eventDetailsFragment"
@@ -37,5 +43,15 @@
         <action
             android:id="@+id/action_eventDetailsFragment_to_calendarMainFragment"
             app:destination="@id/calendarMainFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/chooseFromFriendsFragment"
+        android:name="com.example.babysitbook.fragments.calendar.ChooseFromFriendsFragment"
+        android:label="ChooseFromFriendsFragment"
+        tools:layout="@layout/fragment_choose_from_friends">
+        <action
+            android:id="@+id/action_chooseFromFriendsFragment_to_editEventFragment"
+            app:destination="@id/editEventFragment" />
     </fragment>
 </navigation>

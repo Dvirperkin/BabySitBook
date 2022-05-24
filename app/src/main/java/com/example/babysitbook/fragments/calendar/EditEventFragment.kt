@@ -8,7 +8,6 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.navigation.fragment.findNavController
-import com.example.babysitbook.R
 import com.example.babysitbook.databinding.EditEventBinding
 import com.example.babysitbook.fragments.DatePickerFragment
 import com.example.babysitbook.model.TimeAsString
@@ -24,6 +23,8 @@ class EditEventFragment : Fragment() {
     private lateinit var functions: FirebaseFunctions
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: EditEventBinding
+    private var contactToShare: String = ""
+    private var eventID: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,15 +57,10 @@ class EditEventFragment : Fragment() {
             binding.editTextStartTime.text = bundle["startTime"] as String
             binding.editTextEndTime.text = bundle["endTime"] as String
             binding.details.setText(bundle["details"] as String)
-
-            if (auth.currentUser != null) {
-                functions.getHttpsCallable("deleteEvent").call(
-                    hashMapOf(
-                        "uid" to auth.currentUser!!.uid,
-                        "title" to binding.Title.text.toString(),
-                        "date" to binding.editTextDate.text.toString()
-                    ))
-            }
+            binding.chooseUser.text = bundle["contactToShare"] as String
+            contactToShare = bundle["contactToShare"] as String
+            eventID = bundle["eventID"] as String
+            contactToShare = bundle["contactToShareEmail"] as String
         }
 
         setFragmentResultListener("passSelectedDate") { _:String, bundle: Bundle ->
@@ -96,9 +92,23 @@ class EditEventFragment : Fragment() {
             }
         }
 
+        if(!(arguments?.get("isUpdate") as Boolean)) {
+            binding.chooseUser.setOnClickListener { setUserToShare() }
+        }
+
+        setFragmentResultListener("contactToShare") { _:String, bundle: Bundle ->
+            contactToShare = bundle["shareEmail"].toString()
+            binding.chooseUser.text = bundle["shareName"] as String
+        }
+
         binding.saveEventBtn.setOnClickListener{
             saveEvent()
         }
+    }
+
+    private fun setUserToShare() {
+        val action = EditEventFragmentDirections.actionEditEventFragmentToChooseFromFriendsFragment()
+        findNavController().navigate(action)
     }
 
     private fun changeStartTime(view: View){
@@ -123,40 +133,23 @@ class EditEventFragment : Fragment() {
     private fun saveEvent(){
         if(eventValidation()) {
             if (auth.currentUser != null) {
-                functions.getHttpsCallable("isEventTitleExists").call(
+                val function = if(eventID == ""){"createEvent"} else {"updateEvent"}
+                functions.getHttpsCallable(function).call(
                     hashMapOf(
                         "uid" to auth.currentUser!!.uid,
                         "title" to binding.Title.text.toString(),
-                        "date" to binding.editTextDate.text.toString()
+                        "date" to binding.editTextDate.text.toString(),
+                        "startTime" to binding.editTextStartTime.text.toString(),
+                        "endTime" to binding.editTextEndTime.text.toString(),
+                        "details" to binding.details.text.toString(),
+                        "contactToShare" to contactToShare,
+                        "eventID" to eventID
+                        )
                     )
-                ).continueWith { task ->
-                    val res = task.result.data as HashMap<*, *>
-                    if (res["isEventTitleExists"] as Boolean) {
-                        createToast("Title exists! Choose another one")
-                    } else {
-                        createEvent()
-                    }
-                }
+                val action = EditEventFragmentDirections.actionEditEventFragmentToCalendarMainFragment()
+                findNavController().navigate(action)
             }
         }
-    }
-
-    private fun createEvent(){
-        functions.getHttpsCallable("createEvent").call(
-            hashMapOf(
-                "uid" to auth.currentUser!!.uid,
-                "event" to hashMapOf(
-                    "title" to binding.Title.text.toString(),
-                    "date" to binding.editTextDate.text.toString(),
-                    "startTime" to binding.editTextStartTime.text.toString(),
-                    "endTime" to binding.editTextEndTime.text.toString(),
-                    "details" to binding.details.text.toString()
-                )
-            )
-        )
-        val action =
-            EditEventFragmentDirections.actionEditEventFragmentToCalendarMainFragment()
-        findNavController().navigate(action)
     }
 
     private fun eventValidation(): Boolean {
@@ -164,21 +157,13 @@ class EditEventFragment : Fragment() {
             binding.editTextDate.text.toString() == "" ||
             binding.editTextStartTime.text.toString() == "" ||
             binding.editTextEndTime.text.toString() == ""){
-            createToast("All fields are required! (except for details)")
+            Toast.makeText(requireActivity(), "All fields are required! (except for details)", Toast.LENGTH_LONG).show()
             false
         } else if(binding.editTextEndTime.text.toString() <= binding.editTextStartTime.text.toString()){
-            createToast("Start time must be earlier than end time!")
+            Toast.makeText(requireActivity(), "Start time must be earlier than end time!",Toast.LENGTH_LONG).show()
             false
         } else {
             true
         }
-    }
-
-    private fun createToast(message: String){
-        Toast.makeText(
-            requireActivity(),
-            message,
-            Toast.LENGTH_LONG
-        ).show()
     }
 }

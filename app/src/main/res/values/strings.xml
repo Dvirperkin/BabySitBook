@@ -107,7 +107,7 @@
         <item name="Parent"> Parent </item>
     </string-array>
     <string-array name="gender">
-        <item name="Gender"> Gender </item>
+        <item name="Gender"> Gender * </item>
         <item name="Male"> Male </item>
         <item name="Female"> Female </item>
     </string-array>
@@ -117,7 +117,7 @@
     <string name="notification">Notification</string>
     <string name="add_chat">Add Chat</string>
     <string-array name="mobility">
-        <item name="Mobility"> Mobility </item>
+        <item name="Mobility"> Mobility * </item>
         <item name="yes"> Yes </item>
         <item name="no"> No </item>
     </string-array>
