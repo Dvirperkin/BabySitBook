@@ -1,6 +1,7 @@
 package com.example.babysitbook.fragments.settings
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,6 +15,8 @@ import androidx.navigation.findNavController
 import com.example.babysitbook.R
 import com.example.babysitbook.databinding.BabysitterEditProfileBinding
 import com.example.babysitbook.fragments.DatePickerFragment
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -22,6 +25,7 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.functions.ktx.functions
 import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
@@ -33,6 +37,7 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
     private lateinit var profileType: Any
     private lateinit var genderChoice: Any
     private lateinit var mobilityChoice: Any
+    private lateinit var token: String
 
     var genderMap = hashMapOf("Male" to 1, "Female" to 2)
     var mobilityMap = hashMapOf("Yes" to 1, "No" to 2)
@@ -122,6 +127,14 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
                 .continueWith { task ->
                     val res = task.result.data as HashMap<*, *>
                     if(res["isNewUser"] as Boolean){
+
+                        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener {  task ->
+                            if (!task.isSuccessful) {
+                                Log.w("TokenFail", "Fetching FCM registration token failed", task.exception)
+                            }
+                            token = task.result
+                        })
+
                         updateNewUser()
                         view.findNavController().navigate(BabysitterEditProfileFragmentDirections.actionFirstLoginFragmentToHomeActivity2())
                     } else {
@@ -159,7 +172,7 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
                     "uid" to auth.currentUser!!.uid,
                     "email" to auth.currentUser!!.email,
                     "displayName" to binding.firstName.text.toString().trim().lowercase() + " "
-                                    + binding.lastName.text.toString().trim().lowercase(),
+                            + binding.lastName.text.toString().trim().lowercase(),
                     "image" to "",
                     "gender" to genderChoice.toString(),
                     "birthdate" to binding.birthDate.text.toString(),
@@ -168,7 +181,8 @@ class BabysitterEditProfileFragment : Fragment(), AdapterView.OnItemSelectedList
                     "hourlyRate" to binding.hourlyRate.text.toString().trim(),
                     "mobility" to mobilityChoice.toString(),
                     "description" to binding.description.text.toString().trim(),
-                    "likes" to HashMap<String, String>()
+                    "likes" to HashMap<String, String>(),
+                    "deviceTokens" to listOf(token)
                 )
             )
         }

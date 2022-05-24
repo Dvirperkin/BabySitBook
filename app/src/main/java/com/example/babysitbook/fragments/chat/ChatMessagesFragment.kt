@@ -75,9 +75,6 @@ class ChatMessagesFragment : Fragment() {
         binding.chatMessagesRecyclerView.adapter = adapter
 
         binding.sendButton.setOnClickListener {
-//            val timeZone = TimeZone.getTimeZone("Asia/Jerusalem")
-//            val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
-//            val date = Calendar.getInstance(timeZone)
             val current = LocalDateTime.now(ZoneOffset.UTC)
             val ldtZone = current.atZone(ZoneId.systemDefault())
             val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm")
