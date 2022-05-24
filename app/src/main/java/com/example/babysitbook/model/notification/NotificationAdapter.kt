@@ -71,6 +71,20 @@ class NotificationAdapter(
                         "notificationID" to request.notificationID
                     )
                 )
+            } else if ( request.title == "Event Sharing Request" ){
+                function.getHttpsCallable("acceptEventSharing").call(
+                    hashMapOf(
+                        "email" to request.email,
+                        "notificationID" to request.notificationID
+                    )
+                )
+            } else if ( request.title == "Event Updating Request" ){
+                function.getHttpsCallable("acceptEventUpdating").call(
+                    hashMapOf(
+                        "email" to request.email,
+                        "notificationID" to request.notificationID
+                    )
+                )
             }
         }
 
@@ -84,13 +98,27 @@ class NotificationAdapter(
                     )
                 )
             } else if ( request.title == "Charge Request" ){
-            function.getHttpsCallable("ignoreCharge").call(
-                hashMapOf(
-                    "email" to request.email,
-                    "notificationID" to request.notificationID
+                function.getHttpsCallable("ignoreCharge").call(
+                    hashMapOf(
+                        "email" to request.email,
+                        "notificationID" to request.notificationID
+                    )
                 )
-            )
-        }
+            } else if ( request.title == "Event Sharing Request" ){
+                function.getHttpsCallable("ignoreEventSharing").call(
+                    hashMapOf(
+                        "email" to request.email,
+                        "notificationID" to request.notificationID
+                    )
+                )
+            } else if ( request.title == "Event Updating Request" ){
+                function.getHttpsCallable("ignoreEventUpdating").call(
+                    hashMapOf(
+                        "email" to request.email,
+                        "notificationID" to request.notificationID
+                    )
+                )
+            }
         }
     }
 }

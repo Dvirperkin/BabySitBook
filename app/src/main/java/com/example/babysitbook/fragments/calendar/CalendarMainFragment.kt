@@ -68,7 +68,7 @@ class CalendarMainFragment : Fragment(){
         binding.addEventButton.setOnClickListener {
             dateStringify(calendar)
             setFragmentResult("passSelectedDate", bundleOf("selectedDate" to date))
-            val action = CalendarMainFragmentDirections.actionCalendarMainFragmentToEditEventFragment()
+            val action = CalendarMainFragmentDirections.actionCalendarMainFragmentToEditEventFragment(false)
             findNavController().navigate(action)
         }
         setRecyclerView()
@@ -76,7 +76,6 @@ class CalendarMainFragment : Fragment(){
 
     override fun onPause() {
         super.onPause()
-        adapter.stopListening()
     }
 
     override fun onResume() {
@@ -110,7 +109,9 @@ class CalendarMainFragment : Fragment(){
                         "date" to options.snapshots[position].date,
                         "startTime" to options.snapshots[position].startTime,
                         "endTime" to options.snapshots[position].endTime,
-                        "details" to options.snapshots[position].details))
+                        "details" to options.snapshots[position].details,
+                        "eventID" to adapter.getItem(position).eventID,
+                        "contactToShare" to adapter.getItem(position).contactToShare))
                 val action = CalendarMainFragmentDirections.actionCalendarMainFragmentToEventDetailsFragment()
                 findNavController().navigate(action)
             }

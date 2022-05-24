@@ -410,46 +410,242 @@ export const deleteFriend = functions.https.onCall(async (data, context) => {
 });
 
 export const createEvent = functions.https.onCall((async (data, context) => {
-  const date = data.event.date.replace(/\//gi, "-");
-  return firestore.collection("calendar").doc(data.uid)
-      .collection("events").doc(date + data.event.title).get()
-      .then((doc) => {
-        if (doc.exists) {
-          return firestore.collection("calendar").doc(data.uid)
-              .collection("events").doc(date + data.event.title)
-              .update(data.event);
-        } else {
-          return firestore.collection("calendar").doc(data.uid)
-              .collection("events").doc(date + data.event.title)
-              .set(data.event);
-        }
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+
+  await firestore.collection("calendar").doc(data.uid)
+      .collection("events").add(data)
+      .then(doc => {
+          data.eventID = doc.id
+          doc.update({"eventID": doc.id})
       });
+
+    if(data.contactToShare != "") {
+        const otherUid = await getUidFromEmail(data.contactToShare);
+        const myData = await getUidData(myUid);
+
+        return firestore.collection("Users").doc(otherUid)
+            .collection("Notifications").add({
+                email: context.auth?.token.email,
+                text: myData?.displayName + " has shared an event with you:\n"
+                    + data.title + ", at " + data.date + ", " + data.startTime + "-" + data.endTime,
+                title: "Event Sharing Request",
+                notificationID: "",
+                eventID: data.eventID
+            }).then(doc => {
+                doc.update({"eventSharingID": doc.id})
+            });
+    }
 }));
 
-export const isEventTitleExists = functions.https.onCall((async (data, context) => {
-  const eventId = data.date.replace(/\//gi, "-") + data.title;
-  return firestore.collection("calendar").doc(data.uid)
-      .collection("events").doc(eventId).get()
-      .then((doc) => {
-        if (doc.exists) {
+export const updateEvent = functions.https.onCall((async (data, context) => {
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
 
-            doc.get("likes").has()
-          return {
-            "isEventTitleExists": true,
-          };
-        } else {
-          return {
-            "isEventTitleExists": false,
-          };
-        }
-      });
+    await firestore.collection("calendar").doc(data.uid).collection("events")
+        .doc(data.eventID).update(data)
+
+    if(data.contactToShare != "") {
+        const otherUid = await getUidFromEmail(data.contactToShare);
+        const myData = await getUidData(myUid);
+
+        return firestore.collection("Users").doc(otherUid)
+            .collection("Notifications").add({
+                email: context.auth?.token.email,
+                text: myData?.displayName + " has updated an event into:\n"
+                    + data.title + ", at " + data.date + ", " + data.startTime + "-" + data.endTime,
+                title: "Event Updating Request",
+                notificationID: "",
+                eventID: data.eventID
+            }).then(doc => {
+                doc.update({"eventUpdatingID": doc.id})
+            });
+    }
 }));
 
 export const deleteEvent = functions.https.onCall((async (data, context) => {
-  const eventId = data.date.replace(/\//gi, "-") + data.title;
-  await firestore.collection("calendar").doc(data.uid)
-      .collection("events").doc(eventId).delete();
+    await firestore.collection("calendar").doc(data.uid).collection("events")
+        .where("eventID", "==", data.eventID)
+        .get()
+        .then(async (doc) => {
+            const otherUid = await getUidFromEmail(doc.docs[0].get("contactToShare"))
+            if (otherUid != "") {
+                //todo sent a notification about deletion
+                await firestore.collection("calendar").doc(otherUid).collection("events")
+                    .doc(data.eventID).delete()
+            }
+            await firestore.collection("calendar").doc(data.uid).collection("events")
+                .doc(data.eventID).delete()
+        });
 }));
+
+export const acceptEventSharing = functions.https.onCall(async (data, context) => {
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+
+    const otherUid = await getUidFromEmail(data.email);
+    let eventID = ""
+
+    await firestore.collection("Users")
+        .doc(myUid)
+        .collection("Notifications")
+        .where("notificationID", "==", data.notificationID)
+        .get()
+        .then((doc) => {
+            eventID = doc.docs[0].get("eventID")
+            firestore.collection("Users")
+                .doc(myUid)
+                .collection("Notifications")
+                .doc(doc.docs[0].id).delete();
+        });
+
+    await firestore.collection("calendar").doc(otherUid).collection("events")
+        .where("eventID", "==", eventID)
+        .get()
+        .then((doc) => {
+            firestore.collection("calendar").doc(myUid).collection("events")
+                .doc(eventID).set({
+                uid: myUid,
+                title: doc.docs[0].get("title"),
+                date: doc.docs[0].get("date"),
+                startTime: doc.docs[0].get("startTime"),
+                endTime: doc.docs[0].get("endTime"),
+                details: doc.docs[0].get("details"),
+                contactToShare: data.email,
+                eventID: eventID
+            })
+        });
+
+    return;
+})
+
+export const ignoreEventSharing = functions.https.onCall(async (data, context) => {
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+
+    const otherUid = await getUidFromEmail(data.email);
+    let eventID = ""
+
+    await firestore.collection("Users")
+        .doc(myUid)
+        .collection("Notifications")
+        .where("notificationID", "==", data.notificationID)
+        .get()
+        .then((doc) => {
+            eventID = doc.docs[0].get("eventID")
+            firestore.collection("Users")
+                .doc(myUid)
+                .collection("Notifications")
+                .doc(doc.docs[0].id).delete();
+        });
+
+    await firestore.collection("calendar").doc(otherUid).collection("events")
+        .doc(eventID).update({contactToShare: ""})
+    return;
+})
+
+export const acceptEventUpdating = functions.https.onCall(async (data, context) => {
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+
+    const otherUid = await getUidFromEmail(data.email);
+    let eventID = ""
+
+    await firestore.collection("Users")
+        .doc(myUid)
+        .collection("Notifications")
+        .where("notificationID", "==", data.notificationID)
+        .get()
+        .then((doc) => {
+            eventID = doc.docs[0].get("eventID")
+            firestore.collection("Users")
+                .doc(myUid)
+                .collection("Notifications")
+                .doc(doc.docs[0].id).delete();
+        });
+
+    await firestore.collection("calendar").doc(otherUid).collection("events")
+        .where("eventID", "==", eventID)
+        .get()
+        .then((doc) => {
+            firestore.collection("calendar").doc(myUid).collection("events")
+                .doc(eventID).update({
+                uid: myUid,
+                title: doc.docs[0].get("title"),
+                date: doc.docs[0].get("date"),
+                startTime: doc.docs[0].get("startTime"),
+                endTime: doc.docs[0].get("endTime"),
+                details: doc.docs[0].get("details"),
+                contactToShare: data.email,
+                eventID: eventID
+            })
+        });
+
+    return;
+})
+
+export const ignoreEventUpdating = functions.https.onCall(async (data, context) => {
+    let myUid: string;
+    if (context.auth?.uid != null) {
+        myUid = context.auth?.uid;
+    } else {
+        return {
+            "error": "You don't have permission to access this service",
+        };
+    }
+
+    const otherUid = await getUidFromEmail(data.email);
+    let eventID = ""
+
+    await firestore.collection("Users")
+        .doc(myUid)
+        .collection("Notifications")
+        .where("notificationID", "==", data.notificationID)
+        .get()
+        .then((doc) => {
+            eventID = doc.docs[0].get("eventID")
+            firestore.collection("Users")
+                .doc(myUid)
+                .collection("Notifications")
+                .doc(doc.docs[0].id).delete();
+        });
+
+    await firestore.collection("calendar").doc(myUid).collection("events")
+        .doc(eventID).update({contactToShare: ""})
+    await firestore.collection("calendar").doc(otherUid).collection("events")
+        .doc(eventID).update({contactToShare: ""})
+    return;
+})
 
 export const deletePost = functions.https.onCall((async (data, context) => {
     if (context.auth?.uid != null) {
@@ -496,6 +692,7 @@ export const acceptCharge = functions.https.onCall(async (data, context) => {
     }
     const now = new Date();
     const otherUid = await getUidFromEmail(data.email);
+
     let myDisplayName = await firestore.collection("Users")
         .doc(context.auth?.uid)
         .get()
@@ -507,10 +704,6 @@ export const acceptCharge = functions.https.onCall(async (data, context) => {
             }
         })
     const myData = await getUidData(myUid);
-    console.log(data.email)
-    console.log(myData?.email)
-
-    // const otherData = await getUidData(otherUid);
 
     await firestore.collection("OpenBills")
         .where("uid", "==", otherUid)
@@ -578,10 +771,6 @@ export const ignoreCharge = functions.https.onCall(async (data, context) => {
     const otherUid = await getUidFromEmail(data.email);
 
     const myData = await getUidData(myUid);
-    console.log(data.email)
-    console.log(myData?.email)
-
-    // const otherData = await getUidData(otherUid);
 
     await firestore.collection("OpenBills")
         .where("uid", "==", otherUid)
