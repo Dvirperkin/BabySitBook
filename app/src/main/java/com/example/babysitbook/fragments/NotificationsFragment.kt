@@ -46,8 +46,10 @@ class NotificationsFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        query = firestore.collection("Users").document(auth.currentUser!!.uid)
+        query = firestore.collection("Users")
+            .document(auth.currentUser!!.uid)
             .collection("Notifications")
+            .orderBy("date",Query.Direction.DESCENDING)
 
         val options = FirestoreRecyclerOptions.Builder<Notification>()
             .setQuery(query, Notification::class.java)

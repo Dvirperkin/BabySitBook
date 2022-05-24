@@ -205,7 +205,7 @@ export const checkRelationShip = functions.https.onCall(async (data, context) =>
 
 export const sendFriendRequest = functions.https.onCall(async (data, context) => {
   const otherUid = await getUidFromEmail(data.email);
-
+  const now = new Date()
   if (context.auth?.uid != null) {
     await firestore.collection("Users")
         .doc(context.auth?.uid)
@@ -219,6 +219,7 @@ export const sendFriendRequest = functions.https.onCall(async (data, context) =>
       .collection("Notifications").add({
           email: context.auth?.token.email,
           receiverUid: otherUid,
+          date: now.toLocaleString(),
           text: data.displayName + " has sent you a friend request",
           title: "Friend Request"
       });
@@ -230,6 +231,7 @@ export const likeFriend = functions.https.onCall(async (data, context) => {
             "error": "You don't have permission to access this service",
         };
     }
+    const now = new Date()
     let myDisplayName = await firestore.collection("Users")
         .doc(context.auth?.uid)
         .get()
@@ -256,8 +258,9 @@ export const likeFriend = functions.https.onCall(async (data, context) => {
                             .collection("Notifications")
                             .add({
                                 email: context.auth?.token.email,
-                                receiver: otherUid,
-                                text: myDisplayName + " has like your profile request",
+                                receiverUid: otherUid,
+                                date: now.toLocaleString(),
+                                text: myDisplayName + " likes your profile",
                                 title: "People Likes You!"
                             });
                     } else {
@@ -283,7 +286,7 @@ export const acceptFriendRequest = functions.https.onCall(async (data, context) 
       "error": "You don't have permission to access this service",
     };
   }
-
+  const now = new Date()
   const otherUid = await getUidFromEmail(data.email);
 
   const myData = await getUidData(myUid);
@@ -336,8 +339,9 @@ export const acceptFriendRequest = functions.https.onCall(async (data, context) 
         .collection("Notifications")
         .add({
             email: context.auth?.token.email,
-            receiver: otherUid,
-            text: myDisplayName + " has accept your friend request",
+            receiverUid: otherUid,
+            date: now.toLocaleString(),
+            text: myDisplayName + " has accepted your friend request",
             title: "Accept Friend Request"
         });
   return;
@@ -462,8 +466,8 @@ export const charge = functions.https.onCall((async (data, context) => {
             "error": "You don't have permission to access this service",
         };
     }
-
-  await firestore.collection("OpenBills").add(data);
+    const now = new Date();
+    await firestore.collection("OpenBills").add(data);
 
     const otherUid = await getUidFromEmail(data.emailToCharge);
     const myData = await getUidData(myUid);
@@ -472,6 +476,7 @@ export const charge = functions.https.onCall((async (data, context) => {
         .collection("Notifications").add({
             email: context.auth?.token.email,
             receiverUid: otherUid,
+            date: now.toLocaleString(),
             text: myData?.displayName + " has charged you for " + data.totalSum,
             title: "Charge Request",
             notificationID: ""
@@ -489,7 +494,7 @@ export const acceptCharge = functions.https.onCall(async (data, context) => {
             "error": "You don't have permission to access this service",
         };
     }
-
+    const now = new Date();
     const otherUid = await getUidFromEmail(data.email);
     let myDisplayName = await firestore.collection("Users")
         .doc(context.auth?.uid)
@@ -541,9 +546,10 @@ export const acceptCharge = functions.https.onCall(async (data, context) => {
         .collection("Notifications")
         .add({
             email: context.auth?.token.email,
-            receiver: otherUid,
-            text: myDisplayName + " has comment to your charge request check your billing history for more.",
-            title: "People Likes You!"
+            receiverUid: otherUid,
+            date: now.toLocaleString(),
+            text: myDisplayName + " has accepted your charge.",
+            title: "Accept Charge"
         });
     return;
 })
@@ -557,6 +563,17 @@ export const ignoreCharge = functions.https.onCall(async (data, context) => {
             "error": "You don't have permission to access this service",
         };
     }
+    const now = new Date();
+    let myDisplayName = await firestore.collection("Users")
+        .doc(context.auth?.uid)
+        .get()
+        .then((doc) => {
+            if (doc.exists) {
+                return doc.get("displayName").toString()
+            } else {
+                return "none"
+            }
+        })
 
     const otherUid = await getUidFromEmail(data.email);
 
@@ -594,6 +611,15 @@ export const ignoreCharge = functions.https.onCall(async (data, context) => {
                 .doc(myUid)
                 .collection("Notifications")
                 .doc(doc.docs[0].id).delete();
+        });
+    await firestore.collection("Users").doc(otherUid)
+        .collection("Notifications")
+        .add({
+            email: context.auth?.token.email,
+            receiverUid: otherUid,
+            date: now.toLocaleString(),
+            text: myDisplayName + " has declined your charge.",
+            title: "Decline Charge"
         });
     return;
 })
